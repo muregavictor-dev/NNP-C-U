@@ -835,33 +835,32 @@ document.getElementById('membershipForm').addEventListener('submit', async funct
   submitBtn.textContent = 'Submitting...';
   submitBtn.disabled = true;
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyHL6Mzqw8iw8Tj5687K0XE7caCObUnxLO_d7wtwzpeg7WtnAE7K34hWhGjVzy60q1x/exec"; // Replace with your Apps Script URL
+  const scriptURL = "https://script.google.com/macros/s/AKfycbw9kcdhtieFN6208VSIlmjLv8kTXO4sNyslIDvBmqiGBw7jkudhGFUhKVS8EWXyLhby/exec";
 
   try {
-    const res = await fetch(scriptURL, {
+    const response = await fetch(scriptURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    const result = await res.json();
+    const result = await response.json();
 
     if (result.success) {
-      alert("✅ Thank you for joining! Welcome to NNP Christian Union family!");
-      window.open(result.whatsappUrl, '_blank');
+      alert("✅ Thank you for joining! A welcome email has been sent to you.");
       this.reset();
-      bootstrap.Modal.getInstance(document.getElementById('membershipModal')).hide();
     } else {
-      alert("⚠️ Something went wrong: " + result.error);
+      alert("⚠️ Something went wrong. Please try again later.");
     }
   } catch (error) {
-    console.error(error);
-    alert("❌ Could not connect to the server.");
+    console.error("Error:", error);
+    alert("❌ Failed to connect. Please check your internet or contact admin.");
   } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }
 });
+
 
 
        
@@ -879,5 +878,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 
 

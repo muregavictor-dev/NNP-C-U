@@ -56,39 +56,49 @@ document.addEventListener('DOMContentLoaded', () => {
             groups: Array.from(document.querySelectorAll('#membershipForm input[type="checkbox"]:checked')).map(cb => cb.value)
         };
 
-        // --- SIMULATE API POST ---
-        // Replace this block with a real fetch request to your POST /api/join endpoint.
-        const membershipEndpoint = 'REPLACE_WITH_YOUR_BACKEND_ENDPOINT'; // From README config
         
-        console.log("Submitting Membership Data:", formData);
-        console.log("Simulating POST to:", membershipEndpoint);
+        // === REAL GOOGLE SCRIPT API POST ===
+const membershipEndpoint = "https://script.google.com/macros/s/AKfycbzjavHHkBXAvUcBgOLc1snzCkFjTkaQs36xD4a91iAJysxI_s8UQ8d8CO8Me2SosmaH/exec"; 
 
-        // Simulate success after a delay
+console.log("Submitting Membership Data:", formData);
+
+const submitButton = membershipForm.querySelector("button[type=submit]");
+submitButton.disabled = true;
+submitButton.textContent = "Submitting...";
+
+fetch(membershipEndpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        formMessage.innerHTML = `
+            <div class="alert alert-success border-start border-5 border-deep-green" role="alert">
+                <h5 class="alert-heading fw-bold">Success! Welcome to the family!</h5>
+                <p>Your membership has been successfully submitted. Check your email for a welcome message.</p>
+            </div>
+        `;
+        formMessage.style.display = 'block';
+        membershipForm.reset();
         setTimeout(() => {
-            membershipForm.classList.remove('was-validated');
-            membershipForm.reset(); // Clear the form
+            formMessage.style.display = 'none';
+            bsMembershipModal.hide();
+        }, 6000);
+    } else {
+        alert("❌ Submission failed: " + (data.error || "Unknown error."));
+    }
+})
+.catch(err => {
+    console.error("Error:", err);
+    alert("❌ Failed to connect. Please check your internet or contact admin.");
+})
+.finally(() => {
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit & Receive Welcome Pack";
+});
 
-            // Generate a unique ID (client-side demo)
-            const uniqueID = 'NNP-CU-' + Math.floor(1000 + Math.random() * 9000); 
-
-            formMessage.innerHTML = `
-                <div class="alert alert-success border-start border-5 border-deep-green" role="alert">
-                    <h5 class="alert-heading fw-bold">Success! Welcome to the family!</h5>
-                    <p class="mb-1">Your membership application has been received. Your unique CU ID is: <strong>${uniqueID}</strong>.</p>
-                    <p class="mb-0 small">A welcome email with your PDF packet is on its way!</p>
-                </div>
-            `;
-            formMessage.style.display = 'block';
-
-            // Hide the message after a few seconds
-            setTimeout(() => {
-                formMessage.style.display = 'none';
-                bsMembershipModal.hide(); // Optionally hide the modal on success
-            }, 6000);
-            
-        }, 1500);
-    });
-    
     // Clear message on modal close
     membershipModal.addEventListener('hidden.bs.modal', function () {
         formMessage.style.display = 'none';
@@ -270,4 +280,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Standard embed path: /embed/<ID>
         liveEmbed.src = `https://www.youtube-nocookie.com/embed/${YOUTUBE_LIVE_ID}?autoplay=0&mute=0&rel=0`;
     }
+
 });

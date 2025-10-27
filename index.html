@@ -815,7 +815,6 @@
 document.getElementById('membershipForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  // Collect checked groups
   const groups = Array.from(document.querySelectorAll('input[name="groups[]"]:checked'))
     .map(cb => cb.value)
     .join(', ');
@@ -829,25 +828,23 @@ document.getElementById('membershipForm').addEventListener('submit', async funct
     groups: groups || 'None selected',
     testimony: document.getElementById('memberTestimony').value || 'Not provided',
     consent: document.getElementById('consentCheck').checked ? 'Yes' : 'No',
-    timestamp: new Date().toISOString()
   };
 
-  // Show loading state
   const submitBtn = this.querySelector('button[type="submit"]');
   const originalText = submitBtn.textContent;
   submitBtn.textContent = 'Submitting...';
   submitBtn.disabled = true;
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxKnTxmaNIwVCk4md_1BbMqxtsNuAijuEvLV3I9k5b8KH-sVX4RZ5B9rz23ySkv3M_b/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbyHL6Mzqw8iw8Tj5687K0XE7caCObUnxLO_d7wtwzpeg7WtnAE7K34hWhGjVzy60q1x/exec"; // Replace with your Apps Script URL
 
   try {
-    const response = await fetch(scriptURL, {
+    const res = await fetch(scriptURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    const result = await response.json();
+    const result = await res.json();
 
     if (result.success) {
       alert("✅ Thank you for joining! Welcome to NNP Christian Union family!");
@@ -855,16 +852,17 @@ document.getElementById('membershipForm').addEventListener('submit', async funct
       this.reset();
       bootstrap.Modal.getInstance(document.getElementById('membershipModal')).hide();
     } else {
-      alert("⚠️ Something went wrong. Please try again later.");
+      alert("⚠️ Something went wrong: " + result.error);
     }
   } catch (error) {
-    console.error("Error:", error);
-    alert("❌ Failed to connect. Please check your internet or contact admin.");
+    console.error(error);
+    alert("❌ Could not connect to the server.");
   } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }
 });
+
 
        
 document.addEventListener('DOMContentLoaded', () => {
@@ -881,4 +879,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 

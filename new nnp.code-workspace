@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "new nnp",
+			"path": "."
+		},
+		{
+			"name": "church_cms",
+			"path": "../../../../../xampp/htdocs/church_cms"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the Ministries and Small Groups of the Nyeri National Polytechnic Christian Union - Grow, Serve, Connect.">
+    <title>Ministries & Groups - NNP Christian Union</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-green: #16a34a;
+            --deep-green: #15803d;
+            --secondary-orange: #f59e0b;
+            --warm-orange: #d97706;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --rich-black: #1f2937;
+            --text-gray: #6b7280;
+            --light-green-bg: #d1fae5;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--rich-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero-ministry {
+            background:var(--deep-green);
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-ministry::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('IMG_20251018_005801_038[1].jpg') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-ministry .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Ministry Cards */
+        .ministry-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(22, 163, 74, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ministry-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--secondary-orange);
+        }
+
+        .ministry-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-orange) 0%, var(--warm-orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .ministry-card:hover .ministry-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .ministry-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Small Groups Section */
+        .small-groups-section {
+            background: var(--light-green-bg);
+            position: relative;
+        }
+
+        .group-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--secondary-orange);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .group-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateX(8px);
+        }
+
+        /* Enrollment Form */
+        .enrollment-section {
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+        }
+
+        .form-wrapper {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            border: 2px solid rgba(22, 163, 74, 0.1);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-orange);
+            box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+        }
+
+        .form-select:focus {
+            border-color: var(--secondary-orange);
+            box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+        }
+
+        /* Buttons */
+        .btn-primary-green {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--deep-green) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+        }
+
+        .btn-primary-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
+        }
+
+        .btn-secondary-orange {
+            background: linear-gradient(135deg, var(--secondary-orange) 0%, var(--warm-orange) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-secondary-orange:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Text Colors */
+        .text-primary-green { color: var(--primary-green) !important; }
+        .text-secondary-orange { color: var(--secondary-orange) !important; }
+
+        /* Badge */
+        .ministry-badge {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--deep-green) 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Stats Counter Animation */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar-custom {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green) 0%, var(--secondary-orange) 100%);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--secondary-orange) 50%, transparent 100%);
+            margin: 3rem auto;
+            width: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-ministry {
+                padding: 60px 0 40px;
+            }
+
+            .form-wrapper {
+                padding: 2rem 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid var(--primary-green);
+            border-radius: 12px;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Animation */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid white;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-custom" id="progressBar"></div>
+
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-ministry text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                        <h1 class="display-3 fw-bold mb-4">Find Your Tribe, Fulfill Your Purpose</h1>
+                        <p class="lead fs-4 mb-5 opacity-90">
+                            Discover our ministries and small groups—the engine room of campus impact and spiritual growth at NNP CU.
+                        </p>
+                        <a href="#ministry-catalogue" class="btn btn-secondary-orange btn-lg">
+                            <i class="fas fa-hand-holding-heart me-2"></i> Explore All Ministries
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-5 bg-white" data-aos="fade-up">
+            <div class="container">
+                <div class="row text-center g-4">
+                    <div class="col-md-4">
+                        <div class="stat-number counter" data-target="6">0</div>
+                        <p class="text-muted fw-semibold">Active Ministries</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-number counter" data-target="3">0</div>
+                        <p class="text-muted fw-semibold">Small Groups</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-number counter" data-target="150">0</div>
+                        <p class="text-muted fw-semibold">Active Members</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ministry Catalogue -->
+        <section id="ministry-catalogue" class="py-5">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-4 fw-bold text-primary-green mb-3">Our Teams: Grow, Serve, Connect</h2>
+                    <div class="section-divider"></div>
+                    <p class="lead text-muted mx-auto" style="max-width: 800px;">
+                        Join a dedicated team to use your gifts. From the stage to the screens, every role is vital to the body of Christ on campus.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Ministry Card 1 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Praise & Worship Team</h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                                Leading the congregation into the presence of God through dynamic music, instruments, and heartfelt singing.
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Maureen Mumbi
+                                </p>
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Mon, Thu, & Sat Rehearsals
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ministry Card 2 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Bible Study</h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                                Fostering spiritual maturity through small group mentorship, accountability, and in-depth Biblical teaching.
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Cynthia Nyawira
+                                </p>
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Wednesdays 5:00 PM
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ministry Card 3 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Missions & Evangelism</h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                                Spreading the Gospel of Christ across the campus and neighboring community through organized outreach programs.
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Manasseh Muigai
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Friday - Mountain<br> Sunday 
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ministry Card 4 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Ushering</h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                               The friendly face of the CU. They welcome visitors, guide seating, and organize refreshments 
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Jacob Mwangi
+                                </p>
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Mon & Sat Sessions
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ministry Card 5 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-praying-hands"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Intercessory Prayer</h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                                A powerful team dedicated to holding up the needs of the CU, campus, and individuals through focused prayer.
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Denis Mwenda
+                                </p>
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Fridays, Sundays 4:00 PM
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Ministry Card 6 -->
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="ministry-card">
+                            <div class="ministry-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-primary-green mb-3">Hospitality </h3>
+                            <p class="text-muted mb-4 flex-grow-1">
+                                Organize refreshments (RMF). Ensure a welcoming atmosphere during CU events and services.
+                            </p>
+                            <div class="border-top pt-3 mb-3">
+                                <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Phylis Waithera
+                                </p>
+                                <p class="mb-0 small">
+                                    <i class="fas fa-clock text-secondary-orange me-2"></i>
+                                    <strong>Commitment:</strong> Saturday 12pm
+                                </p>
+                            </div>
+                            <a href="#contact-form" class="btn btn-outline-primary w-100 btn-sm">
+                                Sign Up <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Small Groups Section -->
+        <section class="small-groups-section py-5">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold text-primary-green mb-3">
+                        <i class="fas fa-seedling me-2"></i> Other Groups & Ministries 
+                    </h2>
+                    <p class="lead text-muted">Intimate settings for deeper connections and spiritual growth</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Group 1 -->
+                    <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
+                        <div class="group-card">
+                            <h3 class="h5 fw-bold text-secondary-orange mb-3">Discipleship Ministry </h3><i style="color: #16a34a;">(One In Christ Fellowship)</i>
+                            <p class="text-muted mb-3">
+                                An intimate setting to study the Word chapter by chapter, facilitated by experienced leaders. Perfect for new members!
+                            </p>
+                            <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong> Simon Kinyanyui & Perpetua Kariuki
+                                </p>
+                            <p class="small mb-0">
+                                <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+                                <strong>Tuesdays at 5:00 PM</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                     <!-- Group 2 -->
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="group-card">
+                            <h3 class="h5 fw-bold text-secondary-orange mb-3">The Revival Wave</h3>
+                            <p class="text-muted mb-3">
+                                Focused on spiritual renewal, personal holiness, and prayer movements on campus. Be a catalyst for change.
+                            </p>
+                            <p class="small mb-0">
+                                <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+                                <strong>Thursdays & Saturdays</strong>
+                            </p>
+                            <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong>Vancy Koronya
+                                
+                            </p>
+                                </p>
+                        </div>
+                    </div>
+
+                     <!-- Group 1 -->
+<div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+    <div class="group-card">
+        <h3 class="h5 fw-bold text-secondary-orange mb-3">Media Team</h3>
+        <p class="text-muted mb-3">
+            Capturing moments that inspire and sharing the message of Christ through photography, videography, and digital creativity. 
+            The Media Team ensures every event, testimony, and sermon reaches hearts both within and beyond the campus.
+        </p>
+        <p class="small mb-0">
+            <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+            <strong>Fridays & Sundays</strong>
+        </p>
+        <p class="mb-2 small">
+            <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+            <strong>Leader:</strong> Peter Njau<br> Co-Leader: Caroline Mukami
+        </p>
+    </div>
+</div>
+
+<!-- Group 2 -->
+<div class="col-md-4" data-aos="fade-up" data-aos-delay="250">
+    <div class="group-card">
+        <h3 class="h5 fw-bold text-secondary-orange mb-3">Hope & Restoration</h3>
+        <p class="text-muted mb-3">
+            A ministry devoted to emotional healing, encouragement, and spiritual renewal. 
+            Through prayer, counseling, and fellowship, this team reaches out to those burdened by life’s challenges—bringing hope, comfort, and restoration through Christ’s love.
+        </p>
+        <p class="small mb-0">
+            <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+            <strong>Wednesdays & Saturdays</strong>
+        </p>
+        <p class="mb-2 small">
+            <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+            <strong>Leader:</strong> Dan Mwenda <br> Co leader: crushie
+        </p>
+    </div>
+</div>
+
+<!-- Group 3 -->
+<div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+    <div class="group-card">
+        <h3 class="h5 fw-bold text-secondary-orange mb-3">Piano Class</h3>
+        <p class="text-muted mb-3">
+            A creative ministry equipping believers with musical skills to serve in worship and personal devotion. 
+            Members learn not only piano techniques but also the heart of worship—using music as a tool to glorify God and inspire others.
+        </p>
+        <p class="small mb-0">
+            <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+            <strong>Saturdays & Sundays</strong>
+        </p>
+        <p class="mb-2 small">
+            <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+            <strong>Leader:</strong> Jason Abedingo <br> Co leader: Cyprian Kariuki
+        </p>
+    </div>
+</div>
+
+
+                    <!-- Group 3 -->
+                    <div class="col-md-4" data-aos="fade-left" data-aos-delay="300">
+                        <div class="group-card">
+                            <h3 class="h5 fw-bold text-secondary-orange mb-3">Christ Dancers</h3>
+                            <p class="text-muted mb-3">
+                                A powerful, non-verbal expression of worship and praise through choreographed Christian dance and mime.
+                            </p>
+                            <p class="small mb-0">
+                                <i class="fas fa-calendar-alt text-primary-green me-2"></i>
+                                <strong>Fridays & Saturdays</strong>
+                            </p>
+                            <p class="mb-2 small">
+                                    <i class="fas fa-user-tie text-secondary-orange me-2"></i>
+                                    <strong>Leader:</strong>Joy Mwende <br>Co Leader: Elias Musa
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enrollment Form Section -->
+        <section id="contact-form" class="enrollment-section py-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="form-wrapper" data-aos="zoom-in">
+                            <div class="text-center mb-4">
+                                <h2 class="display-5 fw-bold text-primary-green mb-3">Ready to Enroll?</h2>
+                                <p class="text-muted">Fill out the form below. A Ministry Leader will contact you with orientation details.</p>
+                            </div>
+
+                            <form id="group-registration">
+                                <div class="mb-4">
+                                    <label for="name" class="form-label fw-semibold">Your Full Name</label>
+                                    <input type="text" class="form-control form-control-lg" id="name" required placeholder="Jane Wanjiku">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="reg-number" class="form-label fw-semibold">Admission/Reg. Number</label>
+                                    <input type="text" class="form-control form-control-lg" id="reg-number" required placeholder="NNP/ICT/2023/1234">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="phone" class="form-label fw-semibold">Phone Number</label>
+                                    <input type="tel" class="form-control form-control-lg" id="phone" required pattern="^(07|2547)\d{8}$" placeholder="0722123456">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="group" class="form-label fw-semibold">Preferred Ministry / Group</label>
+                                    <select id="group" class="form-select form-select-lg" required>
+                                        <option value="" disabled selected>Select your top choice...</option>
+                                        <option value="praise-worship">Praise & Worship Team</option>
+                                        <option value="discipleship">Discipleship Ministry (D-Min)</option>
+                                        <option value="evangelism">Missions & Evangelism</option>
+                                        <option value="media">Media & ICT Team</option>
+                                        <option value="intercessory">Intercessory Prayer</option>
+                                        <option value="hospitality">Hospitality & Ushering</option>
+                                        <option value="bible-study">Deep Bible Study</option>
+                                        <option value="christ-dancers">Christ Dancers</option>
+                                        <option value="revival-wave">The Revival Wave</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary-green btn-lg w-100" id="submitBtn">
+                                    <i class="fas fa-check-circle me-2"></i> Submit Enrollment
+                                </button>
+                            </form>
+
+                            <div id="registration-message" class="mt-4 d-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Load Header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const header = doc.querySelector('header');
+                const styles = doc.querySelector('style');
+                
+                document.getElementById('header-placeholder').innerHTML = header.outerHTML;
+                
+                if (!document.getElementById('header-styles')) {
+                    const styleTag = document.createElement('style');
+                    styleTag.id = 'header-styles';
+                    styleTag.textContent = styles.textContent;
+                    document.head.appendChild(styleTag);
+                }
+            });
+
+        // Load Footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const footer = doc.querySelector('footer');
+                const styles = doc.querySelector('style');
+                
+                document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
+                
+                if (!document.getElementById('footer-styles')) {
+                    const styleTag = document.createElement('style');
+                    styleTag.id = 'footer-styles';
+                    styleTag.textContent = styles.textContent;
+                    document.head.appendChild(styleTag);
+                }
+                
+                document.getElementById('currentYear').textContent = new Date().getFullYear();
+            });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => animateCounter(counter), 1);
+            } else {
+                counter.innerText = target + '+';
+            }
+        };
+
+        // Intersection Observer for Counter
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Form Submission
+        document.getElementById('group-registration').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageBox = document.getElementById('registration-message');
+            const name = document.getElementById('name').value;
+            const regNumber = document.getElementById('reg-number').value;
+            const phone = document.getElementById('phone').value;
+            const groupSelect = document.getElementById('group');
+            const selectedGroup = groupSelect.options[groupSelect.selectedIndex].text;
+            
+            // Add loading state
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="opacity-0">Submitting...</span>';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success message
+                messageBox.innerHTML = `
+                    <div class="success-message p-4">
+                        <div class="text-center">
+                            <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+                            <h4 class="fw-bold text-success mb-3">🎉 Enrollment Successful!</h4>
+                            <p class="mb-2"><strong>Thank you, ${name}!</strong></p>
+                            <p class="mb-2">You have successfully enrolled in the <strong>${selectedGroup}</strong> ministry.</p>
+                            <p class="text-muted small mb-0">
+                                <i class="fas fa-phone me-2"></i>The ministry leader will contact you at <strong>${phone}</strong> shortly. Welcome to the team!
+                            </p>
+                        </div>
+                    </div>
+                `;
+                messageBox.classList.remove('d-none');
+                
+                // Reset button
+                submitBtn.classList.remove('btn-loading');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Submit Enrollment';
+                
+                // Clear form
+                document.getElementById('group-registration').reset();
+                
+                // Scroll to message
+                messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide message after 10 seconds
+                setTimeout(() => {
+                    messageBox.classList.add('d-none');
+                }, 10000);
+            }, 1500);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

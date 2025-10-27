@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NNP Christian Union - Footer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /*
+        * NNP Christian Union Footer Styles
+        */
+
+        /* === Variables === */
+        :root {
+            /* Colors */
+            --primary-green: #318b2e;
+            --deep-green: #2a6f19;
+            --warm-gold: #f8c007;
+            --muted-yellow: #f5bf0d;
+            --rich-black: #0B0B0B;
+            --off-white: #FAFBF9;
+            --soft-gray: #494848;
+            --light-gray: #6c757d;
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 5px solid var(--primary-green);
+            background-color: var(--rich-black) !important;
+        }
+
+        /* Background Colors */
+        .bg-deep-green {
+            background-color: var(--deep-green) !important;
+        }
+
+        /* Text Colors */
+        .text-gold {
+            color: var(--warm-gold) !important;
+        }
+
+        .text-primary-green {
+            color: var(--primary-green) !important;
+        }
+
+        .text-muted-custom {
+            color: var(--light-gray) !important;
+        }
+
+        /* Border Colors */
+        .border-gold {
+            border-color: var(--warm-gold) !important;
+        }
+
+        .border-gray-custom {
+            border-color: rgba(108, 117, 125, 0.3) !important;
+        }
+
+        /* Footer Links */
+        footer a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--warm-gold);
+        }
+
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--warm-gold);
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-green);
+        }
+
+        /* List Styling */
+        .list-unstyled {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .list-unstyled li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer Headings */
+        footer h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--warm-gold);
+        }
+
+        footer h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Small text */
+        footer .small-text {
+            font-size: 0.875rem;
+        }
+
+        footer .xs-text {
+            font-size: 0.75rem;
+        }
+
+        /* Ensure Bootstrap Grid Works */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -0.75rem;
+            margin-left: -0.75rem;
+        }
+
+        .col-md-3, .col-lg-3 {
+            flex: 0 0 auto;
+            width: 100%;
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .col-md-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .col-lg-3 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        /* Responsive spacing */
+        @media (max-width: 767px) {
+            footer .mb-4 {
+                margin-bottom: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer class="mt-auto py-5 text-white">
+        <div class="container-xl px-4">
+            <div class="row border-bottom border-gray-custom pb-5 mb-4">
+                <!-- Brand Column -->
+                <div class="col-12 col-md-3 mb-4 mb-md-0">
+                    <h3 class="mb-3">NNP CU</h3>
+                    <p class="text-muted-custom small-text">Faith • Fellowship • Growth</p>
+                    <p class="text-muted-custom xs-text mt-2">The future of ministry starts here.</p>
+                </div>
+                
+                <!-- Quick Links Column -->
+                <div class="col-12 col-md-3 mb-4 mb-md-0">
+                    <h4 class="mb-3">Quick Links</h4>
+                    <ul class="list-unstyled small-text">
+                        <li><a href="landing page.html">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#events">Events Calendar</a></li>
+                        <li><a href="library.html">Bible Library</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div class="col-12 col-md-3 mb-4 mb-md-0">
+                    <h4 class="mb-3">Support</h4>
+                    <ul class="list-unstyled small-text">
+                        <li><a href="library.html">Sermon Archives</a></li>
+                        <li><a href="#contact-form">Prayer Requests</a></li>
+                        <li><a href="#giving">Giving/Tithes</a></li>
+                        <li><a href="ministry.html">Ministries</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="col-12 col-md-3">
+                    <h4 class="mb-3">Contact</h4>
+                    <p class="text-muted-custom small-text">
+                        Nyeri National Polytechnic,<br>
+                        Nyeri, Kenya.
+                    </p>
+                    <p class="text-muted-custom small-text mt-2">
+                        Email: <a href="mailto:info@nnpcu.org">info@nnpcu.org</a>
+                    </p>
+                    <div class="social-icons mt-3">
+                        <a href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/2547XXXXXXXX?text=Hello%20NNP%20Christian%20Union" target="_blank" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="text-center text-muted-custom small-text">
+                &copy; <span id="currentYear">2025</span> NNP Christian Union. Developed for Campus Ministry.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auto-update year -->
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

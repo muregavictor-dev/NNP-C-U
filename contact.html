@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact the NNP Christian Union leadership team for inquiries, prayer requests, or partnership opportunities." />
+    <title>Contact Us - NNP Christian Union</title>
+    
+    <!-- Relevant Links: Bootstrap, Fonts, and Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Modern Custom CSS -->
+   <style>:root {
+    --primary-color:  #318b2e; /* Vibrant Green */
+    --secondary-color: #f59e0b; /* Warm Orange/Yellow */
+    --dark-bg: #1f2937; /* Dark Gray */
+    --inter-font: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--inter-font);
+    background-color: #f9fafb;
+    color: #374151;
+}
+
+/* Custom Bootstrap Overrides for Color Consistency (adapted for common use) */
+.bg-primary { background-color: var(--primary-color) !important; }
+.text-primary { color: var(--primary-color) !important; }
+.bg-secondary { background-color: var(--secondary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.btn-primary { 
+    background-color: var(--primary-color); 
+    border-color: var(--primary-color);
+    color: white; /* Ensure text is white */
+    padding: 0.5rem 1.5rem; /* Standard padding */
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    font-weight: 600; /* Adjusted for Inter semi-bold */
+}
+.btn-primary:hover {
+    background-color: #15803d; /* Darker Green */
+    border-color: #15803d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Custom Info Card Animations (Sliding Box) --- */
+.info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0.75rem;
+    border-top: 4px solid var(--primary-color); /* Green top border */
+    background-color: white; /* Ensure card background is white */
+}
+.info-card:hover {
+    transform: translateY(-5px); /* Lift */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Deep Shadow */
+}
+.info-icon-wrapper {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 8px rgba(22, 163, 74, 0.4);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+/* Form control styling for focus consistency */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem; /* Match card radius */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--secondary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25); /* Orange shadow */
+}
+
+/* Map Placeholder Style */
+.map-placeholder {
+    height: 300px;
+    background-color: #e5e7eb;
+    border-radius: 0.75rem;
+    border: 4px solid var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6b7280;
+}</style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Include Header -->
+<div id="header-placeholder"></div>
+
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extract just the header element
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const header = doc.querySelector('header');
+            const styles = doc.querySelector('style');
+            
+            // Insert header
+            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
+            
+            // Insert styles if not already present
+            if (!document.getElementById('header-styles')) {
+                const styleTag = document.createElement('style');
+                styleTag.id = 'header-styles';
+                styleTag.textContent = styles.textContent;
+                document.head.appendChild(styleTag);
+            }
+        });
+</script>
+<!-- MAIN CONTENT -->
+<main class="flex-grow-1">
+    
+    <!-- Hero Section -->
+    <section class="py-5 py-md-5 text-center shadow-sm" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3 text-dark">Get In Touch With Us</h1>
+            <p class="lead mb-0 mx-auto text-dark" style="max-width: 800px;">
+                We're here to serve you. Whether it's a prayer request or a general inquiry, reach out to the CU leadership today.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Information Section (Cards) -->
+    <section class="py-5 py-md-5 bg-white">
+        <div class="container">
+            <h2 class="h1 fw-bold text-primary mb-2 text-center">Our Details</h2>
+            <p class="lead text-muted mb-5 text-center mx-auto" style="max-width: 700px;">
+                Connect with us digitally, physically, or via our official contacts.
+            </p>
+
+            <div class="row g-4">
+                
+                <!-- Physical Address Card -->
+                <div class="col-md-4">
+                    <div class="info-card p-4 text-center bg-white shadow-lg h-100">
+                        <div class="info-icon-wrapper">
+                            <i class="fas fa-map-marker-alt text-white fs-3"></i>
+                        </div>
+                        <h3 class="fs-4 fw-bold text-primary mb-2">Our Location</h3>
+                        <p class="mb-1 text-dark">NNP Christian Union Office </p>
+                        <p class="text-muted small">Nyeri National Polytechnic,<br>Main Campus, Nyeri, Kenya.</p>
+                    </div>
+                </div>
+
+                <!-- Digital Contacts Card -->
+                <div class="col-md-4">
+                    <div class="info-card p-4 text-center bg-white shadow-lg h-100">
+                        <div class="info-icon-wrapper">
+                            <i class="fas fa-phone-alt text-white fs-3"></i>
+                        </div>
+                        <h3 class="fs-4 fw-bold text-primary mb-2">General Contact</h3>
+                        <p class="mb-1 text-dark fw-semibold">Phone: <a href="tel:+2547XXXXXXXX" class="text-secondary text-decoration-none hover-primary transition">+254 7XX XXX XXX</a></p>
+                        <p class="mb-1 text-dark fw-semibold">Email: <a href="mailto:info@nnpecu.org" class="text-secondary text-decoration-none hover-primary transition">info@nnpecu.org</a></p>
+                        <p class="text-muted small mt-2">Available Mon - Fri, 9am - 5pm.</p>
+                    </div>
+                </div>
+
+                <!-- Prayer / Support Card -->
+                <div class="col-md-4">
+                    <div class="info-card p-4 text-center bg-white shadow-lg h-100">
+                        <div class="info-icon-wrapper">
+                            <i class="fas fa-hands-praying text-white fs-3"></i>
+                        </div>
+                        <h3 class="fs-4 fw-bold text-primary mb-2">Prayer & Support</h3>
+                        <p class="mb-1 text-dark">Need prayer or guidance?</p>
+                        <p class="text-muted small">Use the contact form below or email us directly at:</p>
+                        <a href="mailto:prayer@nnpecu.org" class="text-secondary fw-semibold text-decoration-none hover-primary transition">prayer@nnpecu.org</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-5 bg-light" style="background-color: #d1fae5;">
+        <div class="container" style="max-width: 700px;">
+            <h2 class="h1 fw-bold text-primary mb-4 text-center">Send Us a Message</h2>
+            
+            <form id="contact-form" aria-label="Contact form" class="p-4 p-md-5 bg-white rounded-4 shadow-lg border border-secondary-subtle">
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="c-name" class="form-label small fw-semibold">Your Name</label>
+                        <input type="text" id="c-name" required class="form-control p-3" placeholder="John Doe" aria-label="Your Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="c-email" class="form-label small fw-semibold">Your Email</label>
+                        <input type="email" id="c-email" required class="form-control p-3" placeholder="your.email@example.com" aria-label="Your Email" />
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="c-subject" class="form-label small fw-semibold">Subject</label>
+                    <select id="c-subject" required class="form-select p-3" aria-label="Subject selection">
+                        <option value="" disabled selected>Select a subject...</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="prayer">Prayer Request</option>
+                        <option value="partnership">Partnership / Support</option>
+                        <option value="ministry">Ministry Question</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="c-message" class="form-label small fw-semibold">Message</label>
+                    <textarea id="c-message" rows="5" required class="form-control p-3" placeholder="Type your message here..." aria-label="Message content"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                </button>
+            </form>
+
+            <div id="contact-message-box" role="alert" aria-live="polite" class="mt-4 p-3 text-center rounded-3 fw-semibold alert-success d-none"></div>
+        </div>
+    </section>
+
+    <!-- Map Placeholder Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="h1 fw-bold text-primary mb-4 text-center">Where to Find Us</h2>
+            <div class="map-placeholder shadow-lg">
+                <i class="fas fa-map-marked-alt text-muted fs-1 me-2"></i> Interactive Map Placeholder
+            </div>
+        </div>
+    </section>
+</main>
+<!-- END MAIN CONTENT -->
+
+<!-- Include Footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extract just the footer element
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const footer = doc.querySelector('footer');
+            const styles = doc.querySelector('style');
+            const footerScript = doc.querySelector('script');
+            
+            // Insert footer
+            document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
+            
+            // Insert styles if not already present
+            if (!document.getElementById('footer-styles')) {
+                const styleTag = document.createElement('style');
+                styleTag.id = 'footer-styles';
+                styleTag.textContent = styles.textContent;
+                document.head.appendChild(styleTag);
+            }
+            
+            // Update current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+</script>
+<!-- JAVASCRIPT FOR INTERACTIVITY -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const messageBox = document.getElementById('contact-message-box');
+
+    // --- Contact Form Submission Simulation ---
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('c-name').value;
+        const subjectSelect = document.getElementById('c-subject');
+        const selectedSubject = subjectSelect.options[subjectSelect.selectedIndex].text;
+
+        // Display success message
+        messageBox.innerHTML = `
+            <p class="mb-0"><i class="fas fa-check-circle me-2"></i> Thank you, <strong>${name}</strong>!</p>
+            <p class="mb-0 small mt-1">Your message regarding <strong>${selectedSubject}</strong> has been received. We will respond soon.</p>
+        `;
+        
+        // Use Bootstrap alert classes for styling
+        messageBox.classList.remove('d-none', 'alert-danger');
+        messageBox.classList.add('alert', 'alert-success', 'border-success');
+        
+        // Clear form after submission
+        form.reset();
+        
+        // Scroll to the message box
+        messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+});
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

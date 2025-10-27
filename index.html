@@ -804,58 +804,47 @@
         </div>
     </div>
 <script>
-document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+document.getElementById("membershipForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Gather group checkboxes
-  const groups = Array.from(document.querySelectorAll('input[name="groups[]"]:checked'))
-    .map(cb => cb.value)
-    .join(', ');
-
   const data = {
-    fullName: document.getElementById('memberFullName').value,
-    studentID: document.getElementById('memberStudentID').value,
-    email: document.getElementById('memberEmail').value,
-    phone: document.getElementById('memberPhone').value,
-    yearClass: document.getElementById('memberYearClass').value,
-    groups: groups || 'None selected',
-    testimony: document.getElementById('memberTestimony')?.value || 'Not provided',
-    consent: document.getElementById('consentCheck')?.checked ? 'Yes' : 'No',
+    fullName: document.getElementById("memberFullName").value,
+    studentID: document.getElementById("memberStudentID").value,
+    email: document.getElementById("memberEmail").value,
+    phone: document.getElementById("memberPhone").value,
+    yearClass: document.getElementById("memberYearClass").value,
+    groups: Array.from(document.querySelectorAll("input[name='groups[]']:checked")).map(cb => cb.value),
+    testimony: document.getElementById("memberTestimony").value,
+    consent: document.getElementById("consentCheck").checked
   };
 
-  const submitBtn = this.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Submitting...';
+  const submitBtn = e.target.querySelector("button[type='submit']");
   submitBtn.disabled = true;
-
-  // Paste your Apps Script URL here 👇
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwYZsR1rtqZKzkiMKw6siJ333Wi8b5Tqjh-Hgmn0MTwonULJq64Cj0WjRcJePEyS1Sz/exec";
+  submitBtn.textContent = "Submitting...";
 
   try {
-    const response = await fetch(scriptURL, {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbwge9rFesAabJMyTu_DYAF8-vDWnZXTmyei1UFnwARbzRsO7qSOHfLCO5TWN-6U9Zvj/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
-    const result = await response.json();
-
+    const result = await res.json();
     if (result.success) {
-      alert("✅ Thank you for joining! Welcome to NNP Christian Union.");
-      window.open(result.whatsappUrl, '_blank');
-      this.reset();
-      bootstrap.Modal.getInstance(document.getElementById('membershipModal')).hide();
+      alert("✅ " + result.message);
+      e.target.reset();
+      window.open(result.whatsappUrl, "_blank");
     } else {
-      alert("⚠️ Something went wrong: " + result.error);
+      alert("❌ Error: " + result.error);
     }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("❌ Failed to connect. Please check your internet or contact admin.");
-  } finally {
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
+  } catch (err) {
+    alert("⚠️ Failed to connect. Please check your internet or contact admin.");
   }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Submit & Receive Welcome Pack";
 });
+
 </script>
 
 
@@ -884,6 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 
 
 

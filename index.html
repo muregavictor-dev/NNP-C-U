@@ -811,8 +811,8 @@
 
 
 
-    <script>
-        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+   <script>
+document.getElementById('membershipForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   // Collect checked groups
@@ -838,48 +838,45 @@
   submitBtn.textContent = 'Submitting...';
   submitBtn.disabled = true;
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwMb7A47kCV73J08SZIGUExz4AonrJRyD4gF59JSXeiZ9Jad10PD4AE2zL8szmeVF4Z/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxKnTxmaNIwVCk4md_1BbMqxtsNuAijuEvLV3I9k5b8KH-sVX4RZ5B9rz23ySkv3M_b/exec";
 
   try {
     const response = await fetch(scriptURL, {
       method: "POST",
-      mode: 'no-cors', // Important for Google Apps Script
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    // With no-cors, we can't read the response, so assume success
-    alert("✅ Thank you for joining! Welcome to NNP Christian Union family!");
-    
-    // Open WhatsApp (you can customize the message)
-    const whatsappUrl = `https://wa.me/254XXXXXXXXX?text=Hello! I just registered as a member. My name is ${encodeURIComponent(data.fullName)}.`;
-    window.open(whatsappUrl, '_blank');
-    
-    // Reset form and close modal
-    this.reset();
-    bootstrap.Modal.getInstance(document.getElementById('membershipModal')).hide();
-    
+    const result = await response.json();
+
+    if (result.success) {
+      alert("✅ Thank you for joining! Welcome to NNP Christian Union family!");
+      window.open(result.whatsappUrl, '_blank');
+      this.reset();
+      bootstrap.Modal.getInstance(document.getElementById('membershipModal')).hide();
+    } else {
+      alert("⚠️ Something went wrong. Please try again later.");
+    }
   } catch (error) {
-    console.error('Error:', error);
-    alert("❌ Something went wrong. Please try again or contact us directly.");
+    console.error("Error:", error);
+    alert("❌ Failed to connect. Please check your internet or contact admin.");
   } finally {
-    // Restore button state
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }
 });
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 800,
-                once: true,
-                easing: 'ease-in-out',
-                offset: 50 // Trigger earlier
-            });
-            // Set current year in footer
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-        });
-    </script>
+
+document.addEventListener('DOMContentLoaded', () => {
+  AOS.init({
+    duration: 800,
+    once: true,
+    easing: 'ease-in-out',
+    offset: 50
+  });
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+});
+</script>
+
 </body>
+
 </html>

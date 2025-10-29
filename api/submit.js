@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   try {
     // ✅ Forward data to your Google Apps Script Web App
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbxQuEBJoOkmprwnhiyW9yOpuB48uRmXZwV5qCk_nAjaE_dl5uQzt123-gE8aXtIKFk7/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbwXL8ak2UmJyNNYuWi2fJgoaLRNUae4AOZLPfBPNjyOM_m-xXs4lMGf-zLnB6QkZ7Ue/exec";
 
     const params = new URLSearchParams({
       name: req.body.name,

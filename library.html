@@ -904,6 +904,16 @@ body {
 
   });
 </script>
+    <div id="floating-widgets"></div>
+<script>
+  fetch("/floating-widgets.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("floating-widgets").innerHTML = html;
+    });
+</script>
+
 </body>
 
 </html>
+

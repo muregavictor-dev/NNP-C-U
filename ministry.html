@@ -746,6 +746,12 @@
             'piano-class': 'pianoclass@example.com',
             'christ-dancers': 'christdancers@example.com'
         };
+        fetch("/api/submit", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(formData)
+});
+
 
         // Form Submission with Email Routing
         document.getElementById('group-registration').addEventListener('submit', function(e) {
@@ -855,4 +861,5 @@
     </script>
 </body>
 </html>
+
 

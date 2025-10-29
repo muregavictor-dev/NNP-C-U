@@ -278,25 +278,32 @@ body {
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
 
-    <script>
-const form = document.getElementById("contact-form");
-form.addEventListener("submit", async (e) => {
+document.getElementById("contact-form").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const formData = new FormData(form);
+
+  const form = e.target;
+  const data = new FormData(form);
+  const box = document.getElementById("contact-message-box");
+
+  box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-info";
+  box.textContent = "⏳ Sending your message...";
 
   const res = await fetch(form.action, {
-    method: "POST",
-    body: formData,
+    method: form.method,
+    body: data,
     headers: { Accept: "application/json" }
   });
 
   if (res.ok) {
-    alert("✅ Message sent successfully! We’ll get back to you soon.");
+    box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-success";
+    box.textContent = "✅ Message sent successfully! We’ll get back to you soon.";
     form.reset();
   } else {
-    alert("❌ Something went wrong. Please try again.");
+    box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-danger";
+    box.textContent = "❌ Failed to send message. Please try again later.";
   }
 });
+
 
         
         // Use Bootstrap alert classes for styling
@@ -317,5 +324,6 @@ form.addEventListener("submit", async (e) => {
 </body>
 
 </html>
+
 
 

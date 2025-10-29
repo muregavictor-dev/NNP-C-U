@@ -282,3 +282,70 @@ fetch(membershipEndpoint, {
     }
 
 });
+    <script>
+document.getElementById("membershipForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    fullName: document.getElementById("memberFullName").value,
+    studentID: document.getElementById("memberStudentID").value,
+    email: document.getElementById("memberEmail").value,
+    phone: document.getElementById("memberPhone").value,
+    yearClass: document.getElementById("memberYearClass").value,
+    groups: Array.from(document.querySelectorAll("input[name='groups[]']:checked")).map(cb => cb.value),
+    testimony: document.getElementById("memberTestimony").value,
+    consent: document.getElementById("consentCheck").checked
+  };
+
+  const submitBtn = e.target.querySelector("button[type='submit']");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      alert("✅ " + result.message);
+      e.target.reset();
+      window.open(result.whatsappUrl, "_blank");
+    } else {
+      alert("❌ Error: " + result.error);
+    }
+  } catch (err) {
+    alert("⚠️ Failed to connect. Please check your internet or contact admin.");
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Submit & Receive Welcome Pack";
+});
+
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="app.js"></script>
+
+
+
+   <script>
+
+
+
+       
+document.addEventListener('DOMContentLoaded', () => {
+  AOS.init({
+    duration: 800,
+    once: true,
+    easing: 'ease-in-out',
+    offset: 50
+  });
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+});
+</script>
+

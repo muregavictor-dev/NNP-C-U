@@ -354,6 +354,8 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 /* === Footer === */
 footer {
     border-top: 5px solid var(--primary-green);
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 .social-icons a {
     color: var(--warm-gold);
@@ -367,4 +369,5 @@ footer {
 /* === Utility/Accessibility === */
 .rounded-3 { border-radius: var(--border-radius-lg) !important; }
 .rounded-4 { border-radius: 16px !important; }
+
 .shadow-lg { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }

@@ -780,8 +780,29 @@
             const mailtoLink = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
             
             // Open email client
-            window.location.href = mailtoLink;
-            
+            fetch("https://script.google.com/macros/s/AKfycbxQuEBJoOkmprwnhiyW9yOpuB48uRmXZwV5qCk_nAjaE_dl5uQzt123-gE8aXtIKFk7/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    name,
+    regNumber,
+    phone,
+    group: selectedGroupValue
+  }),
+  headers: { "Content-Type": "application/json" }
+})
+.then(res => res.text())
+.then(response => {
+  messageBox.innerHTML = `
+    <div class="success-message">
+      <h4>✅ Successfully Enrolled!</h4>
+      <p>Thank you, ${name}! Your signup has been saved and sent to the ${selectedGroupText} ministry.</p>
+    </div>`;
+  document.getElementById('group-registration').reset();
+})
+.catch(error => {
+  messageBox.innerHTML = `<p class="error">❌ Error submitting. Try again later.</p>`;
+});
+
             // Show success message after short delay
             setTimeout(() => {
                 messageBox.innerHTML = `
@@ -834,3 +855,4 @@
     </script>
 </body>
 </html>
+

@@ -50,8 +50,8 @@
 <body>
     <main>
   <div class="container library-page">
-    <section aria-labelledby="library-header" class="hero-section text-center">
-      <h1 id="library-header" class="main-title">📚 CU Digital & Physical Library</h1>
+    <section aria-labelledby="library-header" class="Lhero-section text-center">
+      <h1 id="library-header" class="main-title"> CU Digital & Physical Library</h1>
       <p class="subtitle">Search, learn, and grow with resources curated for NNP Christian Union.</p>
       <div class="search-bar-container">
         <form id="global-search-form" aria-label="Search all library resources">
@@ -81,11 +81,7 @@
           <h3>Dictionary Tools</h3>
           <p>Define Christian & Bible terms.</p>
         </article>
-        <article class="card interactive-card" tabindex="0" onclick="alert('Navigate to the User Dashboard for your loans.')">
-          <i class="fas fa-handshake fa-2x"></i>
-          <h3>My Borrowings</h3>
-          <p>View loan history & returns.</p>
-        </article>
+    
       </div>
     </section>
 
@@ -702,209 +698,228 @@ body {
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // --- Global Search Functionality (Simulated) ---
-    const globalSearchForm = document.getElementById('global-search-form');
-    const globalSearchInput = document.getElementById('global-search-input');
-    const globalSearchResults = document.getElementById('global-search-results');
-    
-    globalSearchForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const query = globalSearchInput.value.trim();
-        if (!query) return;
+document.addEventListener('DOMContentLoaded', () => {
+  // ==============================
+  // GLOBAL SEARCH FUNCTIONALITY
+  // ==============================
+  const globalSearchForm = document.getElementById('global-search-form');
+  const globalSearchInput = document.getElementById('global-search-input');
+  const globalSearchResults = document.getElementById('global-search-results');
 
-        // Priority 1: Check for Bible Verse
-        if (query.match(/^[a-z]+\s+\d+:\d+/i)) {
-            await fetchBibleVerse(query, globalSearchResults);
-            return;
-        }
+  globalSearchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = globalSearchInput.value.trim();
+    if (!query) return;
 
-        globalSearchResults.innerHTML = `<p>Searching for: <strong>${query}</strong>...</p>`;
-        
-        // Priority 2: Simulate searching Hard Copy Books
-        const allBooks = document.querySelectorAll('.book-list li p');
-        let bookFound = false;
-        allBooks.forEach(p => {
-            if (p.textContent.toLowerCase().includes(query.toLowerCase())) {
-                const bookTitle = p.textContent.split(' - ')[0]; // Gets the book name
-                globalSearchResults.innerHTML = `<p class="card" style="border-left: 3px solid var(--secondary-color);">Book Found: <strong>${bookTitle}</strong>. See Physical Catalogue below for availability/borrowing.</p>`;
-                bookFound = true;
-                // Scroll to book catalogue
-                document.getElementById('hardcopy-books-title').scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+    globalSearchResults.innerHTML = `<p>🔍 Searching for <strong>${query}</strong>...</p>`;
 
-        if (!bookFound) {
-            globalSearchResults.innerHTML = `<p>No exact match found in the Physical Catalogue. Try a Dictionary tool or Bible search.</p>`;
-        }
-    });
-
-    // --- Bible Search (Integrated from original) ---
-    const bibleSearchForm = document.getElementById('bible-search-form');
-    const bibleSearchInput = document.getElementById('bible-search-input');
-    const bibleResults = document.getElementById('bible-results');
-
-    async function fetchBibleVerse(query, targetElement) {
-        targetElement.innerHTML = '<p class="text-center">Searching...</p>';
-        try {
-            // Using Bible API from https://bible-api.com/ with CORS bypass via https://api.allorigins.win
-            const apiUrl = `https://bible-api.com/${encodeURIComponent(query)}`;
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
-            const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error('Error fetching Bible verses.');
-            const proxyData = await response.json();
-            const data = JSON.parse(proxyData.contents);
-
-            if (data.error) {
-                targetElement.innerHTML = `<p class="error-message">Verse not found: ${data.error}</p>`;
-                return;
-            }
-
-            if (!data.verses || data.verses.length === 0) {
-                targetElement.innerHTML = '<p>No verses found.</p>';
-                return;
-            }
-
-            targetElement.innerHTML = data.verses.map(v =>
-                `<article class="card mini-card" tabindex="0">
-                  <h5>${v.book_name} ${v.chapter}:${v.verse}</h5>
-                  <p>${v.text}</p>
-                </article>`
-            ).join('');
-        } catch (err) {
-            targetElement.innerHTML = '<p class="error-message">Failed to fetch Bible verses. Check your input and try again.</p>';
-        }
+    // Bible verse detection (e.g., John 3:16)
+    if (query.match(/^[a-z]+\s+\d+:\d+/i)) {
+      await fetchBibleVerse(query, globalSearchResults);
+      return;
     }
-    
-    bibleSearchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const query = bibleSearchInput.value.trim();
-        if (query) {
-            fetchBibleVerse(query, bibleResults);
-        } else {
-            bibleResults.innerHTML = '<p>Please enter a search term.</p>';
-        }
-    });
 
-    // --- Dictionary Tools (Integrated from original) ---
-    const christianDictForm = document.getElementById('christian-dict-form');
-    const christianDictInput = document.getElementById('christian-dict-input');
-    const christianDictResults = document.getElementById('christian-dict-results');
+    // Book search in physical catalogue
+    const books = document.querySelectorAll('.book-list li p');
+    let found = false;
 
-    const dictionaryTerms = {
-      'grace': 'Unmerited favor from God, often used in the context of salvation.',
-      'faith': 'Belief, trust, and commitment to God. Central to Christian life.',
-      'salvation': 'Deliverance from sin and its consequences, brought about by God through Jesus Christ.',
-      'repentance': 'A sincere change of mind, heart, and action, turning away from sin and toward God.',
-      'baptism': 'A Christian rite of admission and adoption, typically by water, symbolizing purification or initiation.'
-    }; // A single, combined dictionary is cleaner
-
-    const handleDictSearch = (form, input, results) => {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const term = input.value.trim().toLowerCase();
-        if (term) {
-          const definition = dictionaryTerms[term];
-          if (definition) {
-            results.innerHTML = `<p><strong>${term.charAt(0).toUpperCase() + term.slice(1)}:</strong> ${definition}</p>`;
-          } else {
-            results.innerHTML = '<p>Term not found. Try terms like "faith" or "covenant" (simulated).</p>';
-          }
-          input.value = '';
-        } else {
-          results.innerHTML = '<p>Please enter a search term.</p>';
-        }
-      });
-    };
-    
-    // We only need one dictionary form, reusing it for simplicity unless you need separate terms.
-    handleDictSearch(christianDictForm, christianDictInput, christianDictResults);
-
-    // --- Suggestion Form (Integrated from original) ---
-    const suggestionForm = document.getElementById('suggestion-form');
-    const suggestionInput = document.getElementById('suggestion-input');
-    const suggestionResults = document.getElementById('suggestion-results');
-
-    suggestionForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const suggestion = suggestionInput.value.trim();
-      if (suggestion) {
-        suggestionResults.innerHTML = `<p style="color: var(--primary-color);">✅ Thank you! Your suggestion has been logged: "${suggestion.substring(0, 50)}..."</p>`;
-        suggestionInput.value = '';
-      } else {
-        suggestionResults.innerHTML = '<p>Please enter a suggestion.</p>';
+    books.forEach(p => {
+      if (p.textContent.toLowerCase().includes(query.toLowerCase())) {
+        const title = p.textContent.split(' - ')[0];
+        globalSearchResults.innerHTML = `
+          <p class="card" style="border-left:3px solid var(--secondary-color)">
+            📚 Found in catalogue: <strong>${title}</strong>.
+          </p>`;
+        document.getElementById('hardcopy-books-title')?.scrollIntoView({ behavior: 'smooth' });
+        found = true;
       }
     });
 
-    // --- Borrowing Modal Logic (Integrated and improved) ---
-    const bookingModal = document.getElementById('booking-modal');
-    const bookingForm = document.getElementById('booking-form');
-    const bookTitleModal = document.getElementById('book-title-modal');
-    const admissionNumberInput = document.getElementById('admission-number');
-    const mobileNumberInput = document.getElementById('mobile-number');
-    const returnDateInput = document.getElementById('return-date');
-    const closeModalBtn = document.querySelector('.close-modal');
-    const bookListCards = document.getElementById('book-list-cards');
-
-    // Open booking modal and autofill book title
-    bookListCards.addEventListener('click', (e) => {
-      if (e.target.classList.contains('borrow-btn') && !e.target.disabled) {
-        const bookTitle = e.target.getAttribute('data-book');
-        bookTitleModal.value = bookTitle;
-        bookingModal.style.display = 'block';
-        // Set min date for return date to tomorrow
-        const today = new Date();
-        today.setDate(today.getDate() + 1);
-        returnDateInput.min = today.toISOString().split('T')[0];
-      }
-    });
-
-    // Close modal
-    closeModalBtn.addEventListener('click', () => {
-      bookingModal.style.display = 'none';
-      bookingForm.reset();
-    });
-
-    // Close modal when clicking outside modal content
-    window.addEventListener('click', (e) => {
-      if (e.target === bookingModal) {
-        bookingModal.style.display = 'none';
-        bookingForm.reset();
-      }
-    });
-
-    // Handle booking form submission
-    bookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const bookingData = {
-        bookTitle: bookTitleModal.value,
-        admissionNumber: admissionNumberInput.value.trim(),
-        mobileNumber: mobileNumberInput.value.trim(),
-        returnDate: returnDateInput.value
-      };
-
-      // In a real application, this would be an AJAX/fetch call to a PHP/backend endpoint
-      console.log('Booking Data Sent:', bookingData);
-      alert(`✅ Request for "${bookingData.bookTitle}" submitted! The CU Library team will contact ${bookingData.mobileNumber} with confirmation/pickup details.`);
-      
-      // Close and reset
-      bookingModal.style.display = 'none';
-      bookingForm.reset();
-    });
-    
-    // --- Dynamic Content Counts (Simulated) ---
-    // Update the available count badges
-    const categoryCards = document.querySelectorAll('.category-card');
-    categoryCards.forEach(card => {
-        const availableCount = card.querySelectorAll('.book-list li .borrow-btn:not([disabled])').length;
-        const badge = card.querySelector('.available-count');
-        if (badge) {
-            badge.textContent = `${availableCount} Available`;
-        }
-    });
-
+    if (!found) {
+      globalSearchResults.innerHTML = `<p>No match found in catalogue. Try Bible or Dictionary tools.</p>`;
+    }
   });
+
+  // ==============================
+  // BIBLE SEARCH API (bible-api.com)
+  // ==============================
+  async function fetchBibleVerse(query, target) {
+    target.innerHTML = '<p>📖 Searching scripture...</p>';
+    try {
+      const res = await fetch(`https://bible-api.com/${encodeURIComponent(query)}`);
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+
+      if (!data.verses) {
+        target.innerHTML = `<p>No results for <strong>${query}</strong>.</p>`;
+        return;
+      }
+
+      target.innerHTML = data.verses.map(v => `
+        <article class="card mini-card">
+          <h5>${v.book_name} ${v.chapter}:${v.verse}</h5>
+          <p>${v.text}</p>
+        </article>`).join('');
+    } catch (err) {
+      target.innerHTML = `<p class="error">Failed to fetch Bible verse. Check your input.</p>`;
+      console.error(err);
+    }
+  }
+
+  // ==============================
+  // DICTIONARY & AI TOOLS
+  // ==============================
+  const christianDictForm = document.getElementById('christian-dict-form');
+  const christianDictInput = document.getElementById('christian-dict-input');
+  const christianDictResults = document.getElementById('christian-dict-results');
+
+  const christianTerms = {
+    'grace': 'Unmerited favor from God, received through faith in Christ.',
+    'faith': 'Complete trust and confidence in God and His promises.',
+    'salvation': 'Deliverance from sin and reconciliation with God through Jesus.',
+    'repentance': 'Turning away from sin and toward God with a sincere heart.',
+    'baptism': 'Symbol of spiritual cleansing and public declaration of faith.'
+  };
+
+  christianDictForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const term = christianDictInput.value.trim().toLowerCase();
+    if (!term) return;
+
+    christianDictResults.innerHTML = `<p>Searching for <strong>${term}</strong>...</p>`;
+    const definition = christianTerms[term] || await fetchDictionaryDefinition(term);
+    const aiExplain = await getAIExplanation(term);
+
+    christianDictResults.innerHTML = `
+      <div class="dictionary-result">
+        <h4>${term.charAt(0).toUpperCase() + term.slice(1)}</h4>
+        <p>${definition}</p>
+        ${aiExplain}
+      </div>
+    `;
+    christianDictInput.value = '';
+  });
+
+  // ==============================
+  // PUBLIC DICTIONARY API FALLBACK
+  // ==============================
+  async function fetchDictionaryDefinition(term) {
+    try {
+      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${term}`);
+      if (!res.ok) return 'No definition found.';
+      const data = await res.json();
+      return data[0]?.meanings[0]?.definitions[0]?.definition || 'Definition unavailable.';
+    } catch {
+      return 'Could not fetch online definition.';
+    }
+  }
+
+  // ==============================
+  // ==============================
+// AI EXPLANATION (Gemini API)
+// ==============================
+async function getAIExplanation(term) {
+  const API_KEY = "AIzaSyD99Ht4fS6e_Qe17GYc2XpRQXDMDnIz2p4E"; // ✅ Replace with your real key
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+
+  const body = {
+    contents: [
+      {
+        parts: [
+          { text: `Explain the Christian meaning of ${term} in simple and spiritual terms.` }
+        ]
+      }
+    ]
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+
+    // ✅ Extract Gemini's response text
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No explanation found.";
+
+    return `
+      <div class='ai-result'>
+        <h4>🤖 AI Insight:</h4>
+        <p>${text}</p>
+      </div>
+    `;
+  } catch (error) {
+    return `<p style="color:red;">Error: ${error.message}</p>`;
+  }
+}
+
+
+      // Local simulated fallback
+      const localAI = {
+        grace: "Grace is God's undeserved kindness and power that transforms lives.",
+        faith: "Faith is trusting God beyond what you can see or understand.",
+        salvation: "Salvation is God's plan of forgiveness and restoration for humanity.",
+        repentance: "Repentance is not just feeling sorry, but changing direction toward God.",
+        baptism: "Baptism symbolizes dying to sin and rising to new life in Christ."
+      };
+      return `<div class='ai-result'><h4>🤖 AI Insight:</h4><p>${localAI[term] || "Reflect on how this applies in your faith walk."}</p></div>`;
+    } catch (err) {
+      console.error(err);
+      return `<p>AI explanation unavailable right now.</p>`;
+    }
+  }
+
+  // ==============================
+  // SUGGESTION FORM HANDLER
+  // ==============================
+  const suggestionForm = document.getElementById('suggestion-form');
+  const suggestionInput = document.getElementById('suggestion-input');
+  const suggestionResults = document.getElementById('suggestion-results');
+
+  suggestionForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const suggestion = suggestionInput.value.trim();
+    if (suggestion) {
+      suggestionResults.innerHTML = `<p>✅ Thanks! Logged suggestion: "${suggestion}"</p>`;
+      suggestionInput.value = '';
+    } else {
+      suggestionResults.innerHTML = '<p>Please type a suggestion.</p>';
+    }
+  });
+
+  // ==============================
+  // MODAL BORROWING HANDLER
+  // ==============================
+  const bookingModal = document.getElementById('booking-modal');
+  const bookingForm = document.getElementById('booking-form');
+  const bookTitleModal = document.getElementById('book-title-modal');
+  const closeModalBtn = document.querySelector('.close-modal');
+
+  document.querySelectorAll('.borrow-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      bookTitleModal.value = btn.dataset.book;
+      bookingModal.style.display = 'block';
+    });
+  });
+
+  closeModalBtn?.addEventListener('click', () => {
+    bookingModal.style.display = 'none';
+    bookingForm.reset();
+  });
+
+  bookingForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(bookingForm));
+    alert(`✅ Request for "${data.bookTitle}" submitted!`);
+    bookingModal.style.display = 'none';
+    bookingForm.reset();
+  });
+});
 </script>
+
     <div id="floating-widgets"></div>
 <script>
   fetch("/floating-widgets.html")
@@ -917,5 +932,6 @@ body {
 </body>
 
 </html>
+
 
 

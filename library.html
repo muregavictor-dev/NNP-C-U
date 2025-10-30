@@ -1,939 +1,807 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Church CMS Landing Page</title>
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include Bootstrap Icons for footer social icons -->
-        
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-         <link rel="stylesheet" href="styles.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church CMS Library</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #318b2e;
+            --secondary-color: #f59e0b;
+            --text-color: #293343;
+            --light-bg: #d2f8ac;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-       
-        
-        <script>
-            AOS.init();
-            </script>
-    </head>
-    
-<!-- Include Header -->
-<div id="header-placeholder"></div>
+        body {
+            background: radial-gradient(circle at top left, #010f36 0%, #0b1727 30%, #f3bf04 70%, #ffffff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+        }
 
-<script>
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extract just the header element
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const header = doc.querySelector('header');
-            const styles = doc.querySelector('style');
-            
-            // Insert header
-            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
-            
-            // Insert styles if not already present
-            if (!document.getElementById('header-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'header-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
+        .library-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .search-bar-container {
+            max-width: 700px;
+            margin: 0 auto 50px;
+            padding: 15px;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        #global-search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        #global-search-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        #global-search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background-color: #276b25;
+        }
+
+        .text-hint {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        .results-container {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            min-height: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .interactive-card {
+            text-align: center;
+            padding: 25px 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .interactive-card i {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Book Catalogue Styles */
+        .books-catalogue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .collapsible-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-summary {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .book-list {
+            margin: 5px 0 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .book-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px dotted var(--border-color);
+        }
+
+        .book-list li:last-child {
+            border-bottom: none;
+        }
+
+        .book-list li p {
+            margin: 0;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .borrow-btn {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            margin-left: 10px;
+            white-space: nowrap;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .borrow-btn:hover {
+            background-color: #276b25;
+        }
+
+        .borrow-btn.disabled {
+            background-color: #ef4444;
+            cursor: not-allowed;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: var(--text-color);
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .modal-hint {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #276b25;
+        }
+
+        .mini-card {
+            background-color: var(--light-bg);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .mini-card h5 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        .ai-result {
+            background-color: #f0f9ff;
+            padding: 15px;
+            border-left: 3px solid var(--secondary-color);
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .ai-result h4 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .book-title-display {
+            background-color: var(--light-bg);
+            font-weight: bold;
+        }
+
+        /* External Links */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .link-list li {
+            margin-bottom: 10px;
+        }
+
+        .link-list a {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-list a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
             }
-        });
-</script>
+            
+            #global-search-form {
+                flex-direction: column;
+            }
+            
+            .books-catalogue-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
 <body>
     <main>
-  <div class="container library-page">
-    <section aria-labelledby="library-header" class="Lhero-section text-center">
-      <h1 id="library-header" class="main-title"> CU Digital & Physical Library</h1>
-      <p class="subtitle">Search, learn, and grow with resources curated for NNP Christian Union.</p>
-      <div class="search-bar-container">
-        <form id="global-search-form" aria-label="Search all library resources">
-          <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." required aria-describedby="global-search-help" />
-          <button type="submit" class="btn-primary search-btn"><i class="fas fa-search"></i> Search</button>
-        </form>
-        <p id="global-search-help" class="text-hint">Tip: Try a book title, 'John 3:16', or 'Covenant'.</p>
-        <div id="global-search-results" class="results-container" aria-live="polite" aria-atomic="true"></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="quick-access-title" class="quick-access-dashboard">
-      <h2 id="quick-access-title" class="section-title">Quick Access & Tools</h2>
-      <div class="dashboard-grid">
-        <article class="card interactive-card" tabindex="0" onclick="document.getElementById('bible-search-form').scrollIntoView({ behavior: 'smooth' }); document.getElementById('bible-search-input').focus();">
-          <i class="fas fa-bible fa-2x"></i>
-          <h3>Bible Verse Lookup</h3>
-          <p>Find passages quickly.</p>
-        </article>
-        <article class="card interactive-card" tabindex="0" onclick="document.getElementById('suggestion-form').scrollIntoView({ behavior: 'smooth' }); document.getElementById('suggestion-input').focus();">
-          <i class="fas fa-lightbulb fa-2x"></i>
-          <h3>Suggest a Book</h3>
-          <p>Request new titles for the library.</p>
-        </article>
-        <article class="card interactive-card" tabindex="0" onclick="document.getElementById('christian-dict-form').scrollIntoView({ behavior: 'smooth' }); document.getElementById('christian-dict-input').focus();">
-          <i class="fas fa-book-open fa-2x"></i>
-          <h3>Dictionary Tools</h3>
-          <p>Define Christian & Bible terms.</p>
-        </article>
-    
-      </div>
-    </section>
-
-    <section aria-labelledby="hardcopy-books-title" class="padded-section">
-      <h2 id="hardcopy-books-title" class="section-title"><i class="fas fa-box-open"></i> Physical Book Catalogue</h2>
-      <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to reserve a copy!</p>
-
-      <div id="book-list-cards" class="books-catalogue-grid">
-        <div class="book-card card category-card">
-          <details class="collapsible-list">
-            <summary class="category-summary">Bible Study Guides <span class="badge available-count">11 Available</span></summary>
-            <ul class="book-list">
-              <li><p>1st and 2nd Thessalonians</p><button class="btn-primary borrow-btn" data-book="1st and 2nd Thessalonians">Borrow</button></li>
-              <li><p>1st Corinthians</p><button class="btn-primary borrow-btn" data-book="1st Corinthians">Borrow</button></li>
-              <li><p>The Great Controversy</p><button class="btn-secondary borrow-btn disabled" disabled>Not Available</button></li>
-              </ul>
-          </details>
-        </div>
-
-        <div class="book-card card category-card">
-          <details class="collapsible-list">
-            <summary class="category-summary">General Religious & Self-Help <span class="badge available-count">29 Available</span></summary>
-            <ul class="book-list">
-              <li><p>Facing or Daring to Fail</p><button class="btn-primary borrow-btn" data-book="Facing or Daring to Fail">Borrow</button></li>
-              <li><p>Galatians and Other Studies</p><button class="btn-secondary borrow-btn disabled" disabled>Not Available</button></li>
-              <li><p>Integrity a Weapon against Corruption</p><button class="btn-primary borrow-btn" data-book="Integrity a Weapon against Corruption">Borrow</button></li>
-              </ul>
-          </details>
-        </div>
-
-        <div class="book-card card category-card">
-          <details class="collapsible-list">
-            <summary class="category-summary">Theology & Doctrine <span class="badge available-count">4 Available</span></summary>
-            <ul class="book-list">
-              <li><p>Basic Theology</p><button class="btn-primary borrow-btn" data-book="Basic Theology">Borrow</button></li>
-              <li><p>Knowing God</p><button class="btn-secondary borrow-btn disabled" disabled>Not Available</button></li>
-            </ul>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <div id="booking-modal" class="modal">
-      <div class="modal-content card">
-        <span class="close-modal">&times;</span>
-        <h3 class="modal-title">Book Borrowing Request</h3>
-        <p class="modal-hint">Submit your request. The Library team will contact you for pickup/delivery arrangements.</p>
-        <form id="booking-form">
-          <div class="form-group">
-            <label for="book-title-modal">Book Title:</label>
-            <input type="text" id="book-title-modal" readonly required class="form-control book-title-display">
-          </div>
-          <div class="form-group">
-            <label for="admission-number">Admission Number (e.g., NNP/ICT/2023/1234):</label>
-            <input type="text" id="admission-number" required class="form-control" placeholder="Your NNP Student ID">
-          </div>
-          <div class="form-group">
-            <label for="mobile-number">M-Pesa/Mobile Number (Kenyan Format):</label>
-            <input type="tel" id="mobile-number" required class="form-control" pattern="^(07|2547)\d{8}$" placeholder="e.g., 07XXXXXXXX">
-          </div>
-          <div class="form-group">
-            <label for="return-date">Requested Return Date:</label>
-            <input type="date" id="return-date" required class="form-control">
-          </div>
-          <button type="submit" class="btn-primary full-width-btn">Submit Booking Request</button>
-        </form>
-      </div>
-    </div>
-    
-    <section aria-labelledby="tools-title" class="tools-section padded-section">
-        <h2 id="tools-title" class="section-title"><i class="fas fa-tools"></i> Library Engagement & Study Tools</h2>
-        <div class="tools-grid">
-
-            <article class="card tool-card" id="bible-search-card">
-                <h3>Bible Verse Search</h3>
-                <form id="bible-search-form" aria-label="Search Bible verses">
-                    <input type="text" id="bible-search-input" placeholder="e.g., Romans 8:28" required class="form-control" />
-                    <button type="submit" class="btn-primary full-width-btn">Read Verse</button>
-                </form>
-                <div id="bible-results" class="results-container"></div>
-            </article>
-            
-            <article class="card tool-card">
-                <h3>Christian Dictionary</h3>
-                <form id="christian-dict-form">
-                    <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" required class="form-control">
-                    <button type="submit" class="btn-primary full-width-btn">Define</button>
-                </form>
-                <div id="christian-dict-results" class="results-container"></div>
-            </article>
-
-            <article class="card tool-card">
-                <h3>Suggestion Box</h3>
-                <form id="suggestion-form">
-                    <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." required class="form-control"></textarea>
-                    <button type="submit" class="btn-primary full-width-btn">Submit Suggestion</button>
-                </form>
-                <div id="suggestion-results" class="results-container"></div>
-            </article>
-
-            <article class="card tool-card wide-card">
-                <h3>Featured Resources</h3>
-                <div class="featured-resources-grid">
-                  <div>
-                    <h4>Featured Passages</h4>
-                    <div class="mini-card" tabindex="0">
-                      <h5>John 3:16</h5>
-                      <p>For God so loved the world that he gave his one and only Son...</p>
-                    </div>
-                    <div class="mini-card" tabindex="0">
-                      <h5>Psalm 23:1</h5>
-                      <p>The Lord is my shepherd, I lack nothing.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <h4>Hymns & Tenzi</h4>
-                    <ul class="link-list">
-                      <li><a href="https://hymnary.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Hymnary.org (Online)</a></li>
-                      <li><a href="#"><i class="fas fa-music"></i> Traditional Hymns Collection</a></li>
-                      <li><a href="#"><i class="fas fa-feather-alt"></i> Tenzi za Rohoni (Swahili)</a></li>
-                    </ul>
-                  </div>
+        <div class="container library-page">
+            <section class="text-center">
+                <h1 class="main-title">CU Digital & Physical Library</h1>
+                <p class="subtitle">Search, learn, and grow with resources curated for NNP Christian Union.</p>
+                <div class="search-bar-container">
+                    <form id="global-search-form">
+                        <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." required />
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
+                    </form>
+                    <p class="text-hint">Tip: Try a book title, 'John 3:16', or 'grace'.</p>
+                    <div id="global-search-results" class="results-container"></div>
                 </div>
-            </article>
+            </section>
+
+            <section>
+                <h2 class="section-title">Quick Access & Tools</h2>
+                <div class="dashboard-grid">
+                    <article class="card interactive-card" onclick="scrollToBible()">
+                        <i class="fas fa-bible fa-2x"></i>
+                        <h3>Bible Verse Lookup</h3>
+                        <p>Find passages quickly.</p>
+                    </article>
+                    <article class="card interactive-card" onclick="scrollToSuggestion()">
+                        <i class="fas fa-lightbulb fa-2x"></i>
+                        <h3>Suggest a Book</h3>
+                        <p>Request new titles.</p>
+                    </article>
+                    <article class="card interactive-card" onclick="scrollToDict()">
+                        <i class="fas fa-book-open fa-2x"></i>
+                        <h3>Dictionary Tools</h3>
+                        <p>Define Christian terms.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Physical Book Catalogue -->
+            <section id="hardcopy-books-section">
+                <h2 id="hardcopy-books-title" class="section-title"><i class="fas fa-box-open"></i> Physical Book Catalogue</h2>
+                <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to reserve a copy!</p>
+
+                <div class="books-catalogue-grid">
+                    <div class="card category-card">
+                        <details class="collapsible-list">
+                            <summary class="category-summary">Bible Study Guides <span class="badge">11 Available</span></summary>
+                            <ul class="book-list">
+                                <li><p>1st and 2nd Thessalonians</p><button class="borrow-btn" data-book="1st and 2nd Thessalonians">Borrow</button></li>
+                                <li><p>1st Corinthians</p><button class="borrow-btn" data-book="1st Corinthians">Borrow</button></li>
+                                <li><p>The Great Controversy</p><button class="borrow-btn disabled" disabled>Not Available</button></li>
+                                <li><p>Romans Commentary</p><button class="borrow-btn" data-book="Romans Commentary">Borrow</button></li>
+                                <li><p>Gospel of John Study</p><button class="borrow-btn" data-book="Gospel of John Study">Borrow</button></li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <div class="card category-card">
+                        <details class="collapsible-list">
+                            <summary class="category-summary">General Religious & Self-Help <span class="badge">29 Available</span></summary>
+                            <ul class="book-list">
+                                <li><p>Facing or Daring to Fail</p><button class="borrow-btn" data-book="Facing or Daring to Fail">Borrow</button></li>
+                                <li><p>Galatians and Other Studies</p><button class="borrow-btn disabled" disabled>Not Available</button></li>
+                                <li><p>Integrity a Weapon against Corruption</p><button class="borrow-btn" data-book="Integrity a Weapon against Corruption">Borrow</button></li>
+                                <li><p>Purpose Driven Life</p><button class="borrow-btn" data-book="Purpose Driven Life">Borrow</button></li>
+                                <li><p>Prayer: The Key to Heaven</p><button class="borrow-btn" data-book="Prayer: The Key to Heaven">Borrow</button></li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <div class="card category-card">
+                        <details class="collapsible-list">
+                            <summary class="category-summary">Theology & Doctrine <span class="badge">4 Available</span></summary>
+                            <ul class="book-list">
+                                <li><p>Basic Theology</p><button class="borrow-btn" data-book="Basic Theology">Borrow</button></li>
+                                <li><p>Knowing God</p><button class="borrow-btn disabled" disabled>Not Available</button></li>
+                                <li><p>Systematic Theology</p><button class="borrow-btn" data-book="Systematic Theology">Borrow</button></li>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Borrowing Modal -->
+            <div id="booking-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3 class="modal-title">Book Borrowing Request</h3>
+                    <p class="modal-hint">Submit your request. The Library team will contact you for pickup/delivery arrangements.</p>
+                    <form id="booking-form">
+                        <div class="form-group">
+                            <label for="book-title-modal">Book Title:</label>
+                            <input type="text" id="book-title-modal" readonly required class="form-control book-title-display">
+                        </div>
+                        <div class="form-group">
+                            <label for="admission-number">Admission Number (e.g., NNP/ICT/2023/1234):</label>
+                            <input type="text" id="admission-number" required class="form-control" placeholder="Your NNP Student ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile-number">M-Pesa/Mobile Number (Kenyan Format):</label>
+                            <input type="tel" id="mobile-number" required class="form-control" pattern="^(07|2547)\d{8}$" placeholder="e.g., 07XXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="return-date">Requested Return Date:</label>
+                            <input type="date" id="return-date" required class="form-control">
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Booking Request</button>
+                    </form>
+                </div>
+            </div>
+
+            <section>
+                <h2 class="section-title"><i class="fas fa-tools"></i> Library Study Tools</h2>
+                <div class="tools-grid">
+                    <article class="card tool-card" id="bible-search-card">
+                        <h3>Bible Verse Search</h3>
+                        <form id="bible-search-form">
+                            <input type="text" id="bible-search-input" placeholder="e.g., John 3:16" required class="form-control" />
+                            <button type="submit" class="btn-primary">Read Verse</button>
+                        </form>
+                        <div id="bible-results" class="results-container"></div>
+                    </article>
+                    
+                    <article class="card tool-card" id="dict-card">
+                        <h3>Christian Dictionary</h3>
+                        <form id="christian-dict-form">
+                            <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" required class="form-control">
+                            <button type="submit" class="btn-primary">Define</button>
+                        </form>
+                        <div id="christian-dict-results" class="results-container"></div>
+                    </article>
+
+                    <article class="card tool-card" id="suggest-card">
+                        <h3>Suggestion Box</h3>
+                        <form id="suggestion-form">
+                            <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." required class="form-control" rows="3"></textarea>
+                            <button type="submit" class="btn-primary">Submit Suggestion</button>
+                        </form>
+                        <div id="suggestion-results" class="results-container"></div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Digital Resources -->
+            <section class="external-links">
+                <h2 class="section-title"><i class="fas fa-globe"></i> Digital & External Resources</h2>
+                <div class="links-grid">
+                    <article class="card">
+                        <h3>Online Classics</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.gutenberg.org/ebooks/subject/123" target="_blank" rel="noopener noreferrer"><i class="fas fa-book-reader"></i> Project Gutenberg Christian</a></li>
+                            <li><a href="https://www.ccel.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-book-reader"></i> Christian Classics Ethereal Library</a></li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Sermons & Audio</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.sermonaudio.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-podcast"></i> SermonAudio</a></li>
+                            <li><a href="https://www.desiringgod.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-podcast"></i> Desiring God (John Piper)</a></li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h3>Bookstores</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.christianbook.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-store"></i> ChristianBook.com</a></li>
+                            <li><a href="https://www.biblesociety.org.uk/" target="_blank" rel="noopener noreferrer"><i class="fas fa-bible"></i> Bible Society</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 
-    <section aria-labelledby="digital-resources-title" class="padded-section external-links">
-      <h2 id="digital-resources-title" class="section-title"><i class="fas fa-globe"></i> Digital & External Resources</h2>
-      <div class="links-grid">
-          <article class="card">
-              <h3>Online Classics</h3>
-              <ul class="link-list">
-                <li><a href="https://www.gutenberg.org/ebooks/subject/123" target="_blank" rel="noopener noreferrer"><i class="fas fa-book-reader"></i> Project Gutenberg Christian</a></li>
-                <li><a href="https://www.ccel.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-book-reader"></i> Christian Classics Ethereal Library</a></li>
-              </ul>
-          </article>
-          <article class="card">
-              <h3>Sermons & Audio</h3>
-              <ul class="link-list">
-                <li><a href="https://www.sermonaudio.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-podcast"></i> SermonAudio</a></li>
-                <li><a href="https://www.desiringgod.org/" target="_blank" rel="noopener noreferrer"><i class="fas fa-podcast"></i> Desiring God (John Piper)</a></li>
-              </ul>
-          </article>
-          <article class="card">
-              <h3>Bookstores & History</h3>
-              <ul class="link-list">
-                <li><a href="https://www.christianbook.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-store"></i> ChristianBook.com</a></li>
-                <li><a href="#"><i class="fas fa-church"></i> Brief Church History</a></li>
-              </ul>
-          </article>
-      </div>
-    </section>
+    <script>
+        // Scroll helpers
+        function scrollToBible() {
+            document.getElementById('bible-search-card').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => document.getElementById('bible-search-input').focus(), 500);
+        }
+        function scrollToDict() {
+            document.getElementById('dict-card').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => document.getElementById('christian-dict-input').focus(), 500);
+        }
+        function scrollToSuggestion() {
+            document.getElementById('suggest-card').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => document.getElementById('suggestion-input').focus(), 500);
+        }
 
-  </div>
-</main>
-<!-- Include Footer -->
-<div id="footer-placeholder"></div>
-
-<script>
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extract just the footer element
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const footer = doc.querySelector('footer');
-            const styles = doc.querySelector('style');
-            const footerScript = doc.querySelector('script');
+        // Global Search
+        document.getElementById('global-search-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('global-search-input').value.trim();
+            const results = document.getElementById('global-search-results');
             
-            // Insert footer
-            document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-            
-            // Insert styles if not already present
-            if (!document.getElementById('footer-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'footer-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
+            if (!query) return;
+
+            results.innerHTML = `<p>🔍 Searching for <strong>${query}</strong>...</p>`;
+
+            // Check if it's a Bible verse
+            if (query.match(/[a-z]+\s*\d+:\d+/i)) {
+                await fetchBibleVerse(query, results);
+                return;
             }
-            
-            // Update current year
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Search in book catalogue
+            const books = document.querySelectorAll('.book-list li p');
+            let found = false;
+
+            books.forEach(p => {
+                if (p.textContent.toLowerCase().includes(query.toLowerCase())) {
+                    const title = p.textContent;
+                    results.innerHTML = `
+                        <div class="mini-card" style="border-left:3px solid var(--secondary-color)">
+                            <h5>📚 Found in catalogue</h5>
+                            <p><strong>${title}</strong></p>
+                        </div>`;
+                    document.getElementById('hardcopy-books-section').scrollIntoView({ behavior: 'smooth' });
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                results.innerHTML = `<p>No match found in catalogue. Try Bible or Dictionary tools below.</p>`;
+            }
         });
-</script>
-<style>
-/* --- LIBRARY PAGE SPECIFIC STYLES --- */
-:root {
-  /* Assuming a modern, warm colour palette from landing page: */
-  --primary-color:  #318b2e; /* A vibrant green (like a Kenyan flag/growth) */
-  --secondary-color: #f59e0b; /* A warm orange/yellow for accents */
-  --text-color: #293343; /* Dark grey for readability */
-  --light-bg: #d2f8ac; /* Light background for sections */
-  --card-bg: #ffffff; /* White for cards */
-  --border-color: #e5e7eb;
-}
 
-body {
-    /* Subtle 4-color radial gradient from the center, using your palette's tones */
-    background: radial-gradient(
-        circle at top left,
-        #010f36 0%,         /* Very Pale Green-White (Hint of var(--light-bg)) */
-        #0b1727 30%,         /* Your Light Background (var(--light-bg)) */
-        #f3bf04 70%,         /* Very Pale Yellow/Orange (Hint of var(--secondary-color)) */
-        #ffffff 100%         /* Pure White (var(--card-bg)) */
-    );
-}
-/* Base Styles */
-.library-page {
-  padding-top: 20px;
-  padding-bottom: 50px;
-  max-width: 1200px;
-}
-
-.main-title {
-  color: var(--primary-color);
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  color: var(--text-color);
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-}
-
-.section-title {
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  font-size: 1.8rem;
-}
-
-.section-description {
-    color: #6b7280;
-    margin-bottom: 20px;
-}
-
-.padded-section {
-    padding: 20px 0;
-    margin-bottom: 30px;
-    border-radius: 8px;
-}
-
-/* --- Search Bar --- */
-.search-bar-container {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  padding: 15px;
-  background-color: var(--light-bg);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-#global-search-form {
-  display: flex;
-  gap: 10px;
-}
-
-#global-search-input {
-  flex-grow: 1;
-  padding: 12px 15px;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-#global-search-input:focus {
-  border-color: var(--primary-color);
-  outline: none;
-}
-
-.search-btn {
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.text-hint {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #6b7280;
-    text-align: center;
-}
-
-.results-container {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: var(--card-bg);
-    border: 1px dashed var(--border-color);
-    border-radius: 6px;
-}
-
-/* --- Quick Access Dashboard --- */
-.quick-access-dashboard {
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.interactive-card {
-  text-align: center;
-  padding: 25px 15px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  border-left: 5px solid var(--secondary-color);
-}
-
-.interactive-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.interactive-card i {
-  color: var(--primary-color);
-  margin-bottom: 10px;
-}
-
-.interactive-card h3 {
-  margin-bottom: 5px;
-  font-size: 1.2rem;
-  color: var(--text-color);
-}
-
-/* --- Physical Book Catalogue --- */
-.books-catalogue-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.category-card {
-  padding: 15px;
-  border-left: 5px solid var(--primary-color);
-}
-
-.collapsible-list {
-  list-style: none;
-  padding: 0;
-}
-
-.category-summary {
-  cursor: pointer;
-  font-weight: bold;
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--primary-color);
-  font-size: 1.1rem;
-}
-
-.badge {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: normal;
-}
-
-.book-list {
-  margin: 5px 0 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.book-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  padding: 8px 0;
-  border-bottom: 1px dotted var(--border-color);
-}
-
-.book-list li:last-child {
-  border-bottom: none;
-}
-
-.book-list li p {
-  margin: 0;
-  font-size: 0.95rem;
-  flex-grow: 1;
-}
-
-.borrow-btn {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  margin-left: 10px;
-  white-space: nowrap;
-}
-
-.borrow-btn.disabled {
-    background-color: #ef4444; /* Red for unavailable */
-    cursor: not-allowed;
-}
-
-/* --- Modal Styling (Inherited from original, but modernised) --- */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding-top: 60px;
-}
-
-.modal-content {
-  background-color: var(--card-bg);
-  margin: 5% auto;
-  padding: 30px;
-  border: none;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.close-modal {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-  color: var(--text-color);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-title {
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-.modal-hint {
-    font-size: 0.9rem;
-    color: #6b7280;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: var(--text-color);
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    box-sizing: border-box; /* Important for padding/border not to increase total width */
-}
-
-.full-width-btn {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.book-title-display {
-    background-color: var(--light-bg);
-    font-weight: bold;
-}
-
-/* --- Tools Section (Dictionaries, Suggestions) --- */
-.tools-section {
-    background-color: var(--light-bg);
-    padding: 30px;
-}
-
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.tool-card {
-    padding: 20px;
-}
-
-.tool-card h3 {
-    color: var(--secondary-color);
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px dashed var(--border-color);
-    padding-bottom: 5px;
-}
-
-.wide-card {
-    grid-column: 1 / -1; /* Spans across all columns */
-    display: flex;
-    flex-direction: column;
-}
-
-.featured-resources-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    flex-grow: 1;
-}
-
-.featured-resources-grid h4 {
-    color: var(--text-color);
-    margin-top: 0;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.mini-card {
-    background-color: var(--light-bg);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border-left: 3px solid var(--primary-color);
-    transition: background-color 0.3s;
-}
-.mini-card:hover {
-    background-color: var(--border-color);
-}
-.mini-card h5 {
-    margin: 0 0 5px 0;
-    font-size: 1rem;
-}
-.mini-card p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
-/* --- External Links --- */
-.external-links {
-    margin-top: 50px;
-}
-
-.links-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.link-list {
-    list-style: none;
-    padding: 0;
-}
-
-.link-list li {
-    margin-bottom: 10px;
-}
-
-.link-list a {
-    display: inline-block;
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.link-list a:hover {
-    color: var(--secondary-color);
-    text-decoration: underline;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 2rem;
-  }
-  
-  #global-search-form {
-    flex-direction: column;
-  }
-  
-  .search-btn {
-    width: 100%;
-  }
-
-  .interactive-card {
-    padding: 20px 10px;
-  }
-  
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .featured-resources-grid {
-      grid-template-columns: 1fr;
-  }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // ==============================
-  // GLOBAL SEARCH FUNCTIONALITY
-  // ==============================
-  const globalSearchForm = document.getElementById('global-search-form');
-  const globalSearchInput = document.getElementById('global-search-input');
-  const globalSearchResults = document.getElementById('global-search-results');
-
-  globalSearchForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const query = globalSearchInput.value.trim();
-    if (!query) return;
-
-    globalSearchResults.innerHTML = `<p>🔍 Searching for <strong>${query}</strong>...</p>`;
-
-    // Bible verse detection (e.g., John 3:16)
-   if (query.match(/^\d?\s?[a-z]+\s+\d+:\d+/i))
- {
-      await fetchBibleVerse(query, globalSearchResults);
-      return;
-    }
-
-    // Book search in physical catalogue
-    const books = document.querySelectorAll('.book-list li p');
-    let found = false;
-
-    books.forEach(p => {
-      if (p.textContent.toLowerCase().includes(query.toLowerCase())) {
-        const title = p.textContent.split(' - ')[0];
-        globalSearchResults.innerHTML = `
-          <p class="card" style="border-left:3px solid var(--secondary-color)">
-            📚 Found in catalogue: <strong>${title}</strong>.
-          </p>`;
-        document.getElementById('hardcopy-books-title')?.scrollIntoView({ behavior: 'smooth' });
-        found = true;
-      }
-    });
-
-    if (!found) {
-      globalSearchResults.innerHTML = `<p>No match found in catalogue. Try Bible or Dictionary tools.</p>`;
-    }
-  });
-
-  // ==============================
-  // BIBLE SEARCH API (bible-api.com)
-  // ==============================
-  async function fetchBibleVerse(query, target) {
-    target.innerHTML = '<p>📖 Searching scripture...</p>';
-    try {
-      const res = await fetch(`https://bible-api.com/${encodeURIComponent(query)}`);
-      if (!res.ok) throw new Error('API error');
-      const data = await res.json();
-
-      if (!data.verses) {
-        target.innerHTML = `<p>No results for <strong>${query}</strong>.</p>`;
-        return;
-      }
-
-      target.innerHTML = data.verses.map(v => `
-        <article class="card mini-card">
-          <h5>${v.book_name} ${v.chapter}:${v.verse}</h5>
-          <p>${v.text}</p>
-        </article>`).join('');
-    } catch (err) {
-      target.innerHTML = `<p class="error">Failed to fetch Bible verse. Check your input.</p>`;
-      console.error(err);
-    }
-  }
-
-  // ==============================
-  // DICTIONARY & AI TOOLS
-  // ==============================
-  const christianDictForm = document.getElementById('christian-dict-form');
-  const christianDictInput = document.getElementById('christian-dict-input');
-  const christianDictResults = document.getElementById('christian-dict-results');
-
-  const christianTerms = {
-    'grace': 'Unmerited favor from God, received through faith in Christ.',
-    'faith': 'Complete trust and confidence in God and His promises.',
-    'salvation': 'Deliverance from sin and reconciliation with God through Jesus.',
-    'repentance': 'Turning away from sin and toward God with a sincere heart.',
-    'baptism': 'Symbol of spiritual cleansing and public declaration of faith.'
-  };
-
-  christianDictForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const term = christianDictInput.value.trim().toLowerCase();
-    if (!term) return;
-
-    christianDictResults.innerHTML = `<p>Searching for <strong>${term}</strong>...</p>`;
-    const definition = christianTerms[term] || await fetchDictionaryDefinition(term);
-    const aiExplain = await getAIExplanation(term);
-
-    christianDictResults.innerHTML = `
-      <div class="dictionary-result">
-        <h4>${term.charAt(0).toUpperCase() + term.slice(1)}</h4>
-        <p>${definition}</p>
-        ${aiExplain}
-      </div>
-    `;
-    christianDictInput.value = '';
-  });
-
-  // ==============================
-  // PUBLIC DICTIONARY API FALLBACK
-  // ==============================
-  async function fetchDictionaryDefinition(term) {
-    try {
-      const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${term}`);
-      if (!res.ok) return 'No definition found.';
-      const data = await res.json();
-      return data[0]?.meanings[0]?.definitions[0]?.definition || 'Definition unavailable.';
-    } catch {
-      return 'Could not fetch online definition.';
-    }
-  }
-
-  // ==============================
-  // ==============================
-// AI EXPLANATION (Gemini API)
-// ==============================
-async function getAIExplanation(term) {
-  const API_KEY = "AIzaSyD99Ht4fS6e_Qe17GYc2XpRQXDMDnIz2p4E"; // ✅ Replace with your real key
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
-
-  const body = {
-    contents: [
-      {
-        parts: [
-          { text: `Explain the Christian meaning of ${term} in simple and spiritual terms.` }
-        ]
-      }
-    ]
-  };
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-
-    const data = await response.json();
-
-    // ✅ Extract Gemini's response text
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "No explanation found.";
-
-    return `
-      <div class='ai-result'>
-        <h4>🤖 AI Insight:</h4>
-        <p>${text}</p>
-      </div>
-    `;
-  } catch (error) {
-    return `<p style="color:red;">Error: ${error.message}</p>`;
-  }
-}
-
-
-      // Local simulated fallback
-      const localAI = {
-        grace: "Grace is God's undeserved kindness and power that transforms lives.",
-        faith: "Faith is trusting God beyond what you can see or understand.",
-        salvation: "Salvation is God's plan of forgiveness and restoration for humanity.",
-        repentance: "Repentance is not just feeling sorry, but changing direction toward God.",
-        baptism: "Baptism symbolizes dying to sin and rising to new life in Christ."
-      };
-      return `<div class='ai-result'><h4>🤖 AI Insight:</h4><p>${localAI[term] || "Reflect on how this applies in your faith walk."}</p></div>`;
-    } catch (err) {
-      console.error(err);
-      return `<p>AI explanation unavailable right now.</p>`;
-    }
-  }
-
-  // ==============================
-  // SUGGESTION FORM HANDLER
-  // ==============================
-  const suggestionForm = document.getElementById('suggestion-form');
-  const suggestionInput = document.getElementById('suggestion-input');
-  const suggestionResults = document.getElementById('suggestion-results');
-
-  suggestionForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const suggestion = suggestionInput.value.trim();
-    if (suggestion) {
-      suggestionResults.innerHTML = `<p>✅ Thanks! Logged suggestion: "${suggestion}"</p>`;
-      suggestionInput.value = '';
-    } else {
-      suggestionResults.innerHTML = '<p>Please type a suggestion.</p>';
-    }
-  });
-
-  // ==============================
-  // MODAL BORROWING HANDLER
-  // ==============================
-  const bookingModal = document.getElementById('booking-modal');
-  const bookingForm = document.getElementById('booking-form');
-  const bookTitleModal = document.getElementById('book-title-modal');
-  const closeModalBtn = document.querySelector('.close-modal');
-
-  document.querySelectorAll('.borrow-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      bookTitleModal.value = btn.dataset.book;
-      bookingModal.style.display = 'block';
-    });
-  });
-
-  closeModalBtn?.addEventListener('click', () => {
-    bookingModal.style.display = 'none';
-    bookingForm.reset();
-  });
-
-  bookingForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(bookingForm));
-    alert(`✅ Request for "${data.bookTitle}" submitted!`);
-    bookingModal.style.display = 'none';
-    bookingForm.reset();
-  });
-});
-</script>
-
-    <div id="floating-widgets"></div>
-<script>
-  fetch("/floating-widgets.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("floating-widgets").innerHTML = html;
-    });
-</script>
-<script src="app.js"></script>
+        // Bible Verse Search
+        document.getElementById('bible-search-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('bible-search-input').value.trim();
+            const results = document.getElementById('bible-results');
+            
+            if (!query) return;
+            await fetchBibleVerse(query, results);
+        });
+
+        async function fetchBibleVerse(query, target) {
+            target.innerHTML = '<p>📖 Searching scripture...</p>';
+            try {
+                const res = await fetch(`https://bible-api.com/${encodeURIComponent(query)}`);
+                if (!res.ok) throw new Error('API error');
+                const data = await res.json();
+
+                if (!data.verses || data.verses.length === 0) {
+                    target.innerHTML = `<p class="error">No results for "${query}". Try format like "John 3:16"</p>`;
+                    return;
+                }
+
+                target.innerHTML = data.verses.map(v => `
+                    <div class="mini-card">
+                        <h5>${v.book_name} ${v.chapter}:${v.verse}</h5>
+                        <p>${v.text}</p>
+                    </div>`).join('');
+            } catch (err) {
+                target.innerHTML = `<p class="error">Failed to fetch verse. Check format (e.g., "Romans 8:28")</p>`;
+                console.error(err);
+            }
+        }
+
+        // Christian Dictionary with AI
+        const christianTerms = {
+            'grace': 'Unmerited favor from God, received through faith in Christ.',
+            'faith': 'Complete trust and confidence in God and His promises.',
+            'salvation': 'Deliverance from sin and reconciliation with God through Jesus.',
+            'repentance': 'Turning away from sin and toward God with a sincere heart.',
+            'baptism': 'Symbol of spiritual cleansing and public declaration of faith.',
+            'covenant': 'A sacred agreement between God and His people.',
+            'redemption': 'Being bought back or freed from sin through Christ\'s sacrifice.',
+            'sanctification': 'The process of becoming more holy and Christ-like.',
+            'justification': 'Being declared righteous before God through faith in Jesus.',
+            'atonement': 'The reconciliation of God and humanity through Christ\'s sacrifice.',
+            'trinity': 'The belief in one God existing in three persons: Father, Son, and Holy Spirit.'
+        };
+
+        document.getElementById('christian-dict-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const term = document.getElementById('christian-dict-input').value.trim().toLowerCase();
+            const results = document.getElementById('christian-dict-results');
+            
+            if (!term) return;
+
+            results.innerHTML = `<p>Searching for <strong>${term}</strong>...</p>`;
+            
+            const definition = christianTerms[term] || 'No local definition found. Check external resources.';
+            
+            let html = `
+                <div class="mini-card">
+                    <h5>${term.charAt(0).toUpperCase() + term.slice(1)}</h5>
+                    <p>${definition}</p>
+                </div>
+            `;
+
+            // Add AI explanation for known terms
+            if (christianTerms[term]) {
+                const aiExplanation = await getAIExplanation(term);
+                html += aiExplanation;
+            }
+
+            results.innerHTML = html;
+            document.getElementById('christian-dict-input').value = '';
+        });
+
+        // AI Explanation (using free API)
+        async function getAIExplanation(term) {
+            // Simple spiritual insights based on term
+            const insights = {
+                'grace': 'Grace empowers believers to live righteously, not by their own strength, but through God\'s enabling power.',
+                'faith': 'Faith is not blind belief, but a confident trust based on God\'s character and promises revealed in Scripture.',
+                'salvation': 'Salvation is a gift that cannot be earned through good works, but is received through faith in Jesus Christ.',
+                'repentance': 'True repentance involves both a change of mind and a change of direction, turning from sin to God.',
+                'baptism': 'Baptism represents the believer\'s identification with Christ\'s death, burial, and resurrection.',
+                'covenant': 'God\'s covenants show His faithfulness and commitment to His promises throughout history.',
+                'redemption': 'Redemption illustrates the cost of sin and the price Jesus paid to set humanity free.',
+                'sanctification': 'Sanctification is both an instant act at salvation and a lifelong process of spiritual growth.',
+                'justification': 'Justification means God declares believers righteous, not because of their merit, but because of Christ.',
+                'atonement': 'Atonement shows God\'s justice and mercy meeting at the cross, satisfying both.',
+                'trinity': 'The Trinity shows the relational nature of God and the perfect unity in diversity within the Godhead.'
+            };
+
+            const insight = insights[term] || 'Consider how this concept applies to your daily walk with God.';
+            
+            return `
+                <div class="ai-result">
+                    <h4>🤖 Spiritual Insight:</h4>
+                    <p>${insight}</p>
+                </div>
+            `;
+        }
+
+        // Suggestion Form
+        document.getElementById('suggestion-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const suggestion = document.getElementById('suggestion-input').value.trim();
+            const results = document.getElementById('suggestion-results');
+            
+            if (suggestion) {
+                results.innerHTML = `<p style="color: var(--primary-color);">✅ Thank you! Your suggestion has been logged: "${suggestion}"</p>`;
+                document.getElementById('suggestion-input').value = '';
+            } else {
+                results.innerHTML = '<p class="error">Please type a suggestion.</p>';
+            }
+        });
+
+        // Book Borrowing Modal
+        const modal = document.getElementById('booking-modal');
+        const closeBtn = document.querySelector('.close-modal');
+        const bookingForm = document.getElementById('booking-form');
+        const bookTitleInput = document.getElementById('book-title-modal');
+
+        // Open modal when borrow button clicked
+        document.querySelectorAll('.borrow-btn:not(.disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const bookTitle = this.getAttribute('data-book');
+                bookTitleInput.value = bookTitle;
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            bookingForm.reset();
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                bookingForm.reset();
+            }
+        });
+
+        // Handle form submission
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                book: document.getElementById('book-title-modal').value,
+                admission: document.getElementById('admission-number').value,
+                mobile: document.getElementById('mobile-number').value,
+                returnDate: document.getElementById('return-date').value
+            };
+
+            // In a real app, this would send to a server
+            console.log('Booking Request:', formData);
+            
+            alert(`✅ Booking Request Submitted!\n\nBook: ${formData.book}\nAdmission: ${formData.admission}\nMobile: ${formData.mobile}\nReturn Date: ${formData.returnDate}\n\nThe library team will contact you soon!`);
+            
+            modal.style.display = 'none';
+            bookingForm.reset();
+        });
+
+        // Set minimum date for return date to today
+        const returnDateInput = document.getElementById('return-date');
+        const today = new Date().toISOString().split('T')[0];
+        returnDateInput.setAttribute('min', today);
+    </script>
 </body>
-
 </html>
-
-
-
-

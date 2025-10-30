@@ -299,7 +299,30 @@
 
     <!-- Progress Bar -->
     <div class="progress-bar-custom" id="progressBar"></div>
+<div id="header-placeholder"></div>
 
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extract just the header element
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const header = doc.querySelector('header');
+            const styles = doc.querySelector('style');
+            
+            // Insert header
+            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
+            
+            // Insert styles if not already present
+            if (!document.getElementById('header-styles')) {
+                const styleTag = document.createElement('style');
+                styleTag.id = 'header-styles';
+                styleTag.textContent = styles.textContent;
+                document.head.appendChild(styleTag);
+            }
+        });
+</script>
     <!-- MAIN CONTENT -->
     <main>
         <!-- Hero Section -->
@@ -820,6 +843,7 @@
 
 </body>
 </html>
+
 
 
 

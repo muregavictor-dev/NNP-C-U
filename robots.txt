@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nnp-c-u.vercel.app/sitemap.xml

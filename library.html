@@ -15,8 +15,8 @@
          <link rel="stylesheet" href="styles.css">
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script src="app.js"></script>
+       
+        
         <script>
             AOS.init();
             </script>
@@ -714,7 +714,8 @@ document.addEventListener('DOMContentLoaded', () => {
     globalSearchResults.innerHTML = `<p>🔍 Searching for <strong>${query}</strong>...</p>`;
 
     // Bible verse detection (e.g., John 3:16)
-    if (query.match(/^[a-z]+\s+\d+:\d+/i)) {
+   if (query.match(/^\d?\s?[a-z]+\s+\d+:\d+/i))
+ {
       await fetchBibleVerse(query, globalSearchResults);
       return;
     }
@@ -928,10 +929,11 @@ async function getAIExplanation(term) {
       document.getElementById("floating-widgets").innerHTML = html;
     });
 </script>
-
+<script src="app.js"></script>
 </body>
 
 </html>
+
 
 
 

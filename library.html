@@ -603,7 +603,30 @@
             </section>
         </div>
     </main>
+<!-- Include Footer -->
+<div id="footer-placeholder"></div>
 
+<script>
+fetch('footer.html')
+  .then(response => response.text())
+  .then(data => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, 'text/html');
+    const footer = doc.querySelector('footer');
+    const styles = doc.querySelector('style');
+
+    document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
+
+    if (!document.getElementById('footer-styles')) {
+      const styleTag = document.createElement('style');
+      styleTag.id = 'footer-styles';
+      styleTag.textContent = styles.textContent;
+      document.head.appendChild(styleTag);
+    }
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  });
+</script>
     <script>
         // Scroll helpers
         function scrollToBible() {
@@ -830,6 +853,7 @@
     </script>
 </body>
 </html>
+
 
 
 

@@ -28,7 +28,7 @@ body {
     background-color: var(--off-white);
 }
 main {
-    margin-top: 110px; /* Adjust this value to match your header's actual height */
+    margin-top: 50px; /* Adjust this value to match your header's actual height */
 }
 h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display-5 {
     font-family: 'Inter', sans-serif;
@@ -412,6 +412,7 @@ footer {
 .rounded-4 { border-radius: 16px !important; }
 
 .shadow-lg { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
+
 
 
 

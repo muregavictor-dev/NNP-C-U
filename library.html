@@ -474,43 +474,18 @@
     </style>
 </head>
 <body>
-    <main>
-        <div id="header-container"></div>
+    <!-- Include Header -->
+<div id="header-placeholder"></div>
+
 <script>
     fetch('header.html')
         .then(response => response.text())
         .then(data => {
+            // Extract just the header element
             const parser = new DOMParser();
             const doc = parser.parseFromString(data, 'text/html');
-            
-            // Get and insert the styles
-            const styles = doc.querySelector('style');
-            if (styles) {
-                document.head.appendChild(styles.cloneNode(true));
-            }
-            
-            // Get and insert the header
             const header = doc.querySelector('header');
-            if (header) {
-                document.getElementById('header-container').innerHTML = header.outerHTML;
-            }
-            
-            // Initialize Bootstrap components
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-            
-            // Initialize offcanvas for mobile menu
-            const offcanvasElements = [].slice.call(document.querySelectorAll('.offcanvas'));
-            offcanvasElements.map(function (offcanvasEl) {
-                return new bootstrap.Offcanvas(offcanvasEl);
-            });
-        })
-        .catch(error => {
-            console.error('Error loading header:', error);
-            document.getElementById('header-container').innerHTML = '<p class="text-danger p-3">Error loading header</p>';
-        });
+            const styles = doc.querySelector('style');
             
             // Insert header
             document.getElementById('header-placeholder').innerHTML = header.outerHTML;
@@ -524,7 +499,7 @@
             }
         });
 </script>
-    
+    <main>
         <div class="container library-page">
             <section class="text-center">
                 <h1 class="main-title">CU Digital & Physical Library</h1>
@@ -944,6 +919,7 @@ fetch('footer.html')
     </script>
 </body>
 </html>
+
 
 
 

@@ -41,6 +41,40 @@
             
         }
 
+            /* Prevent horizontal overflow */
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Ensure containers don't overflow on small screens */
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.row > * {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Prevent transform animations from causing overflow */
+@media (max-width: 768px) {
+    .ministry-card:hover {
+        transform: translateY(-4px) scale(1.01); /* Reduced from scale(1.02) */
+    }
+    
+    .group-card:hover {
+        transform: translateX(4px); /* Reduced from 8px */
+    }
+}
+
        body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-light);
@@ -849,6 +883,7 @@
 
 </body>
 </html>
+
 
 
 

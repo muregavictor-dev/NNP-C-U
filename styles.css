@@ -166,7 +166,46 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
         font-size: 2.5rem;
     }
 }
+ /* Specific background images for each event */
+        .event-card.evangelism::before {
+            background-image: url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=800');
+        }
 
+        .event-card.outreach::before {
+            background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800');
+        }
+
+        .event-card.missions::before {
+            background-image: url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800');
+        }
+
+        .event-card .card-body {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
+        }
+
+        .btn-outline-primary-green {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-outline-primary-green:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .rsvp-btn {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: var(--primary-green);
+            border-radius: 50%;
+            padding: 20px;
+        }
 
 /* === Components === */
 
@@ -371,3 +410,4 @@ footer {
 .rounded-4 { border-radius: 16px !important; }
 
 .shadow-lg { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
+

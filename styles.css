@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://picsum.photos/1920/1080') center/cover no-repeat;
+  background: url('hero.jpg') center/cover no-repeat;
 }
 
 
@@ -414,6 +414,7 @@ footer {
 .rounded-4 { border-radius: 16px !important; }
 
 .shadow-lg { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
+
 
 
 

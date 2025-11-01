@@ -411,6 +411,70 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
   transform: scale(1.01);
   transition: all 0.4s ease;
 }
+.fab-icon {
+  position: fixed;
+  bottom: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  border: none;
+  z-index: 1050;
+}
+
+/* WhatsApp on left */
+.fab-whatsapp {
+  left: 20px;
+  background-color: #25D366;
+}
+
+/* Chatbot on right */
+.fab-chat {
+  right: 20px;
+  background-color: #FFD54F;
+  color: #222;
+}
+
+/* Hover effect */
+.fab-icon:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Tooltip */
+.fab-icon::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 70px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.fab-icon:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  .fab-icon { width: 45px; height: 45px; bottom: 15px; }
+  .fab-whatsapp { left: 15px; }
+  .fab-chat { right: 15px; }
+}
 
 
 /* === Footer === */
@@ -446,6 +510,7 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 
 
 

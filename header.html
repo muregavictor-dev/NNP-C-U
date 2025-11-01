@@ -1,415 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    
-    <style>
-        /*
-        * NNP Christian Union Header Styles
-        */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NNP Christian Union</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-        /* === Variables === */
-        :root {
-            /* Colors */
-            --primary-green: #318b2e;
-            --deep-green: #2a6f19;
-            --warm-gold: #f8c007;
-            --muted-yellow: #f5bf0d;
-            --rich-black: #0B0B0B;
-            --off-white: #FAFBF9;
-            --soft-gray: #494848;
-        }
-
-        /* Base Typography */
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: var(--rich-black);
-            background-color: var(--off-white);
-        }
-
-        /* === Header & Navigation === */
-        #top-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1030;
-            width: 100%;
-            background-color: transparent;
-        }
-
-        .navbar {
-            background-color: rgba(233, 246, 233, 0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        /* Add slight shadow when scrolled */
-        .navbar.scrolled {
-            background-color: rgba(233, 246, 233, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Navigation Links */
-        .nav-link {
-            font-weight: 500;
-            color: var(--deep-green);
-            margin-right: 15px;
-            transition: color 0.2s ease;
-            display: block;
-            padding: 0.5rem 1rem;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--warm-gold);
-        }
-
-        /* Navbar Brand */
-        .navbar-brand {
-            color: var(--deep-green) !important;
-            font-weight: 700;
-            padding-top: 0.3125rem;
-            padding-bottom: 0.3125rem;
-            margin-right: 1rem;
-            font-size: 1.25rem;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        /* Custom Button Styles */
-        .btn-gold {
-            background-color: var(--warm-gold);
-            color: var(--rich-black);
-            border-color: var(--warm-gold);
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 0.375rem 0.75rem;
-            text-align: center;
-            text-decoration: none;
-            border: 1px solid transparent;
-            border-radius: 0.25rem;
-            font-weight: 600;
-        }
-
-        .btn-gold:hover {
-            background-color: var(--muted-yellow);
-            border-color: var(--muted-yellow);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            transform: translateY(-2px);
-            color: var(--rich-black);
-        }
-
-        /* Notification Badge */
-        .badge.bg-gold {
-            background-color: var(--warm-gold) !important;
-        }
-
-        /* Color Utilities */
-        .text-deep-green {
-            color: var(--deep-green) !important;
-        }
-
-        .text-soft-gray {
-            color: var(--soft-gray) !important;
-        }
-
-        /* Offcanvas Navigation Panel */
-        .offcanvas-header .text-deep-green {
-            color: var(--deep-green);
-        }
-
-        .offcanvas-title {
-            color: var(--deep-green);
-        }
-
-        /* Button Link Styling */
-        .btn-link {
-            text-decoration: none;
-        }
-
-        .btn-link:hover {
-            opacity: 0.8;
-        }
-
-        /* Navbar Toggler */
-        .navbar-toggler {
-            border: none;
-            padding: 0.25rem 0.75rem;
-            font-size: 1.25rem;
-            line-height: 1;
-            background-color: transparent;
-            border: 1px solid transparent;
-            border-radius: 0.25rem;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-            outline: none;
-        }
-
-        /* D-flex utility */
-        .d-flex {
-            display: flex !important;
-        }
-
-        .align-items-center {
-            align-items: center !important;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 991px) {
-            .navbar-nav {
-                flex-direction: column;
-                margin-top: 1rem;
-            }
-            
-            .nav-link {
-                margin-right: 0;
-                padding: 0.75rem 0;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .navbar-expand-lg .navbar-nav {
-                flex-direction: row;
-            }
-        }
-
-        /* Typography Utilities */
-        .fw-bold {
-            font-weight: 700 !important;
-        }
-
-        .fw-light {
-            font-weight: 300 !important;
-        }
-
-        /* Accessibility: Skip to Content Link */
-        .skip-to-content {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--warm-gold);
-            color: var(--rich-black);
-            padding: 8px;
-            z-index: 9999;
-            text-decoration: none;
-        }
-
-        .skip-to-content:focus {
-            top: 0;
-        }
-        /* === Improved Mobile Offcanvas Nav === */
-.offcanvas.offcanvas-end {
-    width: 100%; /* Full width on mobile */
-    max-width: 320px; /* Limit size slightly for tablets */
-    background-color: rgba(233, 246, 233, 0.98);
-    backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
-    border-left: none;
-}
-
-/* For very small screens, make it full screen */
-@media (max-width: 576px) {
-    .offcanvas.offcanvas-end {
-        max-width: 100%;
-        width: 100%;
+  <style>
+    :root {
+      --primary-green: #318b2e;
+      --deep-green: #2a6f19;
+      --warm-gold: #f8c007;
+      --muted-yellow: #f5bf0d;
+      --rich-black: #0B0B0B;
+      --off-white: #FAFBF9;
+      --soft-gray: #494848;
     }
-}
 
-/* Offcanvas overlay (dim background when open) */
-.offcanvas-backdrop.show {
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-}
+    body {
+      font-family: "Roboto", sans-serif;
+      background-color: var(--off-white);
+      color: var(--rich-black);
+      scroll-behavior: smooth;
+    }
 
-/* Center nav links more visually */
-.offcanvas-body .navbar-nav {
-    text-align: right;
-}
+    /* HEADER */
+    #top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1030;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.offcanvas-body .nav-link {
-    font-size: 1.1rem;
-    padding: 0.75rem 0;
-    color: var(--deep-green);
-    transition: all 0.2s ease;
-}
+    .navbar {
+      background-color: rgba(233, 246, 233, 0.98);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
 
-.offcanvas-body .nav-link:hover {
-    color: var(--warm-gold);
-    transform: translateX(-4px);
-}
+    .navbar.scrolled {
+      background-color: rgba(233, 246, 233, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
 
-    </style>
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--deep-green) !important;
+    }
+
+    .nav-link {
+      color: var(--deep-green);
+      font-weight: 500;
+      margin-right: 10px;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--warm-gold);
+      transform: translateY(-2px);
+    }
+
+    /* Buttons */
+    .btn-gold {
+      background-color: var(--warm-gold);
+      color: var(--rich-black);
+      border: none;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .btn-gold:hover {
+      background-color: var(--muted-yellow);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Notification Badge */
+    .badge.bg-gold {
+      background-color: var(--warm-gold);
+    }
+
+    /* Offcanvas Nav */
+    .offcanvas.offcanvas-end {
+      background-color: rgba(233, 246, 233, 0.98);
+      backdrop-filter: blur(10px);
+      border-left: none;
+      transition: all 0.4s;
+    }
+
+    .offcanvas-body .nav-link {
+      font-size: 1.1rem;
+      padding: 0.75rem 0;
+    }
+
+    .offcanvas-body .nav-link:hover {
+      color: var(--warm-gold);
+      transform: translateX(-5px);
+    }
+
+    /* Modal Header */
+    .modal-header.bg-deep-green {
+      background-color: var(--deep-green) !important;
+    }
+  </style>
 </head>
 
 <body>
-    <header class="sticky-top" id="top-header">
-        <nav class="navbar navbar-expand-lg py-3" aria-label="Main Navigation">
-            <div class="container-xl">
-                <a class="navbar-brand text-deep-green fw-bold fs-4" href="#">
-                    NNP Christian Union
-                    <span class="d-block small text-soft-gray fw-light" style="margin-top: -5px;">Faith • Fellowship • Growth</span>
-                </a>
-                
-                <div class="d-flex order-lg-3 align-items-center">
-                    <button class="btn btn-link me-2 p-0 position-relative text-deep-green" type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-controls="notificationPanel" aria-label="Notifications">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .82.179 1.592.487 2.305A12 12 0 0 1 8 10a12 12 0 0 1 3.513-1.695A4 4 0 0 0 12 6c0-2.434-2.112-4.085-3.918-4.085zM8 0a5 5 0 0 1 4.53 2.768L8 1.918z"/>
-                        </svg>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" aria-label="1 unread notification">1</span>
-                    </button>
+  <!-- HEADER -->
+  <header id="top-header" class="sticky-top">
+    <nav class="navbar navbar-expand-lg py-3">
+      <div class="container-xl">
+        <a class="navbar-brand" href="#">
+          NNP Christian Union
+          <span class="d-block small text-soft-gray fw-light" style="margin-top:-5px;">Faith • Fellowship • Growth</span>
+        </a>
 
-                    <button class="btn btn-gold d-none d-lg-block ms-3" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
+        <div class="d-flex align-items-center order-lg-3">
+          <!-- Notification -->
+          <button class="btn btn-link text-deep-green position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
+            <i class="fa-solid fa-bell fs-4"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" id="notificationBadge">1</span>
+          </button>
 
-                    <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title text-deep-green" id="offcanvasNavLabel">NNP Christian Union</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ministry.html">Ministries</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#live">Live</a></li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contacts</a></li>
-                        </ul>
-                        <div class="d-lg-none mt-3">
-                            <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+          <!-- Membership -->
+          <button class="btn btn-gold d-none d-lg-block ms-2" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel" aria-labelledby="notificationPanelLabel">
-        <div class="offcanvas-header bg-deep-green text-white">
-            <h5 class="offcanvas-title" id="notificationPanelLabel">Notifications (<span id="unreadCount">1</span> Unread)</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close Notifications"></button>
+          <!-- Mobile Nav -->
+          <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
+            <i class="fa-solid fa-bars text-deep-green fs-4"></i>
+          </button>
         </div>
-        <div class="offcanvas-body">
-            <div id="notificationItem" class="alert alert-gold border-start border-4 border-deep-green p-3" role="alert">
-                <h6 class="alert-heading fw-bold">Event RSVP Confirmed!</h6>
-                <p class="mb-0 small">You have successfully RSVP'd for the <strong>Campus Evangelism</strong> on Oct 27th to 1st NOV.</p>
-                <button id="markAsReadBtn" class="btn btn-sm btn-link p-0 mt-2 text-deep-green" aria-label="Mark notification as read">Mark as Read</button>
+
+        <!-- Mobile Drawer -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-deep-green">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav ms-auto">
+              <li><a href="index.html" class="nav-link active">Home</a></li>
+              <li><a href="library.html" class="nav-link">Library</a></li>
+              <li><a href="ministry.html" class="nav-link">Ministries</a></li>
+              <li><a href="#live" class="nav-link">Live</a></li>
+              <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+              <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="mt-4 d-lg-none">
+              <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
             </div>
-            <p class="text-soft-gray small mt-4">No older notifications.</p>
+          </div>
         </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- NOTIFICATION PANEL -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel">
+    <div class="offcanvas-header bg-deep-green text-white">
+      <h5 class="offcanvas-title">Notifications (<span id="unreadCount">1</span> Unread)</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
-
-    <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-deep-green text-white">
-                    <h5 class="modal-title" id="membershipModalLabel">Join NNP Christian Union</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-soft-gray mb-4">Fill out the form below to become an official member of our family. Welcome!</p>
-                    
-                    <form id="membershipForm" class="row g-3">
-                        <div class="col-md-6">
-                            <label for="memberFullName" class="form-label fw-bold">Full Name</label>
-                            <input type="text" class="form-control" id="memberFullName" name="memberFullName" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="memberStudentID" class="form-label fw-bold">Student/Institute ID</label>
-                            <input type="text" class="form-control" id="memberStudentID" name="memberStudentID" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="memberEmail" class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" id="memberEmail" name="memberEmail" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="memberPhone" class="form-label fw-bold">Phone (e.g., +254 7XX...)</label>
-                            <input type="tel" class="form-control" id="memberPhone" name="memberPhone" placeholder="+254 7XX XXX XXX" required pattern="^\+\d{10,14}$">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="memberYearClass" class="form-label fw-bold">Year / Class</label>
-                            <select id="memberYearClass" name="memberYearClass" class="form-select" required>
-                                <option value="" disabled selected>Choose...</option>
-                                <option value="Year 1">Year 1</option>
-                                <option value="Year 2">Year 2</option>
-                                <option value="Year 3">Year 3</option>
-                                <option value="Staff/Alumni">Staff/Alumni</option>
-                            </select>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <h6 class="fw-bold text-deep-green">Groups of Interest (Check all that apply)</h6>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="groups[]" id="groupPraise" value="Praise & Worship">
-                                <label class="form-check-label" for="groupPraise">Praise & Worship</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="groups[]" id="groupOutreach" value="Outreach/Missions">
-                                <label class="form-check-label" for="groupOutreach">Outreach/Missions</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="groups[]" id="groupTech" value="Media & Tech">
-                                <label class="form-check-label" for="groupTech">Media & Tech</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="groups[]" id="groupDiscipleship" value="Discipleship">
-                                <label class="form-check-label" for="groupDiscipleship">Discipleship/Bible Study</label>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label for="memberTestimony" class="form-label fw-bold">Short Testimony/Expectation (Optional)</label>
-                            <textarea class="form-control" id="memberTestimony" name="memberTestimony" rows="3" placeholder="What led you to join?"></textarea>
-                        </div>
-                        <div class="col-12 mt-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="consentCheck" name="consentCheck" required>
-                                <label class="form-check-label small" for="consentCheck">
-                                    I consent to receiving communications from NNP Christian Union regarding services and events.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-gold btn-lg fw-bold w-100">Submit & Receive Welcome Pack</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="offcanvas-body">
+      <div id="notificationItem" class="alert alert-warning border-start border-4 border-deep-green">
+        <h6 class="fw-bold mb-1">Event RSVP Confirmed!</h6>
+        <p class="mb-2 small">You have successfully RSVP'd for the <strong>Campus Evangelism</strong> on Nov 8–9.</p>
+        <button id="markAsReadBtn" class="btn btn-sm btn-link p-0 text-deep-green">Mark as Read</button>
+      </div>
+      <p class="text-soft-gray small mt-3">No older notifications.</p>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="app.js"></script>
+  <!-- MEMBERSHIP MODAL -->
+  <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-deep-green text-white">
+          <h5 class="modal-title" id="membershipModalLabel">Join NNP Christian Union</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="membershipForm" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Full Name</label>
+              <input type="text" class="form-control" id="memberFullName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Student/Institute ID</label>
+              <input type="text" class="form-control" id="memberStudentID" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Email</label>
+              <input type="email" class="form-control" id="memberEmail" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Phone</label>
+              <input type="tel" class="form-control" id="memberPhone" placeholder="+254..." required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Year/Class</label>
+              <select class="form-select" id="memberYearClass" required>
+                <option value="">Choose...</option>
+                <option>Year 1</option>
+                <option>Year 2</option>
+                <option>Year 3</option>
+                <option>Staff/Alumni</option>
+              </select>
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-gold w-100 fw-bold">Submit & Receive Welcome Pack</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener("scroll", () => {
+      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 30);
+    });
+
+    // Notification mark as read
+    document.getElementById("markAsReadBtn").addEventListener("click", () => {
+      document.getElementById("notificationItem").style.display = "none";
+      document.getElementById("unreadCount").textContent = "0";
+      document.getElementById("notificationBadge").style.display = "none";
+    });
+
+    // Membership form submission (Google Apps Script)
     document.getElementById("membershipForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+      const btn = e.target.querySelector("button");
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
 
       const data = {
-        fullName: document.getElementById("memberFullName").value,
-        studentID: document.getElementById("memberStudentID").value,
-        email: document.getElementById("memberEmail").value,
-        phone: document.getElementById("memberPhone").value,
-        yearClass: document.getElementById("memberYearClass").value,
-        groups: Array.from(document.querySelectorAll("input[name='groups[]']:checked")).map(cb => cb.value),
-        testimony: document.getElementById("memberTestimony").value,
-        consent: document.getElementById("consentCheck").checked
+        fullName: memberFullName.value,
+        studentID: memberStudentID.value,
+        email: memberEmail.value,
+        phone: memberPhone.value,
+        yearClass: memberYearClass.value,
       };
-
-      const submitBtn = e.target.querySelector("button[type='submit']");
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Submitting...";
 
       try {
         const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
@@ -417,23 +257,17 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-
         const result = await res.json();
-        if (result.success) {
-          alert("✅ " + result.message);
-          e.target.reset();
-          window.open(result.whatsappUrl, "_blank");
-        } else {
-          alert("❌ Error: " + result.error);
-        }
-      } catch (err) {
-        alert("⚠️ Failed to connect. Please check your internet or contact admin.");
+        if (result.success) alert("✅ " + result.message);
+        else alert("❌ " + result.error);
+      } catch {
+        alert("⚠️ Network error. Try again.");
       }
 
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit & Receive Welcome Pack";
+      btn.disabled = false;
+      btn.textContent = "Submit & Receive Welcome Pack";
+      e.target.reset();
     });
-    </script>
+  </script>
 </body>
 </html>
-

@@ -775,6 +775,69 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
+<!-- ==============================
+     FLOATING ACTION BUTTONS
+============================== -->
+
+<!-- WhatsApp Button (Bottom Left) -->
+<a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
+   target="_blank"
+   class="fab-btn fab-whatsapp"
+   aria-label="Chat with us on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white"
+       viewBox="0 0 16 16">
+    <path d="M13.601 2.326A7.8 7.8 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L.055 15l4.205-1.332a7.8 7.8 0 0 0 3.794.757h.001c4.365 0 7.922-3.558 7.921-7.926zM7.994 14.621A6.602 6.602 0 0 1 5.56 13.565l-.356-.213-3.072.973.992-3.045-.224-.366A6.611 6.611 0 0 1 1.34 7.926c0-3.64 2.96-6.602 6.602-6.602s6.602 2.96 6.602 6.602c0 3.64-2.96 6.602-6.602 6.602"/>
+  </svg>
+</a>
+
+<!-- Chatbot Button (Bottom Right) -->
+<button class="fab-btn fab-chat"
+        id="chatboxToggle"
+        aria-label="Open AI Chat Widget"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#aiChatbox"
+        aria-controls="aiChatbox">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
+       viewBox="0 0 16 16">
+    <path d="M5.725 1.503a.5.5 0 0 1-.411.579..."/>
+  </svg>
+</button>
+
+<!-- ==============================
+     NOTIFICATION PANEL
+============================== -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel"
+     aria-labelledby="notificationPanelLabel">
+  <div class="offcanvas-header bg-deep-green text-white">
+    <h5 class="offcanvas-title" id="notificationPanelLabel">
+      Notifications (<span id="unreadCount">1</span>)
+    </h5>
+    <button type="button" class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas" aria-label="Close Notifications"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <div id="notificationItem"
+         class="alert alert-gold border-start border-4 border-deep-green p-3 rounded"
+         role="alert">
+      <h6 class="alert-heading fw-bold">Event RSVP Confirmed!</h6>
+      <p class="mb-0 small">
+        You have successfully RSVP'd for the
+        <strong>Campus Evangelism</strong> on Oct 27th to Nov 1st.
+      </p>
+      <button id="markAsReadBtn"
+              class="btn btn-sm btn-link p-0 mt-2 text-deep-green"
+              aria-label="Mark notification as read">
+        Mark as Read
+      </button>
+    </div>
+    <p class="text-muted small mt-4">No older notifications.</p>
+  </div>
+</div>
+
+<!-- ==============================
+     AI CHATBOX WIDGET
+============================== -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="aiChatbox"
      aria-labelledby="aiChatboxLabel" style="width: 350px;">
   <div class="offcanvas-header bg-deep-green text-white">
@@ -784,12 +847,12 @@ document.addEventListener("DOMContentLoaded", () => {
             aria-label="Close Chat Widget"></button>
   </div>
 
-  <div class="offcanvas-body d-flex flex-column" id="chatboxBody">
-    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3">
+  <div class="offcanvas-body d-flex flex-column">
+    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3" id="chatMessages">
       <div class="message bot-message mb-2 p-2 rounded-3 bg-light-gray">
         Hello! I'm your NNP CU Assistant. How can I help you grow in faith today?
       </div>
-      <div class="quick-replies d-flex flex-wrap gap-2 mt-2" data-aos="fade-in">
+      <div class="quick-replies d-flex flex-wrap gap-2 mt-2">
         <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
                 data-reply="service-times">Service Times</button>
         <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
@@ -804,76 +867,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" class="form-control" placeholder="Ask a question..."
                aria-label="Chat input field" id="chatInput">
         <button class="btn btn-gold" type="submit" aria-label="Send message">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-               fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-            <path d="M15.964.686a.5.5 0 0 0-.297-.297L..."/>
-          </svg>
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- ==============================
-   NOTIFICATION PANEL
-============================== -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel"
-     aria-labelledby="notificationPanelLabel">
-  <div class="offcanvas-header bg-deep-green text-white">
-    <h5 class="offcanvas-title" id="notificationPanelLabel">
-      Notifications (<span id="unreadCount">1</span> Unread)
-    </h5>
-    <button type="button" class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close Notifications"></button>
-  </div>
-
-  <div class="offcanvas-body">
-    <div id="notificationItem"
-         class="alert alert-gold border-start border-4 border-deep-green p-3"
-         role="alert">
-      <h6 class="alert-heading fw-bold">Event RSVP Confirmed!</h6>
-      <p class="mb-0 small">
-        You have successfully RSVP'd for the
-        <strong>Campus Evangelism</strong> on Oct 27th to 1st NOV.
-      </p>
-      <button id="markAsReadBtn"
-              class="btn btn-sm btn-link p-0 mt-2 text-deep-green"
-              aria-label="Mark notification as read">
-        Mark as Read
-      </button>
-    </div>
-    <p class="text-soft-gray small mt-4">No older notifications.</p>
-  </div>
-</div>
-
-<!-- =============  CU ASSISTANT CHATBOX  ============= -->
-<div class="offcanvas offcanvas-start shadow-lg" tabindex="-1" id="aiChatbox"
-     aria-labelledby="aiChatboxLabel" style="width: 360px; border-radius: 0 15px 15px 0;">
-  <div class="offcanvas-header bg-deep-green text-white d-flex align-items-center">
-    <i class="bi bi-robot fs-4 me-2 text-warning"></i>
-    <h5 class="offcanvas-title mb-0" id="aiChatboxLabel">CU Assistant  </h5>
-    <button type="button" class="btn-close btn-close-white ms-auto"
-            data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-
-  <div class="offcanvas-body d-flex flex-column" id="chatboxBody" style="background: #f9fafb;">
-    <!-- Chat messages -->
-    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3" id="chatMessages"
-         style="max-height: 70vh;">
-      <div class="message bot-message mb-2 p-2 rounded-3 fade-in"
-           style="background: #e8f5e9; color:#1b5e20;">
-        👋 Hello there! I'm your <b>NNP Christian Union Assistant</b>.<br>
-        How can I help you grow in faith or learn about our ministry today?
-      </div>
-    </div>
-
-    <!-- Input form -->
-    <form id="chatForm" class="mt-auto">
-      <div class="input-group">
-        <input type="text" class="form-control border-success" placeholder="Ask something..."
-               id="chatInput" required>
-        <button class="btn btn-gold" type="submit">
           <i class="bi bi-send-fill"></i>
         </button>
       </div>
@@ -881,58 +874,63 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-
-<!-- === SCRIPT === -->
-<script>
-const form = document.getElementById('chatForm');
-const input = document.getElementById('chatInput');
-const messages = document.getElementById('chatMessages');
-
-function addMessage(sender, text) {
-  const div = document.createElement('div');
-  div.className = `message ${sender}-message mb-2 p-2 rounded-3`;
-  div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+<!-- ==============================
+     STYLES
+============================== -->
+<style>
+/* Floating Buttons */
+.fab-btn {
+  position: fixed;
+  bottom: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: all 0.2s ease;
+  border: none;
+  z-index: 1050;
 }
 
-// Simulate typing animation
-function showTyping() {
-  const typingDiv = document.createElement('div');
-  typingDiv.className = 'message bot-message mb-2 p-2 rounded-3';
-  typingDiv.innerHTML = '<i class="bi bi-three-dots"></i> NNP C U Ai is typing...';
-  messages.appendChild(typingDiv);
-  messages.scrollTop = messages.scrollHeight;
-  return typingDiv;
+/* Left - WhatsApp */
+.fab-whatsapp { left: 20px; background-color: #25D366; }
+
+/* Right - AI Chat */
+.fab-chat { right: 20px; background-color: #FFD54F; color: #222; }
+
+/* Hover Effect */
+.fab-btn:hover { transform: scale(1.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+
+/* Tooltip */
+.fab-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 70px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
+.fab-btn:hover::after { opacity: 1; transform: translateY(0); }
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const userText = input.value.trim();
-  if (!userText) return;
+/* Responsive */
+@media (max-width: 576px) {
+  .fab-btn { width: 45px; height: 45px; bottom: 15px; }
+  .fab-whatsapp { left: 15px; }
+  .fab-chat { right: 15px; }
+}
+</style>
 
-  addMessage('user', userText);
-  input.value = '';
-
-  const typingDiv = showTyping();
-
-  // Simulate bot response (replace this with your backend)
-  setTimeout(() => {
-    typingDiv.remove();
-    let reply;
-    if (userText.toLowerCase().includes('hi') || userText.toLowerCase().includes('hello')) {
-      reply = "Hi there! 😊 How can I help you today?";
-    } else if (userText.toLowerCase().includes('service')) {
-      reply = "Our CU services are every Sunday at 7:00AM and Wednesdays at 7:00PM. You're warmly welcome!";
-    } else if (userText.toLowerCase().includes('verse')) {
-      reply = "Today's verse: *Philippians 4:13* — “I can do all things through Christ who strengthens me.” 🙏";
-    } else {
-      reply = "I'm still learning 🤖, but I’ll try to help — could you ask in another way?";
-    }
-    addMessage('bot', reply);
-  }, 1200);
-});
-</script>
 
 <!-- ==============================
    MEMBERSHIP MODAL FORM
@@ -1138,6 +1136,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

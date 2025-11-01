@@ -839,76 +839,147 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h5 class="modal-title" id="membershipModalLabel">Join NNP Christian Union</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p class="text-soft-gray mb-4">Fill out the form below to become an official member of our family. Welcome!</p>
-                
-                <form id="membershipForm" class="row g-3">
-  <!-- Remove: action="register_member.php" method="POST" -->
-                    <div class="col-md-6">
-                        <label for="memberFullName" class="form-label fw-bold">Full Name</label>
-                        <input type="text" class="form-control" id="memberFullName" name="memberFullName" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="memberStudentID" class="form-label fw-bold">Student/Institute ID</label>
-                        <input type="text" class="form-control" id="memberStudentID" name="memberStudentID" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="memberEmail" class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control" id="memberEmail" name="memberEmail" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="memberPhone" class="form-label fw-bold">Phone (e.g., +254 7XX...)</label>
-                        <input type="tel" class="form-control" id="memberPhone" name="memberPhone" placeholder="+254 7XX XXX XXX" required pattern="^\+\d{10,14}$">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="memberYearClass" class="form-label fw-bold">Year / Class</label>
-                        <select id="memberYearClass" name="memberYearClass" class="form-select" required>
-                            <option value="" disabled selected>Choose...</option>
-                            <option value="Year 1">Year 1</option>
-                            <option value="Year 2">Year 2</option>
-                            <option value="Year 3">Year 3</option>
-                            <option value="Staff/Alumni">Staff/Alumni</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mt-4">
-                        <h6 class="fw-bold text-deep-green">Groups of Interest (Check all that apply)</h6>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="groups[]" id="groupPraise" value="Praise & Worship">
-                            <label class="form-check-label" for="groupPraise">Praise & Worship</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="groups[]" id="groupOutreach" value="Outreach/Missions">
-                            <label class="form-check-label" for="groupOutreach">Outreach/Missions</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="groups[]" id="groupTech" value="Media & Tech">
-                            <label class="form-check-label" for="groupTech">Media & Tech</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="groups[]" id="groupDiscipleship" value="Discipleship">
-                            <label class="form-check-label" for="groupDiscipleship">Discipleship/Bible Study</label>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <label for="memberTestimony" class="form-label fw-bold">Short Testimony/Expectation (Optional)</label>
-                        <textarea class="form-control" id="memberTestimony" name="memberTestimony" rows="3" placeholder="What led you to join?"></textarea>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="consentCheck" name="consentCheck" required>
-                            <label class="form-check-label small" for="consentCheck">
-                                I consent to receiving communications from NNP Christian Union regarding services and events.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-4">
-                        <button type="submit" class="btn btn-gold btn-lg fw-bold w-100">Submit & Receive Welcome Pack</button>
-                    </div>
-                </form>
-            </div>
+            <form id="membershipForm" class="row g-3" 
+      action="https://formspree.io/f/mayzkjdr" 
+      method="POST" 
+      novalidate>
+
+  <div class="col-md-6">
+    <label for="memberFullName" class="form-label fw-bold">Full Name</label>
+    <input type="text" class="form-control" id="memberFullName" name="Full Name" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="memberStudentID" class="form-label fw-bold">Student/Institute ID</label>
+    <input type="text" class="form-control" id="memberStudentID" name="Student ID" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="memberEmail" class="form-label fw-bold">Email</label>
+    <input type="email" class="form-control" id="memberEmail" name="Email" required>
+  </div>
+
+  <div class="col-md-6">
+    <label for="memberPhone" class="form-label fw-bold">Phone (e.g., +254 7XX...)</label>
+    <input type="tel" class="form-control" id="memberPhone" name="Phone"
+           placeholder="+254 7XX XXX XXX" required pattern="^\+\d{10,14}$">
+  </div>
+
+  <div class="col-md-6">
+    <label for="memberYearClass" class="form-label fw-bold">Year / Class</label>
+    <select id="memberYearClass" name="Year/Class" class="form-select" required>
+      <option value="" disabled selected>Choose...</option>
+      <option value="Year 1">Year 1</option>
+      <option value="Year 2">Year 2</option>
+      <option value="Year 3">Year 3</option>
+      <option value="Staff/Alumni">Staff/Alumni/Associate</option>
+    </select>
+  </div>
+
+  <div class="col-12 mt-4">
+    <h6 class="fw-bold text-deep-green">Groups of Interest (Check all that apply)</h6>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" name="Groups of Interest" value="Praise & Worship">
+      <label class="form-check-label">Praise & Worship</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" name="Groups of Interest" value="Outreach/Missions">
+      <label class="form-check-label">Outreach/Missions</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" name="Groups of Interest" value="Media & Tech">
+      <label class="form-check-label">Media & Tech</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" name="Groups of Interest" value="Discipleship/Bible Study">
+      <label class="form-check-label">Discipleship/Bible Study</label>
+    </div>
+  </div>
+
+  <div class="col-12 mt-3">
+    <label for="memberTestimony" class="form-label fw-bold">Short Testimony/Expectation (Optional)</label>
+    <textarea class="form-control" id="memberTestimony" name="Testimony/Expectation" rows="3"
+              placeholder="What led you to join?"></textarea>
+  </div>
+
+  <div class="col-12 mt-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="consentCheck" name="Consent" required>
+      <label class="form-check-label small" for="consentCheck">
+        I consent to receiving communications from NNP Christian Union regarding services and events.
+      </label>
+    </div>
+  </div>
+
+  <div class="col-12 mt-4">
+    <button type="submit" class="btn btn-gold btn-lg fw-bold w-100">
+      Submit & Receive Welcome Pack
+    </button>
+  </div>
+</form>
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("membershipForm");
+  const toastContainer = document.getElementById("toast-container");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.classList.add("was-validated");
+      return;
+    }
+
+    showToast("⏳ Submitting your membership details...", "info");
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        showToast("🎉 Welcome aboard! Your membership has been received.", "success");
+        form.reset();
+      } else {
+        showToast("⚠️ Submission failed. Please try again.", "warning");
+      }
+    } catch (error) {
+      showToast("⚠️ Network issue. Please check your connection.", "danger");
+    }
+  });
+
+  function showToast(message, type) {
+    const bgColors = {
+      success: "bg-success text-white",
+      danger: "bg-danger text-white",
+      warning: "bg-warning text-dark",
+      info: "bg-info text-dark"
+    };
+
+    const toast = document.createElement("div");
+    toast.className = `toast align-items-center border-0 show animate-slide-down ${bgColors[type] || "bg-secondary text-white"}`;
+    toast.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body fw-semibold">${message}</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    `;
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 500);
+    }, 5000);
+  }
+});
+</script>
+
 
     <div class="modal fade" id="videoLightboxModal" tabindex="-1" aria-labelledby="videoLightboxModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -938,49 +1009,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
     </div>
-<script>
-document.getElementById("membershipForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  const data = {
-    fullName: document.getElementById("memberFullName").value,
-    studentID: document.getElementById("memberStudentID").value,
-    email: document.getElementById("memberEmail").value,
-    phone: document.getElementById("memberPhone").value,
-    yearClass: document.getElementById("memberYearClass").value,
-    groups: Array.from(document.querySelectorAll("input[name='groups[]']:checked")).map(cb => cb.value),
-    testimony: document.getElementById("memberTestimony").value,
-    consent: document.getElementById("consentCheck").checked
-  };
-
-  const submitBtn = e.target.querySelector("button[type='submit']");
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Submitting...";
-
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    const result = await res.json();
-    if (result.success) {
-      alert("✅ " + result.message);
-      e.target.reset();
-      window.open(result.whatsappUrl, "_blank");
-    } else {
-      alert("❌ Error: " + result.error);
-    }
-  } catch (err) {
-    alert("⚠️ Failed to connect. Please check your internet or contact admin.");
-  }
-
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Submit & Receive Welcome Pack";
-});
-
-</script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -1008,6 +1037,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+
 
 
 

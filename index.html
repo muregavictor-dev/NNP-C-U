@@ -773,23 +773,46 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
 </script>
-<!-- WhatsApp Button (Bottom Left) -->
-<a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
-   target="_blank"
-   class="fab-icon fab-whatsapp"
-   aria-label="Chat with us on WhatsApp">
-  <i class="bi bi-whatsapp fs-4"></i>
-</a>
 
-<!-- Chatbot Button (Bottom Right) -->
-<button class="fab-icon fab-chat"
-        id="chatboxToggle"
-        aria-label="Open AI Chat Widget"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#aiChatbox"
-        aria-controls="aiChatbox">
-  <i class="bi bi-robot fs-5"></i>
-</button>
+============================== -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="aiChatbox"
+     aria-labelledby="aiChatboxLabel" style="width: 350px;">
+  <div class="offcanvas-header bg-deep-green text-white">
+    <h5 class="offcanvas-title" id="aiChatboxLabel">CU Assistant Bot</h5>
+    <button type="button" class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close Chat Widget"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column" id="chatboxBody">
+    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3">
+      <div class="message bot-message mb-2 p-2 rounded-3 bg-light-gray">
+        Hello! I'm your NNP CU Assistant. How can I help you grow in faith today?
+      </div>
+      <div class="quick-replies d-flex flex-wrap gap-2 mt-2" data-aos="fade-in">
+        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
+                data-reply="service-times">Service Times</button>
+        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
+                data-reply="how-to-join">How to Join</button>
+        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
+                data-reply="upcoming-events">Upcoming Events</button>
+      </div>
+    </div>
+
+    <form id="chatForm" class="mt-auto">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Ask a question..."
+               aria-label="Chat input field" id="chatInput">
+        <button class="btn btn-gold" type="submit" aria-label="Send message">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+               fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.297-.297L..."/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- ==============================
    NOTIFICATION PANEL
@@ -1165,6 +1188,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

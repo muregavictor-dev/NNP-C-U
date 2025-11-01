@@ -775,33 +775,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
-<!-- ==============================
-     FLOATING ACTION BUTTONS
-============================== -->
-
-<!-- WhatsApp Button (Bottom Left) -->
-<a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
-   target="_blank"
-   class="fab-btn fab-whatsapp"
-   aria-label="Chat with us on WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white"
-       viewBox="0 0 16 16">
-    <path d="M13.601 2.326A7.8 7.8 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L.055 15l4.205-1.332a7.8 7.8 0 0 0 3.794.757h.001c4.365 0 7.922-3.558 7.921-7.926zM7.994 14.621A6.602 6.602 0 0 1 5.56 13.565l-.356-.213-3.072.973.992-3.045-.224-.366A6.611 6.611 0 0 1 1.34 7.926c0-3.64 2.96-6.602 6.602-6.602s6.602 2.96 6.602 6.602c0 3.64-2.96 6.602-6.602 6.602"/>
-  </svg>
-</a>
-
-<!-- Chatbot Button (Bottom Right) -->
-<button class="fab-btn fab-chat"
-        id="chatboxToggle"
-        aria-label="Open AI Chat Widget"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#aiChatbox"
-        aria-controls="aiChatbox">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
-       viewBox="0 0 16 16">
-    <path d="M5.725 1.503a.5.5 0 0 1-.411.579..."/>
-  </svg>
-</button>
 
 <!-- ==============================
      NOTIFICATION PANEL
@@ -836,6 +809,28 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <!-- ==============================
+     FLOATING ACTION BUTTONS
+============================== -->
+
+<!-- AI Chatbot Button (Bottom Left) -->
+<button class="fab-btn fab-chat"
+        id="chatboxToggle"
+        aria-label="Open CU Assistant Bot"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#aiChatbox"
+        aria-controls="aiChatbox">
+  <i class="bi bi-robot fs-4"></i>
+</button>
+
+<!-- WhatsApp Button (Bottom Right) -->
+<a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
+   target="_blank"
+   class="fab-btn fab-whatsapp"
+   aria-label="Chat with us on WhatsApp">
+  <i class="bi bi-whatsapp fs-4"></i>
+</a>
+
+<!-- ==============================
      AI CHATBOX WIDGET
 ============================== -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="aiChatbox"
@@ -843,29 +838,20 @@ document.addEventListener("DOMContentLoaded", () => {
   <div class="offcanvas-header bg-deep-green text-white">
     <h5 class="offcanvas-title" id="aiChatboxLabel">CU Assistant Bot</h5>
     <button type="button" class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close Chat Widget"></button>
+            data-bs-dismiss="offcanvas" aria-label="Close Chat Widget"></button>
   </div>
 
   <div class="offcanvas-body d-flex flex-column">
     <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3" id="chatMessages">
       <div class="message bot-message mb-2 p-2 rounded-3 bg-light-gray">
-        Hello! I'm your NNP CU Assistant. How can I help you grow in faith today?
-      </div>
-      <div class="quick-replies d-flex flex-wrap gap-2 mt-2">
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="service-times">Service Times</button>
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="how-to-join">How to Join</button>
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="upcoming-events">Upcoming Events</button>
+        Hello! I'm your NNP CU Assistant. Ask me anything about CU schedules, events, or joining!
       </div>
     </div>
 
     <form id="chatForm" class="mt-auto">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Ask a question..."
-               aria-label="Chat input field" id="chatInput">
+               aria-label="Chat input field" id="chatInput" required>
         <button class="btn btn-gold" type="submit" aria-label="Send message">
           <i class="bi bi-send-fill"></i>
         </button>
@@ -896,13 +882,13 @@ document.addEventListener("DOMContentLoaded", () => {
   z-index: 1050;
 }
 
-/* Left - WhatsApp */
-.fab-whatsapp { left: 20px; background-color: #25D366; }
+/* Left - AI Chat */
+.fab-chat { left: 20px; background-color: #FFD54F; color: #222; }
 
-/* Right - AI Chat */
-.fab-chat { right: 20px; background-color: #FFD54F; color: #222; }
+/* Right - WhatsApp */
+.fab-whatsapp { right: 20px; background-color: #25D366; }
 
-/* Hover Effect */
+/* Hover Effects */
 .fab-btn:hover { transform: scale(1.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
 
 /* Tooltip */
@@ -926,11 +912,70 @@ document.addEventListener("DOMContentLoaded", () => {
 /* Responsive */
 @media (max-width: 576px) {
   .fab-btn { width: 45px; height: 45px; bottom: 15px; }
-  .fab-whatsapp { left: 15px; }
-  .fab-chat { right: 15px; }
+  .fab-chat { left: 15px; }
+  .fab-whatsapp { right: 15px; }
 }
 </style>
 
+<!-- ==============================
+     AI FUNCTIONALITY
+============================== -->
+<script>
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const chatMessages = document.getElementById('chatMessages');
+
+const cuData = {
+  schedules: "CU meetings happen every Thursday at 5 PM in the main hall.",
+  events: "Upcoming events: Campus Evangelism (Oct 27 - Nov 1), Bible Study Retreat (Nov 10).",
+  joining: "To join CU, fill the membership form on our website or visit the office during meeting hours.",
+  contact: "You can reach CU via WhatsApp at +254742812494."
+};
+
+function addMessage(sender, text) {
+  const div = document.createElement('div');
+  div.className = `message ${sender}-message mb-2 p-2 rounded-3`;
+  div.textContent = text;
+  div.style.background = sender === 'bot' ? '#f0f0f0' : '#d4edda';
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+chatForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const userText = chatInput.value.trim();
+  if (!userText) return;
+
+  addMessage('user', userText);
+  chatInput.value = '';
+
+  // Bot thinking indicator
+  addMessage('bot', '⏳ Thinking…');
+
+  setTimeout(() => {
+    // Remove thinking message
+    chatMessages.lastChild.remove();
+
+    // Convert to lowercase for easier matching
+    const query = userText.toLowerCase();
+
+    // Simple keyword-based AI
+    let reply = "I'm sorry, I'm still training and can't answer that yet.";
+
+    if (query.includes("schedule") || query.includes("meeting")) {
+      reply = cuData.schedules;
+    } else if (query.includes("event")) {
+      reply = cuData.events;
+    } else if (query.includes("join") || query.includes("membership")) {
+      reply = cuData.joining;
+    } else if (query.includes("contact") || query.includes("whatsapp")) {
+      reply = cuData.contact;
+    }
+
+    addMessage('bot', reply);
+  }, 800); // simulate thinking
+});
+</script>
 
 <!-- ==============================
    MEMBERSHIP MODAL FORM
@@ -1136,6 +1181,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

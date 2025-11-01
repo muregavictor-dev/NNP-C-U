@@ -795,10 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <i class="bi bi-robot fs-5"></i>
 </button>
 
-<!-- Pop-up Bubble -->
-<div class="chat-hint-bubble" id="chatHint">
-  💬 Need help or prayer support?
-</div>
+
 
 <!-- ========== STYLES ========== -->
 <style>
@@ -829,7 +826,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* Chatbot on Right */
   .bg-chat {
-    right: 25px;
+    right: 10px;
     background: linear-gradient(145deg, #FFD54F, #FFB300);
   }
 
@@ -910,18 +907,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 </style>
 
-<!-- ========== SCRIPT ========== -->
-<script>
-  // Show "Need help?" bubble after delay
-  document.addEventListener("DOMContentLoaded", () => {
-    const hint = document.getElementById("chatHint");
-    setTimeout(() => {
-      hint.classList.add("show");
-      // Hide after 8 seconds
-      setTimeout(() => hint.classList.remove("show"), 8000);
-    }, 2500);
-  });
-</script>
+
 
 <!-- ==============================
    NOTIFICATION PANEL
@@ -1297,6 +1283,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

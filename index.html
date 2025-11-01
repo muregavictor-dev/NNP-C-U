@@ -774,30 +774,88 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 </script>
 
-   <!-- ==============================
-   FLOATING ACTION BUTTONS
+  <!-- ==============================
+     FLOATING ACTION BUTTONS
 ============================== -->
+<!-- WhatsApp Button -->
 <a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
    target="_blank"
    class="floating-whatsapp"
    aria-label="Chat with us on WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white"
-       class="bi bi-whatsapp" viewBox="0 0 16 16">
-    <path d="M13.601 2.326A7.8 7.8 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L.055 15l4.205-1.332a7.8 7.8 0 0 0 3.794.757h.001c4.365 0 7.922-3.558 7.921-7.926zM7.994 14.621A6.602 6.602 0 0 1 5.56 13.565l-.356-.213-3.072.973.992-3.045-.224-.366A6.611 6.611 0 0 1 1.34 7.926c0-3.64 2.96-6.602 6.602-6.602s6.602 2.96 6.602 6.602c0 3.64-2.96 6.602-6.602 6.602m2.448-2.585c-.13-.065-.772-.385-.89-.438-.118-.052-.204-.078-.29.078-.086.156-.333.385-.407.462-.074.078-.148.078-.276.046s-.538-.194-.972-.598c-.328-.3-.548-.504-.666-.699-.118-.195-.015-.3-.015-.42a.84.84 0 0 1 .15-.315c.074-.118.165-.29.248-.462.08-.178.038-.337-.02-.462-.06-.12-.29-.29-.408-.344s-.236-.083-.356-.042c-.12.04-.28.156-.42.42-.14.263-.475.46-.576.54s-.21.12-.328.078-.716-.263-1.015-.985c-.298-.724-.108-1.07.016-1.196.074-.06.166-.148.248-.224s.162-.178.25-.294c.08-.118.106-.205.132-.292.028-.087.01-.165-.013-.306s-.065-.34-.132-.558c-.065-.22-.132-.455-.13-.578-.018-.12.083-.28.15-.398.078-.118.172-.258.266-.376.094-.118.192-.176.33-.179.138-.002.355.03.528.026.175-.004.37.005.518.064.148.06.33.19.468.455.138.264.183.585.114.717-.07.13-.19.165-.33.132"/>
-  </svg>
+  <div class="fab-icon bg-whatsapp">
+    <i class="bi bi-whatsapp fs-4"></i>
+  </div>
 </a>
 
-<button class="floating-chat-toggle btn btn-primary-green rounded-circle shadow-lg"
+<!-- Chatbot Button -->
+<button class="floating-chat-toggle fab-icon bg-chat"
         id="chatboxToggle"
         aria-label="Open AI Chat Widget"
         data-bs-toggle="offcanvas"
         data-bs-target="#aiChatbox"
         aria-controls="aiChatbox">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"
-       class="bi bi-robot" viewBox="0 0 16 16">
-    <path d="M5.725 1.503a.5.5 0 0 1-.411.579..."/>
-  </svg>
+  <i class="bi bi-robot fs-5"></i>
 </button>
+
+<!-- ========== STYLES ========== -->
+<style>
+  /* Floating button container */
+  .fab-icon {
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    z-index: 1050;
+  }
+
+  /* Specific buttons */
+  .bg-whatsapp {
+    background: linear-gradient(145deg, #25D366, #128C7E);
+    bottom: 25px;
+  }
+  .bg-chat {
+    background: linear-gradient(145deg, #FFD54F, #FFB300);
+  }
+
+  /* Hover & animation effects */
+  .fab-icon:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+  }
+
+  /* Glow animation */
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+  .bg-whatsapp {
+    animation: pulse 2.5s infinite;
+  }
+
+  /* Mobile view spacing */
+  @media (max-width: 576px) {
+    .fab-icon {
+      width: 50px;
+      height: 50px;
+      bottom: 20px;
+      right: 20px;
+    }
+    .bg-whatsapp {
+      bottom: 75px;
+    }
+  }
+</style>
 
 <!-- ==============================
    NOTIFICATION PANEL
@@ -837,7 +895,7 @@ document.addEventListener("DOMContentLoaded", () => {
      aria-labelledby="aiChatboxLabel" style="width: 360px; border-radius: 0 15px 15px 0;">
   <div class="offcanvas-header bg-deep-green text-white d-flex align-items-center">
     <i class="bi bi-robot fs-4 me-2 text-warning"></i>
-    <h5 class="offcanvas-title mb-0" id="aiChatboxLabel">CU Assistant Bot 🤖</h5>
+    <h5 class="offcanvas-title mb-0" id="aiChatboxLabel">CU Assistant  </h5>
     <button type="button" class="btn-close btn-close-white ms-auto"
             data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -935,7 +993,7 @@ function addMessage(sender, text) {
 function showTyping() {
   const typingDiv = document.createElement('div');
   typingDiv.className = 'message bot-message mb-2 p-2 rounded-3';
-  typingDiv.innerHTML = '<i class="bi bi-three-dots"></i> Bot is typing...';
+  typingDiv.innerHTML = '<i class="bi bi-three-dots"></i> NNP C U Ai is typing...';
   messages.appendChild(typingDiv);
   messages.scrollTop = messages.scrollHeight;
   return typingDiv;
@@ -958,7 +1016,7 @@ form.addEventListener('submit', async (e) => {
     if (userText.toLowerCase().includes('hi') || userText.toLowerCase().includes('hello')) {
       reply = "Hi there! 😊 How can I help you today?";
     } else if (userText.toLowerCase().includes('service')) {
-      reply = "Our CU services are every Sunday at 9:00AM and Thursdays at 6:00PM. You're warmly welcome!";
+      reply = "Our CU services are every Sunday at 7:00AM and Wednesdays at 7:00PM. You're warmly welcome!";
     } else if (userText.toLowerCase().includes('verse')) {
       reply = "Today's verse: *Philippians 4:13* — “I can do all things through Christ who strengthens me.” 🙏";
     } else {
@@ -1173,6 +1231,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

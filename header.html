@@ -1,732 +1,848 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NNP Christian Union</title>
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NNP Christian Union</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-  <style>
-    :root {
-      --primary-green: #318b2e;
-      --deep-green: #2a6f19;
-      --warm-gold: #f8c007;
-      --muted-yellow: #f5bf0d;
-      --rich-black: #0B0B0B;
-      --off-white: #FAFBF9;
-      --soft-gray: #494848;
-    }
+  <style>
+    :root {
+      --primary-green: #318b2e;
+      --deep-green: #2a6f19;
+      --warm-gold: #f8c007;
+      --muted-yellow: #f5bf0d;
+      --rich-black: #0B0B0B;
+      --off-white: #FAFBF9;
+      --soft-gray: #494848;
+    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    body {
-      font-family: "Roboto", sans-serif;
-      background-color: var(--off-white);
-      color: var(--rich-black);
-      scroll-behavior: smooth;
-      padding-top: 80px;
-    }
+    body {
+      font-family: "Roboto", sans-serif;
+      background-color: var(--off-white);
+      color: var(--rich-black);
+      scroll-behavior: smooth;
+      padding-top: 80px;
+    }
 
-    /* HEADER */
-    #top-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1040;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    /* HEADER */
+    #top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1040;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-    .navbar {
-      background-color: rgba(233, 246, 233, 0.95);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      padding: 0.75rem 0;
-    }
+    .navbar {
+      background-color: rgba(233, 246, 233, 0.95);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 0.75rem 0;
+    }
 
-    .navbar.scrolled {
-      background-color: rgba(233, 246, 233, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      padding: 0.5rem 0;
-    }
+    .navbar.scrolled {
+      background-color: rgba(233, 246, 233, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+    }
 
-    .navbar-brand {
-      font-weight: 700;
-      color: var(--deep-green) !important;
-      font-size: 1.4rem;
-      transition: transform 0.3s ease;
-    }
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--deep-green) !important;
+      font-size: 1.4rem;
+      transition: transform 0.3s ease;
+    }
 
-    .navbar-brand:hover {
-      transform: scale(1.02);
-    }
+    .navbar-brand:hover {
+      transform: scale(1.02);
+    }
 
-    .navbar-brand .tagline {
-      display: block;
-      font-size: 0.7rem;
-      margin-top: -3px;
-      color: var(--soft-gray);
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
+    .navbar-brand .tagline {
+      display: block;
+      font-size: 0.7rem;
+      margin-top: -3px;
+      color: var(--soft-gray);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
 
-    /* Desktop Navigation */
-    .navbar-nav {
-      gap: 0.5rem;
-    }
+    /* Desktop Navigation */
+    .navbar-nav {
+      gap: 0.5rem;
+    }
 
-    .nav-link {
-      color: var(--deep-green);
-      font-weight: 500;
-      padding: 0.5rem 1rem !important;
-      border-radius: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      text-shadow: none;
-    }
+    .nav-link {
+      color: var(--deep-green);
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      text-shadow: none;
+    }
 
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--warm-gold);
-      background-color: rgba(248, 192, 7, 0.1);
-    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--warm-gold);
+      background-color: rgba(248, 192, 7, 0.1);
+    }
 
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 5px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--warm-gold);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--warm-gold);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
 
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 60%;
-    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 60%;
+    }
 
-    /* Buttons */
-    .btn-gold {
-      background: linear-gradient(135deg, var(--warm-gold) 0%, var(--muted-yellow) 100%);
-      color: var(--rich-black);
-      border: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      font-weight: 600;
-      padding: 0.6rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(248, 192, 7, 0.3);
-    }
+    /* Buttons */
+    .btn-gold {
+      background: linear-gradient(135deg, var(--warm-gold) 0%, var(--muted-yellow) 100%);
+      color: var(--rich-black);
+      border: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(248, 192, 7, 0.3);
+    }
 
-    .btn-gold:hover {
-      background: linear-gradient(135deg, var(--muted-yellow) 0%, var(--warm-gold) 100%);
-      box-shadow: 0 4px 16px rgba(248, 192, 7, 0.5);
-      transform: translateY(-2px);
-      color: var(--rich-black);
-    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--muted-yellow) 0%, var(--warm-gold) 100%);
+      box-shadow: 0 4px 16px rgba(248, 192, 7, 0.5);
+      transform: translateY(-2px);
+      color: var(--rich-black);
+    }
 
-    /* Notification Button */
-    .notification-btn {
-      position: relative;
-      background: transparent;
-      border: 2px solid var(--deep-green);
-      color: var(--deep-green);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
+    /* Notification Button */
+    .notification-btn {
+      position: relative;
+      background: transparent;
+      border: 2px solid var(--deep-green);
+      color: var(--deep-green);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
 
-    .notification-btn:hover {
-      background-color: var(--deep-green);
-      color: white;
-      transform: scale(1.1) rotate(15deg);
-      box-shadow: 0 4px 12px rgba(42, 111, 25, 0.3);
-    }
+    .notification-btn:hover {
+      background-color: var(--deep-green);
+      color: white;
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 4px 12px rgba(42, 111, 25, 0.3);
+    }
 
-    .notification-btn.has-notification {
-      animation: pulse 2s infinite;
-    }
+    .notification-btn.has-notification {
+      animation: pulse 2s infinite;
+    }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
-    .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: linear-gradient(135deg, #ff4444, #ff6b6b);
-      color: white;
-      font-size: 0.7rem;
-      font-weight: 700;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 5px;
-      box-shadow: 0 2px 8px rgba(255, 68, 68, 0.4);
-      animation: bounce 1s infinite;
-    }
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: linear-gradient(135deg, #ff4444, #ff6b6b);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      box-shadow: 0 2px 8px rgba(255, 68, 68, 0.4);
+      animation: bounce 1s infinite;
+    }
 
-    @keyframes bounce {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
 
-    /* Offcanvas Navigation */
-    .offcanvas.offcanvas-end {
-      background: linear-gradient(135deg, rgba(233, 246, 233, 0.98) 0%, rgba(250, 251, 249, 0.98) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-left: none;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-    }
+    /* Offcanvas Navigation */
+    .offcanvas.offcanvas-end {
+      background: linear-gradient(135deg, rgba(233, 246, 233, 0.98) 0%, rgba(250, 251, 249, 0.98) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: none;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    }
 
-    .offcanvas-header {
-      border-bottom: 2px solid rgba(42, 111, 25, 0.1);
-      padding: 1.5rem;
-    }
+    .offcanvas-header {
+      border-bottom: 2px solid rgba(42, 111, 25, 0.1);
+      padding: 1.5rem;
+    }
 
-    .offcanvas-title {
-      font-weight: 700;
-      color: var(--deep-green);
-      font-size: 1.3rem;
-    }
+    .offcanvas-title {
+      font-weight: 700;
+      color: var(--deep-green);
+      font-size: 1.3rem;
+    }
 
-    .offcanvas-body {
-      padding: 1.5rem;
-    }
+    .offcanvas-body {
+      padding: 1.5rem;
+    }
 
-    .offcanvas-body .nav-link {
-      font-size: 1.1rem;
-      padding: 1rem;
-      margin-bottom: 0.5rem;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    .offcanvas-body .nav-link {
+      font-size: 1.1rem;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-    .offcanvas-body .nav-link::before {
-      content: '';
-      width: 4px;
-      height: 0;
-      background: var(--warm-gold);
-      border-radius: 2px;
-      transition: height 0.3s ease;
-    }
+    .offcanvas-body .nav-link::before {
+      content: '';
+      width: 4px;
+      height: 0;
+      background: var(--warm-gold);
+      border-radius: 2px;
+      transition: height 0.3s ease;
+    }
 
-    .offcanvas-body .nav-link:hover::before,
-    .offcanvas-body .nav-link.active::before {
-      height: 100%;
-    }
+    .offcanvas-body .nav-link:hover::before,
+    .offcanvas-body .nav-link.active::before {
+      height: 100%;
+    }
 
-    /* Notification Panel */
-    #notificationPanel .offcanvas-header {
-      background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
-    }
+    /* Notification Panel */
+    #notificationPanel .offcanvas-header {
+      background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
+    }
 
-    .notification-item {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid var(--deep-green);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+    .notification-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--deep-green);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
 
-    .notification-item:hover {
-      transform: translateX(-5px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    }
+    .notification-item:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
 
-    .notification-item.unread {
-      background: linear-gradient(90deg, #fff9e6 0%, #ffffff 100%);
-      border-left-color: var(--warm-gold);
-    }
+    .notification-item.unread {
+      background: linear-gradient(90deg, #fff9e6 0%, #ffffff 100%);
+      border-left-color: var(--warm-gold);
+    }
 
-    .notification-item.read {
-      opacity: 0.7;
-    }
+    .notification-item.read {
+      opacity: 0.7;
+    }
 
-    .notification-time {
-      font-size: 0.75rem;
-      color: var(--soft-gray);
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
+    .notification-time {
+      font-size: 0.75rem;
+      color: var(--soft-gray);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
 
-    .notification-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-    }
+    .notification-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
 
-    .btn-mark-read, .btn-delete {
-      font-size: 0.8rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 6px;
-      border: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+    .btn-mark-read, .btn-delete {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      border: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
 
-    .btn-mark-read {
-      background: var(--deep-green);
-      color: white;
-    }
+    .btn-mark-read {
+      background: var(--deep-green);
+      color: white;
+    }
 
-    .btn-mark-read:hover {
-      background: var(--primary-green);
-      transform: scale(1.05);
-    }
+    .btn-mark-read:hover {
+      background: var(--primary-green);
+      transform: scale(1.05);
+    }
 
-    .btn-delete {
-      background: #dc3545;
-      color: white;
-    }
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+    }
 
-    .btn-delete:hover {
-      background: #c82333;
-      transform: scale(1.05);
-    }
+    .btn-delete:hover {
+      background: #c82333;
+      transform: scale(1.05);
+    }
 
-    .clear-all-btn {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.75rem;
-      background: var(--soft-gray);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+    .clear-all-btn {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: var(--soft-gray);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
 
-    .clear-all-btn:hover {
-      background: var(--rich-black);
-      transform: translateY(-2px);
-    }
+    .clear-all-btn:hover {
+      background: var(--rich-black);
+      transform: translateY(-2px);
+    }
 
-    /* Modal */
-    .modal-content {
-      border: none;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    }
+    /* Modal */
+    .modal-content {
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
 
-    .modal-header {
-      background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
-      border-bottom: none;
-      padding: 1.5rem;
-    }
+    .modal-header {
+      background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
+      border-bottom: none;
+      padding: 1.5rem;
+    }
 
-    .modal-body {
-      padding: 2rem;
-    }
+    .modal-body {
+      padding: 2rem;
+    }
 
-    .form-label {
-      color: var(--deep-green);
-      margin-bottom: 0.5rem;
-    }
+    .form-label {
+      color: var(--deep-green);
+      margin-bottom: 0.5rem;
+    }
 
-    .form-control, .form-select {
-      border: 2px solid rgba(42, 111, 25, 0.2);
-      border-radius: 8px;
-      padding: 0.75rem;
-      transition: all 0.3s ease;
-    }
+    .form-control, .form-select {
+      border: 2px solid rgba(42, 111, 25, 0.2);
+      border-radius: 8px;
+      padding: 0.75rem;
+      transition: all 0.3s ease;
+    }
 
-    .form-control:focus, .form-select:focus {
-      border-color: var(--deep-green);
-      box-shadow: 0 0 0 0.25rem rgba(42, 111, 25, 0.1);
-    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--deep-green);
+      box-shadow: 0 0 0 0.25rem rgba(42, 111, 25, 0.1);
+    }
 
-    /* Hamburger Menu */
-    .navbar-toggler {
-      border: 2px solid var(--deep-green);
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      transition: all 0.3s ease;
-      background: transparent;
-    }
+    /* Hamburger Menu */
+    .navbar-toggler {
+      border: 2px solid var(--deep-green);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
 
-    .navbar-toggler:hover {
-      background-color: var(--deep-green);
-      transform: scale(1.1);
-    }
+    .navbar-toggler:hover {
+      background-color: var(--deep-green);
+      transform: scale(1.1);
+    }
 
-    .navbar-toggler:hover .fa-bars {
-      color: white !important;
-    }
+    .navbar-toggler:hover .fa-bars {
+      color: white !important;
+    }
 
-    /* Toast */
-    .toast-container {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      z-index: 1050;
-    }
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      z-index: 1050;
+    }
 
-    .custom-toast {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      padding: 1rem;
-      margin-bottom: 0.5rem;
-      border-left: 4px solid var(--deep-green);
-      min-width: 300px;
-      animation: slideIn 0.3s ease;
-    }
+    .custom-toast {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-left: 4px solid var(--deep-green);
+      min-width: 300px;
+      animation: slideIn 0.3s ease;
+    }
 
-    @keyframes slideIn {
-      from { transform: translateX(400px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
 
-    .custom-toast.success { border-left-color: #28a745; }
-    .custom-toast.error { border-left-color: #dc3545; }
+    .custom-toast.success { border-left-color: #28a745; }
+    .custom-toast.error { border-left-color: #dc3545; }
 
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--soft-gray);
-    }
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--soft-gray);
+    }
 
-    .empty-state i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
 
-    /* Loading Spinner */
-    .spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(0, 0, 0, 0.1);
-      border-top-color: var(--rich-black);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
+    /* Loading Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-top-color: var(--rich-black);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-    /* Responsive */
-    @media (max-width: 991px) {
-      .navbar-brand { font-size: 1.2rem; }
-      .navbar-brand .tagline { font-size: 0.65rem; }
-      body { padding-top: 70px; }
-      .offcanvas.offcanvas-end { width: 320px; }
-    }
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navbar-brand { font-size: 1.2rem; }
+      .navbar-brand .tagline { font-size: 0.65rem; }
+      body { padding-top: 70px; }
+      .offcanvas.offcanvas-end { width: 320px; }
+    }
 
-    @media (max-width: 576px) {
-      .offcanvas.offcanvas-end { width: 85%; max-width: 300px; }
-      .notification-btn { width: 40px; height: 40px; }
-      .btn-gold { padding: 0.5rem 1rem; font-size: 0.9rem; }
-    }
+    @media (max-width: 576px) {
+      .offcanvas.offcanvas-end { width: 85%; max-width: 300px; }
+      .notification-btn { width: 40px; height: 40px; }
+      .btn-gold { padding: 0.5rem 1rem; font-size: 0.9rem; }
+    }
 
-    /* Demo Content */
-    .demo-content { padding: 4rem 0; }
-    .demo-section {
-      background: white;
-      border-radius: 16px;
-      padding: 3rem;
-      margin: 2rem 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    }
-  </style>
+    /* Demo Content */
+    .demo-content { padding: 4rem 0; }
+    .demo-section {
+      background: white;
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+  </style>
 </head>
 
 <body>
-  <!-- HEADER -->
-  <header id="top-header">
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-xl">
-        <a class="navbar-brand" href="#">
-          NNP Christian Union
-          <span class="tagline">Faith • Fellowship • Growth</span>
-        </a>
+    <header id="top-header">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-xl">
+        <a class="navbar-brand" href="#">
+          NNP Christian Union
+          <span class="tagline">Faith • Fellowship • Growth</span>
+        </a>
 
-        <div class="d-flex align-items-center gap-2 order-lg-3">
-          <button class="notification-btn" id="notificationBtn" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
-            <i class="fa-solid fa-bell"></i>
-            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
-          </button>
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <button class="notification-btn" id="notificationBtn" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+          </button>
 
-          <button class="btn btn-gold d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#membershipModal">
-            <i class="fa-solid fa-user-plus me-2"></i>Become a Member
-          </button>
+          <button class="btn btn-gold d-none d-lg-block" data-bs-toggle="modal" data-bs-target="#membershipModal">
+            <i class="fa-solid fa-user-plus me-2"></i>Become a Member
+          </button>
 
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
-            <i class="fa-solid fa-bars text-deep-green fs-5"></i>
-          </button>
-        </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
+            <i class="fa-solid fa-bars text-deep-green fs-5"></i>
+          </button>
+        </div>
 
-        <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
-            <li class="nav-item"><a href="#library" class="nav-link">Library</a></li>
-            <li class="nav-item"><a href="#ministry" class="nav-link">Ministries</a></li>
-            <li class="nav-item"><a href="#live" class="nav-link">Live</a></li>
-            <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
-            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
-        </div>
+        <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="#library" class="nav-link">Library</a></li>
+            <li class="nav-item"><a href="#ministry" class="nav-link">Ministries</a></li>
+            <li class="nav-item"><a href="#live" class="nav-link">Live</a></li>
+            <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
 
-        <!-- Mobile Navigation -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title"><i class="fa-solid fa-cross me-2"></i>Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav">
-              <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i>Home</a></li>
-              <li><a href="#library" class="nav-link"><i class="fa-solid fa-book"></i>Library</a></li>
-              <li><a href="#ministry" class="nav-link"><i class="fa-solid fa-hands-praying"></i>Ministries</a></li>
-              <li><a href="#live" class="nav-link"><i class="fa-solid fa-broadcast-tower"></i>Live</a></li>
-              <li><a href="#gallery" class="nav-link"><i class="fa-solid fa-images"></i>Gallery</a></li>
-              <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i>Contact</a></li>
-            </ul>
-            <div class="mt-4">
-              <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">
-                <i class="fa-solid fa-user-plus me-2"></i>Become a Member
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title"><i class="fa-solid fa-cross me-2"></i>Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i>Home</a></li>
+              <li><a href="#library" class="nav-link"><i class="fa-solid fa-book"></i>Library</a></li>
+              <li><a href="#ministry" class="nav-link"><i class="fa-solid fa-hands-praying"></i>Ministries</a></li>
+              <li><a href="#live" class="nav-link"><i class="fa-solid fa-broadcast-tower"></i>Live</a></li>
+              <li><a href="#gallery" class="nav-link"><i class="fa-solid fa-images"></i>Gallery</a></li>
+              <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i>Contact</a></li>
+            </ul>
+            <div class="mt-4">
+              <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">
+                <i class="fa-solid fa-user-plus me-2"></i>Become a Member
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-  <!-- NOTIFICATION PANEL -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel">
-    <div class="offcanvas-header text-white">
-      <h5 class="offcanvas-title">
-        <i class="fa-solid fa-bell me-2"></i>Notifications 
-        <span class="badge bg-light text-dark ms-2" id="unreadCount">0</span>
-      </h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body" id="notificationContainer"></div>
-  </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel">
+    <div class="offcanvas-header text-white">
+      <h5 class="offcanvas-title">
+        <i class="fa-solid fa-bell me-2"></i>Notifications 
+        <span class="badge bg-light text-dark ms-2" id="unreadCount">0</span>
+      </h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      
+    </div>
+    <div class="offcanvas-body" id="notificationContainer"></div>
+  </div>
 
-  <!-- MEMBERSHIP MODAL -->
-  <div class="modal fade" id="membershipModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header text-white">
-          <h5 class="modal-title"><i class="fa-solid fa-cross me-2"></i>Join NNP Christian Union</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="alert alert-info border-0 mb-4">
-            <i class="fa-solid fa-info-circle me-2"></i>
-            Fill out the form below to become a member. You'll receive a welcome pack via email!
-          </div>
-          <form id="membershipForm" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-user me-1"></i>Full Name</label>
-              <input type="text" class="form-control" id="memberFullName" placeholder="John Doe" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-id-card me-1"></i>Student/Institute ID</label>
-              <input type="text" class="form-control" id="memberStudentID" placeholder="NNP/2024/001" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-envelope me-1"></i>Email</label>
-              <input type="email" class="form-control" id="memberEmail" placeholder="john@example.com" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-phone me-1"></i>Phone</label>
-              <input type="tel" class="form-control" id="memberPhone" placeholder="+254 700 000 000" required>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-graduation-cap me-1"></i>Year/Class</label>
-              <select class="form-select" id="memberYearClass" required>
-                <option value="">Choose your year...</option>
-                <option>Year 1</option>
-                <option>Year 2</option>
-                <option>Year 3</option>
-                <option>Year 4</option>
-                <option>Staff/Alumni</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold"><i class="fa-solid fa-church me-1"></i>Home Church (Optional)</label>
-              <input type="text" class="form-control" id="memberChurch" placeholder="Your home church">
-            </div>
-            <div class="col-12 mt-4">
-              <button type="submit" class="btn btn-gold w-100 fw-bold" id="submitBtn">
-                <i class="fa-solid fa-paper-plane me-2"></i>Submit & Receive Welcome Pack
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="modal fade" id="membershipModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header text-white">
+          <h5 class="modal-title"><i class="fa-solid fa-cross me-2"></i>Join NNP Christian Union</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info border-0 mb-4">
+            <i class="fa-solid fa-info-circle me-2"></i>
+            Fill out the form below to become a member. You'll receive a welcome pack via email!
+          </div>
+          <form id="membershipForm" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-user me-1"></i>Full Name</label>
+              <input type="text" class="form-control" id="memberFullName" placeholder="John Doe" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-id-card me-1"></i>Student/Institute ID</label>
+              <input type="text" class="form-control" id="memberStudentID" placeholder="NNP/2024/001" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-envelope me-1"></i>Email</label>
+              <input type="email" class="form-control" id="memberEmail" placeholder="john@example.com" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-phone me-1"></i>Phone</label>
+              <input type="tel" class="form-control" id="memberPhone" placeholder="+254 700 000 000" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-graduation-cap me-1"></i>Year/Class</label>
+              <select class="form-select" id="memberYearClass" required>
+                <option value="">Choose your year...</option>
+                <option>Year 1</option>
+                <option>Year 2</option>
+                <option>Year 3</option>
+                <option>Year 4</option>
+                <option>Staff/Alumni</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold"><i class="fa-solid fa-church me-1"></i>Home Church (Optional)</label>
+              <input type="text" class="form-control" id="memberChurch" placeholder="Your home church">
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-gold w-100 fw-bold" id="submitBtn">
+                <i class="fa-solid fa-paper-plane me-2"></i>Submit & Receive Welcome Pack
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
+    <div class="toast-container" id="toastContainer"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Notification Manager
-    class NotificationManager {
-      constructor() {
-        this.notifications = this.loadNotifications();
-        this.render();
-      }
+  <div class="container demo-content">
+    <div class="demo-section text-center">
+      <h1>Welcome to NNP Christian Union</h1>
+      <p class="lead text-muted">A place of faith, fellowship, and growth on campus.</p>
+      <button class="btn btn-gold mt-3" onclick="testNotification()">
+        <i class="fa-solid fa-bell-concierge me-2"></i>Trigger Test Notification
+      </button>
+    </div>
+  </div>
 
-      loadNotifications() {
-        try {
-          const stored = localStorage.getItem('nnp_notifications');
-          if (stored) return JSON.parse(stored);
-        } catch(e) {}
-        return [
-          {
-            id: 1,
-            title: 'Event RSVP Confirmed!',
-            message: 'You have successfully RSVP\'d for Campus Evangelism on Nov 8–9.',
-            time: new Date(Date.now() - 3600000).toISOString(),
-            read: false,
-            type: 'success'
-          },
-          {
-            id: 2,
-            title: 'Weekly Bible Study',
-            message: 'Join us this Friday at 6 PM for our weekly Bible study session.',
-            time: new Date(Date.now() - 7200000).toISOString(),
-            read: false,
-            type: 'info'
-          }
-        ];
-      }
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Notification Manager
+    class NotificationManager {
+      constructor() {
+        this.notifications = this.loadNotifications();
+        this.render();
+        // Add event listeners after manager is initialized
+        this.initEventListeners();
+      }
 
-      saveNotifications() {
-        try {
-          localStorage.setItem('nnp_notifications', JSON.stringify(this.notifications));
-        } catch(e) {}
-      }
+      loadNotifications() {
+        try {
+          const stored = localStorage.getItem('nnp_notifications');
+          if (stored) return JSON.parse(stored);
+        } catch(e) {}
+        return [
+          {
+            id: 1,
+            title: 'Event RSVP Confirmed!',
+            message: 'You have successfully RSVP\'d for Campus Evangelism on Nov 8–9.',
+            time: new Date(Date.now() - 3600000).toISOString(),
+            read: false,
+            type: 'success'
+          },
+          {
+            id: 2,
+            title: 'Weekly Bible Study',
+            message: 'Join us this Friday at 6 PM for our weekly Bible study session.',
+            time: new Date(Date.now() - 7200000).toISOString(),
+            read: false,
+            type: 'info'
+          }
+        ];
+      }
 
-      addNotification(notification) {
-        const newNotif = {
-          id: Date.now(),
-          ...notification,
-          time: new Date().toISOString(),
-          read: false
-        };
-        this.notifications.unshift(newNotif);
-        this.saveNotifications();
-        this.render();
-        this.showToast(notification.title, 'success');
-        
-        const btn = document.getElementById('notificationBtn');
-        btn.classList.add('has-notification');
-      }
+      saveNotifications() {
+        try {
+          localStorage.setItem('nnp_notifications', JSON.stringify(this.notifications));
+        } catch(e) {}
+      }
 
-      markAsRead(id) {
-        const notif = this.notifications.find(n => n.id === id);
-        if (notif) {
-          notif.read = true;
-          this.saveNotifications();
-          this.render();
-        }
-      }
+      addNotification(notification) {
+        const newNotif = {
+          id: Date.now(),
+          ...notification,
+          time: new Date().toISOString(),
+          read: false
+        };
+        this.notifications.unshift(newNotif);
+        this.saveNotifications();
+        this.render();
+        this.showToast(notification.title, 'info'); // Changed to 'info' as a generic success/new notif
+        
+        const btn = document.getElementById('notificationBtn');
+        btn.classList.add('has-notification');
+      }
 
-      deleteNotification(id) {
-        this.notifications = this.notifications.filter(n => n.id !== id);
-        this.saveNotifications();
-        this.render();
-      }
+      markAsRead(id) {
+        const notif = this.notifications.find(n => n.id === id);
+        if (notif && !notif.read) {
+          notif.read = true;
+          this.saveNotifications();
+          this.render();
+          this.showToast(`Notification marked as read.`, 'success');
+        }
+      }
 
-      clearAll() {
-        if (confirm('Are you sure you want to clear all notifications?')) {
-          this.notifications = [];
-          this.saveNotifications();
-          this.render();
-          this.showToast('All notifications cleared', 'success');
-        }
-      }
+      deleteNotification(id) {
+        this.notifications = this.notifications.filter(n => n.id !== id);
+        this.saveNotifications();
+        this.render();
+        this.showToast('Notification deleted.', 'error'); // Using 'error' for visual distinction of a deletion
+      }
 
-      getTimeAgo(timestamp) {
-        const now = new Date();
-        const time = new Date(timestamp);
-        const diff = Math.floor((now - time) / 1000);
+      clearAll() {
+        const modal = bootstrap.Offcanvas.getInstance(document.getElementById('notificationPanel'));
+        if (modal) modal.hide();
+        
+        setTimeout(() => { // Delay to allow offcanvas to close
+          if (confirm('Are you sure you want to clear all notifications?')) {
+            this.notifications = [];
+            this.saveNotifications();
+            this.render();
+            this.showToast('All notifications cleared', 'success');
+          }
+        }, 300);
+      }
+      
+      showToast(message, type = 'info') {
+        const toastContainer = document.getElementById('toastContainer');
+        const toastId = `toast-${Date.now()}`;
+        const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
 
-        if (diff < 60) return 'Just now';
-        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-        return `${Math.floor(diff / 86400)}d ago`;
-      }
+        const toastHtml = `
+          <div class="custom-toast ${type} fade show" role="alert" aria-live="assertive" aria-atomic="true" id="${toastId}">
+            <div class="d-flex">
+              <div class="toast-body d-flex align-items-center p-0">
+                <i class="fa-solid ${icon} me-2 text-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'}"></i>
+                <strong>${message}</strong>
+              </div>
+              <button type="button" class="btn-close ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        `;
 
-      render() {
-        const container = document.getElementById('notificationContainer');
-        const unreadCount = this.notifications.filter(n => !n.read).length;
-        
-        const badge = document.getElementById('notificationBadge');
-        const unreadSpan = document.getElementById('unreadCount');
-        
-        if (unreadCount > 0) {
-          badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
-          badge.style.display = 'flex';
-          unreadSpan.textContent = unreadCount;
-        } else {
-          badge.style.display = 'none';
-          unreadSpan.textContent = '0';
-        }
+        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
 
-        if (this.notifications.length === 0) {
-          container.innerHTML = `
-            <div class="empty-state">
-              <i class="fa-solid fa-bell-slash"></i>
-              <h6>No Notifications</h6>
-              <p class="small">You're all caught up!</p>
-            </div>`;
-          return;
-        }
+        const toastEl = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+        toast.show();
+        toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+      }
 
-        container.innerHTML = this.notifications.map(notif => `
-          <div class="notification-item ${notif.read ? 'read' : 'unread'}" data-id="${notif.id}">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <h6 class="fw-bold mb-0">${notif.title}</h6>
-              <i class="fa-solid ${notif.read ? 'fa-envelope-open' : 'fa-envelope'} text-muted"></i>
-            </div>
-            <p class="mb-2 small">${notif.message}</p>
-            <div class="notification-time">
-              <i class="fa-regular fa-clock"></i>
-              <span>${this.getTimeAgo(notif.time)}</span>
-            </div>
-            <div class="notification-actions">
-              ${!notif.read ? `<button class="btn-mark-read" onclick="notifManager.markAsRead(${notif.id})">
-                <i class="fa-solid fa-check me-1"></i>Mark Read
-              </button>` : ''}
-              <button class="btn-delete" onclick="notifManager.deleteNotification(
+      getTimeAgo(timestamp) {
+        const now = new Date();
+        const time = new Date(timestamp);
+        const diff = Math.floor((now - time) / 1000);
+
+        if (diff < 60) return 'Just now';
+        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+        return `${Math.floor(diff / 86400)}d ago`;
+      }
+
+      render() {
+        const container = document.getElementById('notificationContainer');
+        const unreadCount = this.notifications.filter(n => !n.read).length;
+        
+        const badge = document.getElementById('notificationBadge');
+        const unreadSpan = document.getElementById('unreadCount');
+        const notifBtn = document.getElementById('notificationBtn');
+        
+        if (unreadCount > 0) {
+          badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+          badge.style.display = 'flex';
+          unreadSpan.textContent = unreadCount;
+          notifBtn.classList.add('has-notification');
+        } else {
+          badge.style.display = 'none';
+          unreadSpan.textContent = '0';
+          notifBtn.classList.remove('has-notification');
+        }
+
+        if (this.notifications.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fa-solid fa-bell-slash"></i>
+              <h6>No Notifications</h6>
+              <p class="small">You're all caught up!</p>
+            </div>`;
+          return;
+        }
+
+        const notificationsHtml = this.notifications.map(notif => `
+          <div class="notification-item ${notif.read ? 'read' : 'unread'}" data-id="${notif.id}">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="fw-bold mb-0">${notif.title}</h6>
+              <i class="fa-solid ${notif.read ? 'fa-envelope-open' : 'fa-envelope'} text-muted"></i>
+            </div>
+            <p class="mb-2 small">${notif.message}</p>
+            <div class="notification-time">
+              <i class="fa-regular fa-clock"></i>
+              <span>${this.getTimeAgo(notif.time)}</span>
+            </div>
+            <div class="notification-actions">
+              ${!notif.read ? `<button class="btn-mark-read" onclick="notifManager.markAsRead(${notif.id})">
+                <i class="fa-solid fa-check me-1"></i>Mark Read
+              </button>` : ''}
+              <button class="btn-delete" onclick="notifManager.deleteNotification(${notif.id})">
+                <i class="fa-solid fa-trash-alt me-1"></i>Delete
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        container.innerHTML = notificationsHtml + `
+          <button class="clear-all-btn" onclick="notifManager.clearAll()">
+            <i class="fa-solid fa-eraser me-2"></i>Clear All Notifications
+          </button>`;
+      }
+
+      initEventListeners() {
+        const form = document.getElementById('membershipForm');
+        if (form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const originalHtml = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner me-2"></span> Submitting...';
+
+            setTimeout(() => {
+              // Simulate API call
+              const fullName = document.getElementById('memberFullName').value;
+              const modal = bootstrap.Modal.getInstance(document.getElementById('membershipModal'));
+              if (modal) modal.hide();
+
+              // Reset button
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalHtml;
+              form.reset();
+
+              // Add success notification
+              this.addNotification({
+                title: 'Membership Approved!',
+                message: `Welcome, ${fullName}! Your membership is active. Check your email for the welcome pack.`,
+                type: 'success'
+              });
+
+            }, 2000);
+          });
+        }
+
+        // Header scroll effect
+        const header = document.getElementById('top-header');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            header.querySelector('.navbar').classList.add('scrolled');
+          } else {
+            header.querySelector('.navbar').classList.remove('scrolled');
+          }
+        });
+      }
+    }
+
+    const notifManager = new NotificationManager();
+
+    // Function for the demo button
+    function testNotification() {
+      notifManager.addNotification({
+        title: 'New Sermon Available!',
+        message: 'Pastor James just uploaded the "Faith in Action" sermon to the Library.',
+        type: 'info'
+      });
+    }
+  </script>
+</body>
+</html>

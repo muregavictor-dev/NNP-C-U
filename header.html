@@ -108,7 +108,27 @@ body {
     border-radius: var(--radius);
   }
 }
+.btn-gold {
+            background-color: var(--warm-gold);
+            color: var(--rich-black);
+            border-color: var(--warm-gold);
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
 
+        .btn-gold:hover {
+            background-color: var(--muted-yellow);
+            border-color: var(--muted-yellow);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            color: var(--rich-black);
+        }
 /* === HERO SECTION === */
 .hero-section {
   min-height: 100vh;
@@ -442,5 +462,6 @@ footer a:hover {
   </script>
 </body>
 </html>
+
 
 

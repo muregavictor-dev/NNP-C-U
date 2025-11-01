@@ -774,7 +774,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 </script>
 
-============================== -->
+
 <div class="offcanvas offcanvas-start" tabindex="-1" id="aiChatbox"
      aria-labelledby="aiChatboxLabel" style="width: 350px;">
   <div class="offcanvas-header bg-deep-green text-white">
@@ -881,56 +881,6 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-<!-- Floating Button -->
-<button class="btn btn-gold shadow-lg position-fixed bottom-0 end-0 m-4 rounded-circle animate-float"
-        data-bs-toggle="offcanvas" data-bs-target="#aiChatbox"
-        aria-controls="aiChatbox" style="width:60px;height:60px;">
-  <i class="bi bi-chat-dots-fill fs-4"></i>
-</button>
-
-<!-- === STYLES === -->
-<style>
-  .btn-gold {
-    background: linear-gradient(45deg, #FFB300, #FFD54F);
-    color: #1b1b1b;
-    border: none;
-  }
-  .btn-gold:hover {
-    background: linear-gradient(45deg, #FFD54F, #FFB300);
-  }
-  .bg-deep-green {
-    background-color: #2a6f19 !important;
-  }
-  .message {
-    max-width: 85%;
-    word-wrap: break-word;
-    animation: fadeIn 0.3s ease;
-  }
-  .user-message {
-    align-self: flex-end;
-    background: #d1e7dd;
-    color: #0f5132;
-  }
-  .bot-message {
-    align-self: flex-start;
-    background: #e8f5e9;
-    color: #1b5e20;
-  }
-  .fade-in {
-    animation: fadeIn 0.4s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-</style>
 
 <!-- === SCRIPT === -->
 <script>
@@ -1188,6 +1138,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

@@ -134,7 +134,10 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 
 /* === HERO SECTION === */
  .hero-section {
+     min-height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--deep-green);
     overflow: hidden;
     min-height: 100vh;
@@ -430,6 +433,7 @@ footer {
 .rounded-4 { border-radius: 16px !important; }
 
 .shadow-lg { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
+
 
 
 

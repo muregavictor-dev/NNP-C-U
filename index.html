@@ -832,47 +832,78 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-<!-- ==============================
-   AI CHATBOX WIDGET
-============================== -->
+<!-- =============  CHATBOX WIDGET  ============= -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="aiChatbox"
      aria-labelledby="aiChatboxLabel" style="width: 350px;">
   <div class="offcanvas-header bg-deep-green text-white">
     <h5 class="offcanvas-title" id="aiChatboxLabel">CU Assistant Bot</h5>
     <button type="button" class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close Chat Widget"></button>
+            data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
   <div class="offcanvas-body d-flex flex-column" id="chatboxBody">
-    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3">
+    <div class="chat-messages flex-grow-1 overflow-auto p-2 mb-3" id="chatMessages">
       <div class="message bot-message mb-2 p-2 rounded-3 bg-light-gray">
         Hello! I'm your NNP CU Assistant. How can I help you grow in faith today?
-      </div>
-      <div class="quick-replies d-flex flex-wrap gap-2 mt-2" data-aos="fade-in">
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="service-times">Service Times</button>
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="how-to-join">How to Join</button>
-        <button class="btn btn-outline-primary-green btn-sm quick-reply-btn"
-                data-reply="upcoming-events">Upcoming Events</button>
       </div>
     </div>
 
     <form id="chatForm" class="mt-auto">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Ask a question..."
-               aria-label="Chat input field" id="chatInput">
-        <button class="btn btn-gold" type="submit" aria-label="Send message">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-               fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-            <path d="M15.964.686a.5.5 0 0 0-.297-.297L..."/>
-          </svg>
+        <input type="text" class="form-control" placeholder="Ask a question…"
+               id="chatInput" required>
+        <button class="btn btn-gold" type="submit">
+          <i class="bi bi-send-fill"></i>
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<!-- floating button -->
+<button class="btn btn-gold shadow-lg position-fixed bottom-0 end-0 m-4 rounded-circle"
+        data-bs-toggle="offcanvas" data-bs-target="#aiChatbox"
+        aria-controls="aiChatbox" style="width:60px;height:60px;">
+  <i class="bi bi-chat-dots-fill fs-4"></i>
+</button>
+
+<script>
+const form = document.getElementById('chatForm');
+const input = document.getElementById('chatInput');
+const messages = document.getElementById('chatMessages');
+
+function addMessage(sender, text) {
+  const div = document.createElement('div');
+  div.className = `message ${sender}-message mb-2 p-2 rounded-3`;
+  div.textContent = text;
+  div.style.background = sender === 'bot' ? '#f0f0f0' : '#d4edda';
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const userText = input.value.trim();
+  if (!userText) return;
+  addMessage('user', userText);
+  input.value = '';
+  addMessage('bot', '⏳ Thinking…');
+
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: userText})
+    });
+    const data = await res.json();
+    messages.lastChild.remove();
+    addMessage('bot', data.reply || 'Sorry, I have no answer right now.');
+  } catch (err) {
+    messages.lastChild.remove();
+    addMessage('bot', '⚠️ Network error.');
+  }
+});
+</script>
 
 <!-- ==============================
    MEMBERSHIP MODAL FORM
@@ -1078,6 +1109,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

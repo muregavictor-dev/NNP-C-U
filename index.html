@@ -780,132 +780,27 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- WhatsApp Button (Bottom Left) -->
 <a href="https://wa.me/+254742812494?text=Hello%20NNP%20Christian%20Union"
    target="_blank"
-   class="fab-icon bg-whatsapp"
+   class="fab-icon fab-whatsapp"
    aria-label="Chat with us on WhatsApp">
-  <i class="bi bi-whatsapp fs-4"></i>
+  <!-- WhatsApp SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+    <path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.373 0 .03 5.344.03 11.97c0 2.108.55 4.177 1.59 6.01L0 24l6.195-1.617A11.93 11.93 0 0 0 12 24c6.627 0 12-5.373 12-12 0-1.86-.44-3.62-1.48-5.22zM12 21.5c-1.05 0-2.08-.16-3.05-.47l-.22-.07-3.67.96.99-3.03-.15-.23A8.5 8.5 0 1 1 20.5 12 8.48 8.48 0 0 1 12 21.5z"/>
+    <path d="M17.1 14.08c-.23-.12-1.36-.67-1.57-.74-.21-.07-.36-.12-.52.12-.16.25-.62.74-.76.9-.14.16-.28.18-.51.06-.23-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.44-1.34-1.67-.14-.23-.015-.36.1-.48.1-.12.23-.28.34-.42.11-.14.15-.24.23-.4.08-.16.04-.29-.02-.41-.06-.12-.52-1.27-.72-1.74-.19-.47-.39-.41-.52-.42-.13-.01-.28-.01-.43-.01-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9 0 1.12.82 2.21.94 2.37.12.16 1.62 2.6 3.96 3.64 2.34 1.04 2.34.69 2.76.64.42-.05 1.36-.55 1.55-1.08.19-.53.19-.99.13-1.08-.06-.09-.22-.15-.45-.27z"/>
+  </svg>
 </a>
 
 <!-- Chatbot Button (Bottom Right) -->
-<button class="fab-icon bg-chat"
+<button class="fab-icon fab-chat"
         id="chatboxToggle"
         aria-label="Open AI Chat Widget"
         data-bs-toggle="offcanvas"
         data-bs-target="#aiChatbox"
         aria-controls="aiChatbox">
-  <i class="bi bi-robot fs-5"></i>
+  <!-- Robot SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+    <path d="M12 1.75a3.25 3.25 0 0 0-3.25 3.25v.5H6.75A2.75 2.75 0 0 0 4 8.25v6.5A2.75 2.75 0 0 0 6.75 17.5h.25v1.5a2.25 2.25 0 0 0 2.25 2.25h6.5A2.25 2.25 0 0 0 18 19v-1.5h.25A2.75 2.75 0 0 0 21 15.75v-6.5A2.75 2.75 0 0 0 18.25 6.5h-2V5a3.25 3.25 0 0 0-3.25-3.25zM9.5 5a2.5 2.5 0 1 1 5 0v.5h-5V5zM7 9.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM8 14.25c0 .414.336.75.75.75h6.5a.75.75 0 0 0 0-1.5h-6.5A.75.75 0 0 0 8 14.25z"/>
+  </svg>
 </button>
-
-
-
-<!-- ========== STYLES ========== -->
-<style>
-  /* Base Floating Buttons */
-  .fab-icon {
-    position: fixed;
-    bottom: 25px;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease-in-out;
-    z-index: 1050;
-    border: none;
-  }
-
-  /* WhatsApp on Left */
-  .bg-whatsapp {
-    left: 25px;
-    background: linear-gradient(145deg, #25D366, #128C7E);
-    animation: pulse 2.5s infinite;
-  }
-
-  /* Chatbot on Right */
-  .bg-chat {
-    right: 10px;
-    background: linear-gradient(145deg, #FFD54F, #FFB300);
-  }
-
-  /* Hover Effects */
-  .fab-icon:hover {
-    transform: translateY(-5px) scale(1.07);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    filter: brightness(1.15);
-  }
-
-  /* Pulse for WhatsApp */
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-    70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-  }
-
-  /* Tooltip (Hover Labels) */
-  .fab-icon::after {
-    content: attr(aria-label);
-    position: absolute;
-    bottom: 70px;
-    background: #222;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 13px;
-    border-radius: 5px;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .fab-icon:hover::after {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* === Pop-up Chat Hint === */
-  .chat-hint-bubble {
-    position: fixed;
-    bottom: 95px;
-    right: 95px;
-    background: #fff;
-    color: #2a6f19;
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 14px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 1040;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.6s ease;
-    pointer-events: none;
-  }
-
-  .chat-hint-bubble.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Mobile */
-  @media (max-width: 576px) {
-    .fab-icon {
-      width: 50px;
-      height: 50px;
-      bottom: 20px;
-    }
-    .bg-whatsapp { left: 15px; }
-    .bg-chat { right: 15px; }
-    .chat-hint-bubble {
-      bottom: 85px;
-      right: 80px;
-      font-size: 13px;
-      padding: 8px 12px;
-    }
-  }
-</style>
 
 
 
@@ -1283,6 +1178,7 @@ form.addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
+
 
 
 

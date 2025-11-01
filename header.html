@@ -1,157 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NNP Christian Union</title>
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NNP Header — fix offcanvas overlap</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
   <style>
-    :root {
-      --primary-green: #318b2e;
-      --deep-green: #2a6f19;
-      --warm-gold: #f8c007;
-      --muted-yellow: #f5bf0d;
-      --rich-black: #0B0B0B;
-      --off-white: #FAFBF9;
-      --soft-gray: #494848;
+    :root{
+      --primary-green:#318b2e;
+      --deep-green:#2a6f19;
+      --warm-gold:#f8c007;
+      --muted-yellow:#f5bf0d;
+      --rich-black:#0B0B0B;
+      --off-white:#FAFBF9;
+      --soft-gray:#494848;
     }
 
-    body {
-      font-family: "Roboto", sans-serif;
-      background-color: var(--off-white);
-      color: var(--rich-black);
-      scroll-behavior: smooth;
+    body{ font-family: "Roboto", sans-serif; background:var(--off-white); color:var(--rich-black); }
+
+    /* header */
+    #top-header{ position:fixed; top:0; left:0; right:0; z-index:1030; }
+    .navbar{ background-color: rgba(233,246,233,0.98); backdrop-filter: blur(8px); box-shadow:0 2px 10px rgba(0,0,0,0.05); transition:all .3s ease; }
+    .navbar.scrolled{ background-color: rgba(233,246,233,1); box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+    .navbar-brand{ color:var(--deep-green) !important; font-weight:700; }
+    .nav-link{ color:var(--deep-green); font-weight:500; }
+    .nav-link:hover{ color:var(--warm-gold); }
+
+    .btn-gold{ background:var(--warm-gold); color:var(--rich-black); border:none; font-weight:600; }
+    .btn-gold:hover{ background:var(--muted-yellow); }
+
+    /* ensure offcanvas stacks cleanly and widths */
+    .offcanvas { z-index: 1060; }              /* ensure above navbar (1030) */
+    #offcanvasNav { max-width: 340px; width: 85%; }      /* right menu width */
+    #notificationPanel { max-width: 360px; width: 80%; } /* left notifications width */
+
+    /* small-screen: make offcanvas full width if very narrow */
+    @media (max-width:576px){
+      #offcanvasNav, #notificationPanel { max-width:100%; width:100%; }
     }
 
-    /* HEADER */
-    #top-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1030;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
+    /* avoid content overlapping when offcanvas open */
+    .offcanvas-backdrop { z-index:1050; } /* below offcanvas (1060), above rest */
 
-    .navbar {
-      background-color: rgba(233, 246, 233, 0.98);
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
+    /* tune offcanvas body */
+    .offcanvas-body { overflow-y:auto; -webkit-overflow-scrolling:touch; }
 
-    .navbar.scrolled {
-      background-color: rgba(233, 246, 233, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-    }
+    /* notification badge */
+    .badge.bg-gold{ background:var(--warm-gold) !important; color:var(--rich-black); }
 
-    .navbar-brand {
-      font-weight: 700;
-      color: var(--deep-green) !important;
-    }
-
-    .nav-link {
-      color: var(--deep-green);
-      font-weight: 500;
-      margin-right: 10px;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    .nav-link:hover {
-      color: var(--warm-gold);
-      transform: translateY(-2px);
-    }
-
-    /* Buttons */
-    .btn-gold {
-      background-color: var(--warm-gold);
-      color: var(--rich-black);
-      border: none;
-      transition: all 0.3s;
-      font-weight: 600;
-    }
-
-    .btn-gold:hover {
-      background-color: var(--muted-yellow);
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
-    }
-
-    /* Notification Badge */
-    .badge.bg-gold {
-      background-color: var(--warm-gold);
-    }
-
-    /* Offcanvas Nav */
-    .offcanvas.offcanvas-end {
-      background-color: rgba(233, 246, 233, 0.98);
-      backdrop-filter: blur(10px);
-      border-left: none;
-      transition: all 0.4s;
-    }
-
-    .offcanvas-body .nav-link {
-      font-size: 1.1rem;
-      padding: 0.75rem 0;
-    }
-
-    .offcanvas-body .nav-link:hover {
-      color: var(--warm-gold);
-      transform: translateX(-5px);
-    }
-
-    /* Modal Header */
-    .modal-header.bg-deep-green {
-      background-color: var(--deep-green) !important;
-    }
+    /* small polish: offcanvas nav links */
+    .offcanvas-body .nav-link { font-size:1.05rem; padding:0.5rem 0; color:var(--deep-green); }
+    .offcanvas-body .nav-link:hover { color:var(--warm-gold); transform:translateX(-4px); transition:transform .2s, color .2s; }
   </style>
 </head>
-
 <body>
+
   <!-- HEADER -->
   <header id="top-header" class="sticky-top">
-    <nav class="navbar navbar-expand-lg py-3">
+    <nav class="navbar navbar-expand-lg py-3" aria-label="Main Navigation">
       <div class="container-xl">
         <a class="navbar-brand" href="#">
           NNP Christian Union
           <span class="d-block small text-soft-gray fw-light" style="margin-top:-5px;">Faith • Fellowship • Growth</span>
         </a>
 
-        <div class="d-flex align-items-center order-lg-3">
-          <!-- Notification -->
-          <button class="btn btn-link text-deep-green position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
+        <div class="d-flex order-lg-3 align-items-center">
+          <!-- Notification: opens from LEFT (offcanvas-start) -->
+          <button id="notifBtn" class="btn btn-link me-2 p-0 position-relative text-deep-green" type="button"
+                  data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-controls="notificationPanel" aria-label="Notifications">
             <i class="fa-solid fa-bell fs-4"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" id="notificationBadge">1</span>
+            <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" aria-label="unread-count">1</span>
           </button>
 
-          <!-- Membership -->
-          <button class="btn btn-gold d-none d-lg-block ms-2" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
+          <!-- Desktop Member CTA -->
+          <button class="btn btn-gold d-none d-lg-block ms-3" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
 
-          <!-- Mobile Nav -->
-          <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
-            <i class="fa-solid fa-bars text-deep-green fs-4"></i>
+          <!-- Mobile menu toggler opens RIGHT side (offcanvas-end) -->
+          <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon visually-hidden">
+              <i class="fa-solid fa-bars text-deep-green fs-4"></i>
+            </span>
           </button>
         </div>
 
-        <!-- Mobile Drawer -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
+        <!-- Offcanvas Nav (right) -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title text-deep-green">Menu</h5>
+            <h5 class="offcanvas-title text-deep-green" id="offcanvasNavLabel">NNP Christian Union</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <ul class="navbar-nav ms-auto">
-              <li><a href="index.html" class="nav-link active">Home</a></li>
-              <li><a href="library.html" class="nav-link">Library</a></li>
-              <li><a href="ministry.html" class="nav-link">Ministries</a></li>
-              <li><a href="#live" class="nav-link">Live</a></li>
-              <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-              <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="library.html">Library</a></li>
+              <li class="nav-item"><a class="nav-link" href="ministry.html">Ministries</a></li>
+              <li class="nav-item"><a class="nav-link" href="#live">Live</a></li>
+              <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+              <li class="nav-item"><a class="nav-link" href="contact.html">Contacts</a></li>
             </ul>
-            <div class="mt-4 d-lg-none">
+
+            <!-- Mobile CTA inside offcanvas -->
+            <div class="d-lg-none mt-3">
               <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
             </div>
           </div>
@@ -160,60 +112,70 @@
     </nav>
   </header>
 
-  <!-- NOTIFICATION PANEL -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel">
+  <!-- Notification Panel: opens LEFT to avoid overlap with right menu -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationPanel" aria-labelledby="notificationPanelLabel">
     <div class="offcanvas-header bg-deep-green text-white">
-      <h5 class="offcanvas-title">Notifications (<span id="unreadCount">1</span> Unread)</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      <h5 class="offcanvas-title" id="notificationPanelLabel">Notifications (<span id="unreadCount">1</span>)</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close Notifications"></button>
     </div>
     <div class="offcanvas-body">
-      <div id="notificationItem" class="alert alert-warning border-start border-4 border-deep-green">
-        <h6 class="fw-bold mb-1">Event RSVP Confirmed!</h6>
-        <p class="mb-2 small">You have successfully RSVP'd for the <strong>Campus Evangelism</strong> on Nov 8–9.</p>
-        <button id="markAsReadBtn" class="btn btn-sm btn-link p-0 text-deep-green">Mark as Read</button>
+      <div id="notificationItem" class="alert alert-gold border-start border-4 border-deep-green p-3" role="alert">
+        <h6 class="alert-heading fw-bold">Event RSVP Confirmed!</h6>
+        <p class="mb-0 small">You have successfully RSVP'd for the <strong>Campus Evangelism</strong> on Nov 8–9.</p>
+        <button id="markAsReadBtn" class="btn btn-sm btn-link p-0 mt-2 text-deep-green">Mark as Read</button>
       </div>
-      <p class="text-soft-gray small mt-3">No older notifications.</p>
+      <p class="text-soft-gray small mt-4">No older notifications.</p>
     </div>
   </div>
 
-  <!-- MEMBERSHIP MODAL -->
-  <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel">
+  <!-- Membership modal (unchanged) -->
+  <div class="modal fade" id="membershipModal" tabindex="-1" aria-labelledby="membershipModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-deep-green text-white">
           <h5 class="modal-title" id="membershipModalLabel">Join NNP Christian Union</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <p class="text-soft-gray mb-4">Fill out the form below to become an official member of our family. Welcome!</p>
+
           <form id="membershipForm" class="row g-3">
             <div class="col-md-6">
-              <label class="form-label fw-bold">Full Name</label>
-              <input type="text" class="form-control" id="memberFullName" required>
+              <label for="memberFullName" class="form-label fw-bold">Full Name</label>
+              <input type="text" class="form-control" id="memberFullName" name="memberFullName" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Student/Institute ID</label>
-              <input type="text" class="form-control" id="memberStudentID" required>
+              <label for="memberStudentID" class="form-label fw-bold">Student/Institute ID</label>
+              <input type="text" class="form-control" id="memberStudentID" name="memberStudentID" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Email</label>
-              <input type="email" class="form-control" id="memberEmail" required>
+              <label for="memberEmail" class="form-label fw-bold">Email</label>
+              <input type="email" class="form-control" id="memberEmail" name="memberEmail" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Phone</label>
-              <input type="tel" class="form-control" id="memberPhone" placeholder="+254..." required>
+              <label for="memberPhone" class="form-label fw-bold">Phone (e.g., +254 7XX...)</label>
+              <input type="tel" class="form-control" id="memberPhone" name="memberPhone" placeholder="+254 7XX XXX XXX" required pattern="^\+\d{10,14}$">
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Year/Class</label>
-              <select class="form-select" id="memberYearClass" required>
-                <option value="">Choose...</option>
-                <option>Year 1</option>
-                <option>Year 2</option>
-                <option>Year 3</option>
-                <option>Staff/Alumni</option>
+              <label for="memberYearClass" class="form-label fw-bold">Year / Class</label>
+              <select id="memberYearClass" name="memberYearClass" class="form-select" required>
+                <option value="" disabled selected>Choose...</option>
+                <option value="Year 1">Year 1</option>
+                <option value="Year 2">Year 2</option>
+                <option value="Year 3">Year 3</option>
+                <option value="Staff/Alumni">Staff/Alumni</option>
               </select>
             </div>
+            <div class="col-12 mt-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="consentCheck" name="consentCheck" required>
+                <label class="form-check-label small" for="consentCheck">
+                  I consent to receiving communications from NNP Christian Union regarding services and events.
+                </label>
+              </div>
+            </div>
             <div class="col-12 mt-4">
-              <button type="submit" class="btn btn-gold w-100 fw-bold">Submit & Receive Welcome Pack</button>
+              <button type="submit" class="btn btn-gold btn-lg fw-bold w-100">Submit & Receive Welcome Pack</button>
             </div>
           </form>
         </div>
@@ -221,27 +183,53 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
-    // Navbar scroll effect
-    window.addEventListener("scroll", () => {
-      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 30);
+    // Grab offcanvas elements
+    const offcanvasNavEl = document.getElementById('offcanvasNav');
+    const notifPanelEl = document.getElementById('notificationPanel');
+
+    // Create bootstrap Offcanvas instances
+    const bsOffcanvasNav = new bootstrap.Offcanvas(offcanvasNavEl);
+    const bsNotif = new bootstrap.Offcanvas(notifPanelEl);
+
+    // When one opens, ensure the other is hidden (prevent overlap)
+    offcanvasNavEl.addEventListener('show.bs.offcanvas', () => {
+      // if notification panel open, hide it
+      if (notifPanelEl.classList.contains('show')) {
+        bsNotif.hide();
+      }
+    });
+    notifPanelEl.addEventListener('show.bs.offcanvas', () => {
+      // if nav open, hide it
+      if (offcanvasNavEl.classList.contains('show')) {
+        bsOffcanvasNav.hide();
+      }
     });
 
-    // Notification mark as read
-    document.getElementById("markAsReadBtn").addEventListener("click", () => {
-      document.getElementById("notificationItem").style.display = "none";
-      document.getElementById("unreadCount").textContent = "0";
-      document.getElementById("notificationBadge").style.display = "none";
+    // Mark as read: hide notification item, update badge & unread count
+    const markAsReadBtn = document.getElementById('markAsReadBtn');
+    markAsReadBtn.addEventListener('click', () => {
+      const item = document.getElementById('notificationItem');
+      if (item) item.style.display = 'none';
+      document.getElementById('unreadCount').textContent = '0';
+      const badge = document.getElementById('notificationBadge');
+      if (badge) badge.style.display = 'none';
     });
 
-    // Membership form submission (Google Apps Script)
-    document.getElementById("membershipForm").addEventListener("submit", async (e) => {
+    // Navbar scroll shading
+    window.addEventListener('scroll', () => {
+      document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    // Membership form submit (keeps your existing Apps Script call)
+    document.getElementById('membershipForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = e.target.querySelector("button");
+      const btn = e.target.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.textContent = "Submitting...";
+      btn.textContent = 'Submitting...';
 
       const data = {
         fullName: memberFullName.value,
@@ -249,24 +237,29 @@
         email: memberEmail.value,
         phone: memberPhone.value,
         yearClass: memberYearClass.value,
+        consent: consentCheck.checked
       };
 
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+        const res = await fetch('https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
         const result = await res.json();
-        if (result.success) alert("✅ " + result.message);
-        else alert("❌ " + result.error);
-      } catch {
-        alert("⚠️ Network error. Try again.");
+        if (result.success) alert('✅ ' + result.message);
+        else alert('❌ ' + (result.error || 'Submission error'));
+      } catch (err) {
+        alert('⚠️ Failed to connect. Please check your internet or contact admin.');
       }
 
       btn.disabled = false;
-      btn.textContent = "Submit & Receive Welcome Pack";
+      btn.textContent = 'Submit & Receive Welcome Pack';
       e.target.reset();
+
+      // close modal programmatically
+      const membershipModal = bootstrap.Modal.getInstance(document.getElementById('membershipModal'));
+      if (membershipModal) membershipModal.hide();
     });
   </script>
 </body>

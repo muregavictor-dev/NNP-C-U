@@ -20,6 +20,28 @@
     --bs-body-line-height: 1.7;
     --border-radius-lg: 12px;
 }
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* Ensure containers don't overflow on small screens */
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.row > * {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 
 /* Base Typography */
 body {
@@ -510,6 +532,7 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 
 
 

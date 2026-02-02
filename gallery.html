@@ -193,55 +193,56 @@
 
     <script>
         // ==========================================
-        // CONFIGURATION (Update these!)
-        // ==========================================
-        const GITHUB_USERNAME = 'YOUR_GITHUB_USERNAME'; 
-        const REPO_NAME = 'YOUR_REPO_NAME';
-        const IMAGE_BASE_PATH = 'images/gallery'; // Folder inside your repo
+// CONFIGURATION FOR FLAT FOLDER
+// ==========================================
+const GITHUB_USERNAME = 'muregavictor-dev'; 
+const REPO_NAME = 'NNP-C-U';
+const IMAGE_BASE_PATH = 'images/gallary'; 
 
-        const videoData = [
-            { id: '0eNXQHAthpQ', title: 'Makutano Mission Day 1', desc: 'Powerful crusade highlights.' },
-            { id: 'dQw4w9WgXcQ', title: 'Sunday Worship Service', desc: 'Join us in praise and honor.' }
-        ];
+async function loadImages() {
+    const loading = document.getElementById('loading');
+    const gallery = document.getElementById('gallery');
+    allImages = []; 
 
-        let allImages = [];
-        let filteredImages = [];
-        let currentIndex = 0;
+    try {
+        // We only fetch the main folder once
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}`);
+        
+        if (!res.ok) throw new Error("Folder not found");
+        
+        const files = await res.json();
+        
+        files.forEach(file => {
+            // 1. Check if it's an image
+            if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                
+                // 2. Determine Category based on filename
+                // If filename is 'worship_night.jpg', category becomes 'worship'
+                let category = 'other'; 
+                const nameLower = file.name.toLowerCase();
+                
+                if (nameLower.includes('worship')) category = 'worship';
+                else if (nameLower.includes('outreach')) category = 'outreach';
+                else if (nameLower.includes('fellowship')) category = 'fellowship';
+                else if (nameLower.includes('event')) category = 'events';
+                else if (nameLower.includes('mission')) category = 'mission';
 
-        // 1. Fetch Header
-        fetch('header.html').then(r => r.text()).then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-        }).catch(() => console.log("Header file missing locally."));
-
-        // 2. Fetch Images via GitHub API
-        async function loadImages() {
-            const categories = ['worship', 'outreach', 'fellowship', 'events', 'mission'];
-            const gallery = document.getElementById('gallery');
-            const loading = document.getElementById('loading');
-
-            try {
-                for (const cat of categories) {
-                    const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}/${cat}`);
-                    if (!res.ok) continue;
-                    const files = await res.json();
-                    
-                    files.forEach(file => {
-                        if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
-                            allImages.push({
-                                url: file.download_url,
-                                category: cat,
-                                title: file.name.split('.')[0].replace(/-/g, ' ')
-                            });
-                        }
-                    });
-                }
-                renderGallery('all');
-            } catch (err) {
-                console.error("API Error:", err);
-            } finally {
-                loading.style.display = 'none';
+                allImages.push({
+                    url: file.download_url,
+                    category: category,
+                    title: file.name.split('.')[0].replace(/[_-]/g, ' ') // Cleans up 'worship_night' to 'worship night'
+                });
             }
-        }
+        });
+
+        renderGallery('all');
+        
+    } catch (err) {
+        console.error("Error loading images:", err);
+    } finally {
+        loading.style.display = 'none';
+    }
+}
 
         // 3. Render Gallery
         function renderGallery(filter) {
@@ -311,3 +312,4 @@
     </script>
 </body>
 </html>
+

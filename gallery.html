@@ -18,15 +18,6 @@
             --bg-light: #f9fafb;
             --text-gray: #6b7280;
             --rich-black: #0B0B0B;
-            --off-white: #FAFBF9;
-            --soft-gray: #494848;
-            --light-gray: #f5f5f5;
-            }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         body {
@@ -38,27 +29,16 @@
 
         /* Hero Section */
         .hero-gallery {
-            background: linear-gradient(135deg, var(--deep-green) 100%, var(--primary-green) 10%);
+            background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
             padding: 100px 0 60px;
             position: relative;
-            overflow: hidden;
+            text-align: center;
         }
 
-        .hero-gallery::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect fill="rgba(255,255,255,0.05)" width="50" height="50"/></svg>');
-            opacity: 0.1;
-        }
-
-        /* Category Filter */
+        /* Category Filter Stickiness */
         .category-filter {
             background: white;
-            padding: 2rem 0;
+            padding: 1rem 0;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
@@ -66,23 +46,21 @@
         }
 
         .filter-btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border: 2px solid var(--primary-green);
             background: white;
             color: var(--primary-green);
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin: 0.5rem;
+            margin: 0.3rem;
             cursor: pointer;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--deep-green) 100%);
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-green);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            box-shadow: 0 4px 12px rgba(49, 139, 46, 0.3);
         }
 
         /* Gallery Grid */
@@ -90,1071 +68,246 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
-            padding: 3rem 0;
+            padding: 2rem 0;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
             border-radius: 16px;
-            cursor: pointer;
             aspect-ratio: 4/3;
-            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.15);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-category-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--secondary-orange);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-
-        /* Lightbox Modal */
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 9999;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .lightbox.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lightbox-content {
-            max-width: 90vw;
-            max-height: 90vh;
-            position: relative;
-        }
-
-        .lightbox-content img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: white;
-            color: var(--rich-black);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.5rem;
+            background: #e5e7eb;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .lightbox-close:hover {
-            transform: rotate(90deg) scale(1.1);
-            background: var(--secondary-orange);
-            color: white;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
-            color: var(--rich-black);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-nav:hover {
-            background: var(--secondary-orange);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .lightbox-prev { left: 2rem; }
-        .lightbox-next { right: 2rem; }
-
-        .lightbox-info {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.95);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: var(--rich-black);
-            font-weight: 600;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            border: 4px solid rgba(22, 163, 74, 0.1);
-            border-top: 4px solid var(--primary-green);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 3rem auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-gray);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-        }
-
-        /* Video Cards */
-        .video-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-        }
-
-        .video-thumbnail {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            overflow: hidden;
-            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
-        }
-
-        .video-thumbnail iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .video-thumbnail img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .video-card:hover .video-thumbnail img {
-            transform: scale(1.05);
+        .gallery-item:hover { transform: translateY(-5px); }
+
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .video-play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 0, 0, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .gallery-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 1rem; color: white; opacity: 0; transition: 0.3s;
         }
 
-        .video-card:hover .video-play-overlay {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: rgba(255, 0, 0, 1);
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Video Cards */
+        .video-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); height: 100%;
+        }
+        .video-thumbnail { position: relative; padding-top: 56.25%; }
+        .video-thumbnail iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
+
+        /* Lightbox */
+        .lightbox {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.95); z-index: 10000;
+            align-items: center; justify-content: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+        
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: white; border: none; width: 45px; height: 45px; border-radius: 50%;
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; background: none; border: none; }
+        
+        .download-btn {
+            position: absolute; bottom: 20px; right: 20px;
+            background: var(--secondary-orange); color: white;
+            padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;
         }
 
-        .video-play-overlay i {
-            color: white;
-            font-size: 1.5rem;
-            margin-left: 5px;
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid var(--primary-green);
+            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-
-        .video-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .video-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2a6f19;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .video-meta {
-            color: var(--text-gray);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
-
-        .video-description {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            flex-grow: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 1rem;
-                padding: 2rem 0;
-            }
-
-            .hero-gallery {
-                padding: 60px 0 40px;
-            }
-            
-            .hero-gallery h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-gallery .lead {
-                font-size: 1rem;
-            }
-
-            .category-filter {
-                padding: 1rem 0;
-            }
-            
-            .filter-btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.875rem;
-                margin: 0.25rem;
-            }
-
-            .lightbox-nav,
-            .lightbox-close {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .lightbox-close {
-                top: 1rem;
-                right: 1rem;
-            }
-            
-            .lightbox-prev {
-                left: 1rem;
-            }
-            
-            .lightbox-next {
-                right: 1rem;
-            }
-            
-            .lightbox-info {
-                bottom: 1rem;
-                font-size: 0.875rem;
-                padding: 0.75rem 1.5rem;
-                max-width: 90%;
-            }
-            
-            .gallery-category-badge {
-                font-size: 0.65rem;
-                padding: 0.2rem 0.5rem;
-                top: 0.5rem;
-                right: 0.5rem;
-            }
-            
-            .gallery-overlay h5 {
-                font-size: 0.9rem;
-            }
-            
-            .gallery-overlay .small {
-                font-size: 0.75rem;
-            }
-            
-            .video-title {
-                font-size: 1rem;
-            }
-            
-            .video-body {
-                padding: 1rem;
-            }
-            
-            .video-play-overlay {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .video-play-overlay i {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 1.75rem !important;
-            }
-            
-            .section-subtitle {
-                font-size: 1rem;
-            }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         @media (max-width: 576px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-                padding: 1.5rem 0;
-            }
-            
-            .hero-gallery {
-                padding: 50px 0 30px;
-            }
-            
-            .hero-gallery h1 {
-                font-size: 1.75rem;
-            }
-            
-            .filter-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-                margin: 0.2rem;
-            }
-            
-            .filter-btn i {
-                display: none;
-            }
-            
-            .gallery-item:hover {
-                transform: translateY(-4px) scale(1.01);
-            }
-            
-            .video-card:hover {
-                transform: translateY(-4px);
-            }
-            
-            .video-description {
-                -webkit-line-clamp: 2;
-            }
-            
-            .lightbox-content {
-                max-width: 95vw;
-            }
-            
-            .btn-lg {
-                padding: 0.5rem 1.5rem !important;
-                font-size: 1rem !important;
-            }
-            
-            .container {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .hero-gallery h1 {
-                font-size: 1.5rem;
-            }
-            
-            .filter-btn {
-                padding: 0.35rem 0.7rem;
-                font-size: 0.75rem;
-            }
-            
-            .video-title {
-                font-size: 0.9rem;
-            }
-            
-            .video-meta {
-                font-size: 0.75rem;
-            }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Include Header -->
-<div id="header-placeholder"></div>
 
-<script>
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extract just the header element
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const header = doc.querySelector('header');
-            const styles = doc.querySelector('style');
-            
-            // Insert header
-            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
-            
-            // Insert styles if not already present
-            if (!document.getElementById('header-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'header-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
-            }
-        });
-</script>
+    <div id="header-placeholder"></div>
 
-    <!-- Hero Section -->
     <section class="hero-gallery text-white">
-        <div class="container text-center position-relative">
-            <h1 class="display-3 fw-bold mb-3">Moments of Faith</h1>
-            <p class="lead opacity-90">Capturing God's work in our community</p>
+        <div class="container">
+            <h1 class="display-4 fw-bold">Moments of Faith</h1>
+            <p class="lead">Capturing God's work in NNP Christian Union</p>
         </div>
     </section>
 
-    <!-- Category Filter -->
     <div class="category-filter">
-        <div class="container">
-            <div class="d-flex flex-wrap justify-content-center align-items-center">
-                <button class="filter-btn active" data-category="all">
-                    <i class="fas fa-th me-2"></i>All Photos
-                </button>
-                <button class="filter-btn" data-category="worship">
-                    <i class="fas fa-music me-2"></i>Worship
-                </button>
-                <button class="filter-btn" data-category="outreach">
-                    <i class="fas fa-hands-helping me-2"></i>Outreach
-                </button>
-                <button class="filter-btn" data-category="fellowship">
-                    <i class="fas fa-users me-2"></i>Fellowship
-                </button>
-                <button class="filter-btn" data-category="events">
-                    <i class="fas fa-calendar me-2"></i>Events
-                </button>
-                <button class="filter-btn" data-category="baptism">
-                    <i class="fas fa-water me-2"></i>Missions
-                </button>
-            </div>
+        <div class="container d-flex flex-wrap justify-content-center">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="worship">Worship</button>
+            <button class="filter-btn" data-category="outreach">Outreach</button>
+            <button class="filter-btn" data-category="fellowship">Fellowship</button>
+            <button class="filter-btn" data-category="events">Events</button>
+            <button class="filter-btn" data-category="mission">Missions</button>
         </div>
     </div>
 
-    <!-- Gallery Section -->
-    <section class="py-5">
-        <div class="container">
-            <div id="loading" class="spinner"></div>
-            <div id="gallery" class="gallery-grid"></div>
-            <div id="empty-state" class="empty-state" style="display: none;">
-                <i class="fas fa-images"></i>
-                <h3>No photos found</h3>
-                <p>Try selecting a different category</p>
-            </div>
+    <section class="container py-4">
+        <div id="loading" class="spinner"></div>
+        <div id="gallery" class="gallery-grid"></div>
+        <div id="empty-state" class="text-center py-5" style="display:none;">
+            <i class="fas fa-image fa-3x mb-3 text-muted"></i>
+            <p>No photos found in this category.</p>
         </div>
     </section>
 
-    <!-- Video Section -->
-    <section class="py-5" style="background: linear-gradient(135deg, rgba(22, 163, 74, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);">
+    <section class="py-5 bg-light">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold text-primary mb-3 section-title">
-                    <i class="fab fa-youtube me-2" style="color: var(----deep-greene);"></i>
-                    Latest Sermons & Highlights
-                </h2>
-                <p class="lead text-muted section-subtitle">Watch powerful messages and testimonies from our community</p>
-            </div>
-
-            <div id="video-loading" class="spinner"></div>
-            <div id="video-grid" class="row g-3 g-md-4"></div>
-            
-            <div class="text-center mt-4 mt-md-5">
-                <a href="https://http://www.youtube.com/@nnpcumedia" target="_blank" rel="noopener" class="btn btn-lg fw-bold text-white" style="background: linear-gradient(135deg, var(--secondary-orange) 0%, var(--warm-orange) 100%); border: none; padding: 0.75rem 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); transition: all 0.3s ease;">
-                    <i class="fab fa-youtube me-2"></i>See More Videos
-                </a>
-            </div>
+            <h2 class="text-center fw-bold mb-4">Latest Sermons</h2>
+            <div id="video-grid" class="row g-4"></div>
         </div>
     </section>
 
-    <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
-        <button class="lightbox-close" id="lightbox-close">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="lightbox-nav lightbox-next" id="lightbox-next">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="">
-            <div class="lightbox-info" id="lightbox-info"></div>
+        <button class="lightbox-close"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        <div class="lightbox-content text-center">
+            <img id="lightbox-img" src="">
+            <div class="mt-3 text-white fw-bold" id="lightbox-caption"></div>
+            <a href="#" id="download-link" class="download-btn" download><i class="fas fa-download me-2"></i>Download</a>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // CONFIGURATION: Add your image sources here
-        // ============================================
-        
-        const galleryConfig = {
-            // Option 1: Google Drive Folder (Public)
-            // Get folder ID from: https://drive.google.com/drive/folders/YOUR_FOLDER_ID
-            googleDrive: {
-                enabled: false, // Set to true to use Google Drive
-                folderId: 'YOUR_GOOGLE_DRIVE_FOLDER_ID',
-                apiKey: 'YOUR_GOOGLE_API_KEY' // Get from Google Cloud Console
-            },
-            
-            // Option 2: Local folder structure
-            // Place images in: /images/gallery/worship/, /images/gallery/outreach/, etc.
-            localImages: {
-                enabled: true,
-                baseFolder: '/images/gallery/',
-                categories: {
-                    worship: ['worship1.jpg', 'worship2.jpg', 'worship3.jpg'],
-                    outreach: ['outreach1.jpg', 'outreach2.jpg'],
-                    fellowship: ['fellowship1.jpg', 'fellowship2.jpg', 'fellowship3.jpg'],
-                    events: ['event1.jpg', 'event2.jpg'],
-                    mission: ['mission1.jpg', 'mission.jpg']
-                }
-            },
-            
-            // Option 3: Direct URLs (for any image hosting)
-            directUrls: {
-                enabled: true,
-                images: [
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Worship+Night+2024',
-                        category: 'worship',
-                        title: 'Worship Night 2024',
-                        date: '2024-10-15'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Campus+Outreach',
-                        category: 'outreach',
-                        title: 'Campus Outreach',
-                        date: '2024-10-10'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Sunday+Service',
-                        category: 'fellowship',
-                        title: 'Sunday Service',
-                        date: '2024-10-08'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Prayer+Meeting',
-                        category: 'fellowship',
-                        title: 'Prayer Meeting',
-                        date: '2024-10-05'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Water+Baptism',
-                        category: 'baptism',
-                        title: 'Worship Night',
-                        date: '2024-09-29'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Praise+%26+Worship',
-                        category: 'worship',
-                        title: 'Praise & Worship Team',
-                        date: '2024-09-25'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Leadership+Summit',
-                        category: 'events',
-                        title: 'Leadership Summit',
-                        date: '2024-09-20'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Bible+Study',
-                        category: 'fellowship',
-                        title: 'Bible Study Group',
-                        date: '2024-09-15'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Community+Service',
-                        category: 'outreach',
-                        title: 'Community Service Day',
-                        date: '2024-09-10'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Youth+Conference',
-                        category: 'events',
-                        title: 'Mission',
-                        date: '2024-09-05'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/16a34a/ffffff?text=Worship+Practice',
-                        category: 'worship',
-                        title: 'Worship Team Practice',
-                        date: '2024-09-01'
-                    },
-                    {
-                        url: 'https://placehold.co/800x600/f59e0b/1f2937?text=Street+Evangelism',
-                        category: 'outreach',
-                        title: 'Street Evangelism',
-                        date: '2024-08-28'
-                    }
-                ]
-            }
-        };
+        // ==========================================
+        // CONFIGURATION (Update these!)
+        // ==========================================
+        const GITHUB_USERNAME = 'YOUR_GITHUB_USERNAME'; 
+        const REPO_NAME = 'YOUR_REPO_NAME';
+        const IMAGE_BASE_PATH = 'images/gallery'; // Folder inside your repo
 
-        // ============================================
-        // VIDEO CONFIGURATION
-        // ============================================
-        
-        const videoConfig = {
-            // YouTube Channel/Playlist Configuration
-            youtubeChannel: '@nnpcumedia', // Your YouTube channel handle
-            
-            // Option 1: Manual video list (easiest)
-            manualVideos: {
-                enabled: true,
-                videos: [
-                    {
-                       <iframe width="652" height="367" src="https://www.youtube.com/embed/0eNXQHAthpQ" title="NNP CU || MAKUTANO MISSION DAY 1 ||  CRUSADE || AUGUST 2025" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    },
-                    {
-                        videoId: '', // Another video ID
-                        title: 'Testimony: From Darkness to Light',
-                        description: 'A powerful testimony of transformation and Gods redemptive love in the life of one of our students.',
-                        date: '2024-10-20',
-                        views: '856'
-                    },
-                    {
-                        videoId: 'E',
-                        title: 'Praise & Worship Session - October 2024',
-                        description: 'Join us for an uplifting worship experience with the NNP CU Praise & Worship team.',
-                        date: '2024-10-15',
-                        views: '2.1K'
-                    },
-                    {
-                        videoId: '',
-                        title: 'Faith Over Fear - Midweek Message',
-                        description: 'How to stand firm in faith when facing challenges and uncertainties in campus life.',
-                        date: '2024-10-10',
-                        views: '945'
-                    },
-                    {
-                        videoId: '4',
-                        title: 'Campus Evangelism Highlights',
-                        description: 'See how God is moving through our outreach programs across the campus and surrounding community.',
-                        date: '2024-10-05',
-                        views: '1.5K'
-                    },
-                    {
-                        videoId: '',
-                        title: 'Water Baptism Service 2024',
-                        description: 'Celebrating new life in Christ as students make their public declaration of faith.',
-                        date: '2024-09-29',
-                        views: '3.2K'
-                    }
-                ]
-            },
-            
-            // Option 2: YouTube API (requires API key)
-            youtubeApi: {
-                enabled: false,
-                apiKey: 'YOUR_YOUTUBE_API_KEY',
-                channelId: 'YOUR_CHANNEL_ID',
-                maxResults: 6
-            }
-        };
+        const videoData = [
+            { id: '0eNXQHAthpQ', title: 'Makutano Mission Day 1', desc: 'Powerful crusade highlights.' },
+            { id: 'dQw4w9WgXcQ', title: 'Sunday Worship Service', desc: 'Join us in praise and honor.' }
+        ];
 
-        // ============================================
-        // GALLERY LOGIC
-        // ============================================
-        
         let allImages = [];
-        let currentFilter = 'all';
-        let currentLightboxIndex = 0;
+        let filteredImages = [];
+        let currentIndex = 0;
 
-        // Load images based on configuration
+        // 1. Fetch Header
+        fetch('header.html').then(r => r.text()).then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+        }).catch(() => console.log("Header file missing locally."));
+
+        // 2. Fetch Images via GitHub API
         async function loadImages() {
-            const loading = document.getElementById('loading');
+            const categories = ['worship', 'outreach', 'fellowship', 'events', 'mission'];
             const gallery = document.getElementById('gallery');
-            
+            const loading = document.getElementById('loading');
+
             try {
-                // Load from direct URLs (easiest method)
-                if (galleryConfig.directUrls.enabled) {
-                    allImages = galleryConfig.directUrls.images;
-                }
-                
-                // Load from local folder
-                if (galleryConfig.localImages.enabled) {
-                    const localImages = [];
-                    for (const [category, files] of Object.entries(galleryConfig.localImages.categories)) {
-                        files.forEach((filename, index) => {
-                            localImages.push({
-                                url: galleryConfig.localImages.baseFolder + category + '/' + filename,
-                                category: category,
-                                title: filename.replace(/\.[^/.]+$/, '').replace(/-|_/g, ' '),
-                                date: new Date().toISOString().split('T')[0]
+                for (const cat of categories) {
+                    const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}/${cat}`);
+                    if (!res.ok) continue;
+                    const files = await res.json();
+                    
+                    files.forEach(file => {
+                        if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                            allImages.push({
+                                url: file.download_url,
+                                category: cat,
+                                title: file.name.split('.')[0].replace(/-/g, ' ')
                             });
-                        });
-                    }
-                    allImages = [...allImages, ...localImages];
+                        }
+                    });
                 }
-                
-                // Load from Google Drive (requires API setup)
-                if (galleryConfig.googleDrive.enabled) {
-                    const driveImages = await loadFromGoogleDrive();
-                    allImages = [...allImages, ...driveImages];
-                }
-                
+                renderGallery('all');
+            } catch (err) {
+                console.error("API Error:", err);
+            } finally {
                 loading.style.display = 'none';
-                renderGallery();
-                
-            } catch (error) {
-                console.error('Error loading images:', error);
-                loading.style.display = 'none';
-                showEmptyState();
             }
         }
 
-        // Render gallery
-        function renderGallery() {
+        // 3. Render Gallery
+        function renderGallery(filter) {
             const gallery = document.getElementById('gallery');
-            const emptyState = document.getElementById('empty-state');
+            const empty = document.getElementById('empty-state');
             
-            const filteredImages = currentFilter === 'all' 
-                ? allImages 
-                : allImages.filter(img => img.category === currentFilter);
+            filteredImages = filter === 'all' ? allImages : allImages.filter(i => i.category === filter);
             
             if (filteredImages.length === 0) {
-                gallery.innerHTML = '';
-                emptyState.style.display = 'block';
-                return;
-            }
-            
-            emptyState.style.display = 'none';
-            gallery.innerHTML = filteredImages.map((img, index) => `
-                <div class="gallery-item" data-index="${index}" data-category="${img.category}">
-                    <span class="gallery-category-badge">${img.category}</span>
-                    <img src="${img.url}" alt="${img.title}" loading="lazy">
-                    <div class="gallery-overlay">
-                        <h5 class="mb-1">${img.title}</h5>
-                        <p class="small mb-0 opacity-75">${img.date}</p>
+                gallery.innerHTML = ''; empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                gallery.innerHTML = filteredImages.map((img, idx) => `
+                    <div class="gallery-item" onclick="openLightbox(${idx})">
+                        <img src="${img.url}" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="badge bg-warning text-dark mb-2" style="width:fit-content">${img.category}</span>
+                            <h5>${img.title}</h5>
+                        </div>
                     </div>
-                </div>
-            `).join('');
-            
-            // Add click listeners
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const index = parseInt(item.dataset.index);
-                    openLightbox(index);
-                });
-            });
-        }
-
-        // Category filter
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.category;
-                renderGallery();
-            });
-        });
-
-        // Lightbox functionality
-        function openLightbox(index) {
-            const filteredImages = currentFilter === 'all' 
-                ? allImages 
-                : allImages.filter(img => img.category === currentFilter);
-            
-            currentLightboxIndex = index;
-            const img = filteredImages[index];
-            
-            document.getElementById('lightbox-img').src = img.url;
-            document.getElementById('lightbox-info').textContent = `${img.title} - ${img.date}`;
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function navigateLightbox(direction) {
-            const filteredImages = currentFilter === 'all' 
-                ? allImages 
-                : allImages.filter(img => img.category === currentFilter);
-            
-            currentLightboxIndex += direction;
-            if (currentLightboxIndex < 0) currentLightboxIndex = filteredImages.length - 1;
-            if (currentLightboxIndex >= filteredImages.length) currentLightboxIndex = 0;
-            
-            const img = filteredImages[currentLightboxIndex];
-            document.getElementById('lightbox-img').src = img.url;
-            document.getElementById('lightbox-info').textContent = `${img.title} - ${img.date}`;
-        }
-
-        // Event listeners
-        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-        document.getElementById('lightbox-prev').addEventListener('click', () => navigateLightbox(-1));
-        document.getElementById('lightbox-next').addEventListener('click', () => navigateLightbox(1));
-        document.getElementById('lightbox').addEventListener('click', (e) => {
-            if (e.target.id === 'lightbox') closeLightbox();
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const lightbox = document.getElementById('lightbox');
-            if (!lightbox.classList.contains('active')) return;
-            
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') navigateLightbox(-1);
-            if (e.key === 'ArrowRight') navigateLightbox(1);
-        });
-
-        function showEmptyState() {
-            document.getElementById('empty-state').style.display = 'block';
-        }
-
-        // Google Drive API function (optional)
-        async function loadFromGoogleDrive() {
-            // Implement Google Drive API call here
-            // This requires setting up Google Cloud Console and enabling Drive API
-            return [];
-        }
-
-        // Initialize
-        loadImages();
-        loadVideos();
-
-        // ============================================
-        // VIDEO LOADING AND RENDERING
-        // ============================================
-        
-        async function loadVideos() {
-            const videoLoading = document.getElementById('video-loading');
-            const videoGrid = document.getElementById('video-grid');
-            
-            try {
-                let videos = [];
-                
-                // Load from manual list
-                if (videoConfig.manualVideos.enabled) {
-                    videos = videoConfig.manualVideos.videos;
-                }
-                
-                // Load from YouTube API (if enabled)
-                if (videoConfig.youtubeApi.enabled) {
-                    const apiVideos = await loadFromYouTubeAPI();
-                    videos = [...videos, ...apiVideos];
-                }
-                
-                videoLoading.style.display = 'none';
-                renderVideos(videos);
-                
-            } catch (error) {
-                console.error('Error loading videos:', error);
-                videoLoading.style.display = 'none';
+                `).join('');
             }
         }
 
-        function renderVideos(videos) {
-            const videoGrid = document.getElementById('video-grid');
-            
-            videoGrid.innerHTML = videos.map(video => `
-                <div class="col-12 col-sm-6 col-lg-4">
+        // 4. Video Rendering
+        function renderVideos() {
+            const grid = document.getElementById('video-grid');
+            grid.innerHTML = videoData.map(v => `
+                <div class="col-md-6 col-lg-4">
                     <div class="video-card">
                         <div class="video-thumbnail">
-                            <img src="https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg" 
-                                 alt="${video.title}"
-                                 onerror="this.src='https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg'">
-                            <a href="https://www.youtube.com/watch?v=${video.videoId}" 
-                               target="_blank" 
-                               rel="noopener"
-                               class="video-play-overlay"
-                               aria-label="Watch ${video.title}">
-                                <i class="fab fa-youtube"></i>
-                            </a>
+                            <iframe src="https://www.youtube.com/embed/${v.id}" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <div class="video-body">
-                            <h3 class="video-title">${video.title}</h3>
-                            <div class="video-meta">
-                                <i class="far fa-calendar me-2"></i>${formatDate(video.date)}
-                                ${video.views ? `<span class="ms-3"><i class="far fa-eye me-2"></i>${video.views} views</span>` : ''}
-                            </div>
-                            <p class="video-description">${video.description}</p>
+                        <div class="p-3">
+                            <h6 class="fw-bold mb-1">${v.title}</h6>
+                            <small class="text-muted">${v.desc}</small>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+        // 5. Lightbox Logic
+        function openLightbox(index) {
+            currentIndex = index;
+            const img = filteredImages[index];
+            document.getElementById('lightbox-img').src = img.url;
+            document.getElementById('lightbox-caption').innerText = img.title;
+            document.getElementById('download-link').href = img.url;
+            document.getElementById('lightbox').classList.add('active');
         }
 
-        // YouTube API function (optional)
-        async function loadFromYouTubeAPI() {
-            try {
-                const response = await fetch(
-                    `https://www.googleapis.com/youtube/v3/search?key=${videoConfig.youtubeApi.apiKey}&channelId=${videoConfig.youtubeApi.channelId}&part=snippet,id&order=date&maxResults=${videoConfig.youtubeApi.maxResults}`
-                );
-                const data = await response.json();
-                
-                return data.items.map(item => ({
-                    videoId: item.id.videoId,
-                    title: item.snippet.title,
-                    description: item.snippet.description,
-                    date: item.snippet.publishedAt.split('T')[0],
-                    thumbnail: item.snippet.thumbnails.high.url
-                }));
-            } catch (error) {
-                console.error('YouTube API Error:', error);
-                return [];
-            }
-        }
+        // Event Listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                e.target.classList.add('active');
+                renderGallery(e.target.dataset.category);
+            });
+        });
+
+        document.querySelector('.lightbox-close').onclick = () => document.getElementById('lightbox').classList.remove('active');
+        document.querySelector('.lightbox-next').onclick = () => openLightbox((currentIndex + 1) % filteredImages.length);
+        document.querySelector('.lightbox-prev').onclick = () => openLightbox((currentIndex - 1 + filteredImages.length) % filteredImages.length);
+
+        window.onload = () => { loadImages(); renderVideos(); };
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-    <!-- Include Footer -->
-<div id="footer-placeholder"></div>
-
-<script>
-fetch('footer.html')
-  .then(response => response.text())
-  .then(data => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(data, 'text/html');
-    const footer = doc.querySelector('footer');
-    const styles = doc.querySelector('style');
-
-    document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-
-    if (!document.getElementById('footer-styles')) {
-      const styleTag = document.createElement('style');
-      styleTag.id = 'footer-styles';
-      styleTag.textContent = styles.textContent;
-      document.head.appendChild(styleTag);
-    }
-
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-  });
-
-// ✅ Custom JavaScript to handle Formspree without redirect
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contact-form");
-  const box = document.getElementById("contact-message-box");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // prevent redirect
-
-    box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-info";
-    box.textContent = "⏳ Sending your message...";
-
-    const data = new FormData(form);
-
-    try {
-      const res = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { Accept: "application/json" }
-      });
-
-      if (res.ok) {
-        box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-success";
-        box.textContent = "✅ Message sent successfully! We’ll get back to you soon.";
-        form.reset();
-      } else {
-        box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-danger";
-        box.textContent = "❌ Failed to send message. Please try again later.";
-      }
-    } catch (err) {
-      box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-warning";
-      box.textContent = "⚠️ Network error. Please check your connection.";
-    }
-
-    // Smooth scroll to the message box
-    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-});
-</script>
 </html>
-
-
-
-
-
-
-

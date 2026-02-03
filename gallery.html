@@ -359,7 +359,38 @@ async function loadImages() {
 
         window.onload = () => { loadImages(); renderVideos(); };
     </script>
+     <!-- Include Footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            // Extract just the footer element
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const footer = doc.querySelector('footer');
+            const styles = doc.querySelector('style');
+            const footerScript = doc.querySelector('script');
+            
+            // Insert footer
+            document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
+            
+            // Insert styles if not already present
+            if (!document.getElementById('footer-styles')) {
+                const styleTag = document.createElement('style');
+                styleTag.id = 'footer-styles';
+                styleTag.textContent = styles.textContent;
+                document.head.appendChild(styleTag);
+            }
+            
+            // Update current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+</script>
+           
 </body>
 </html>
+
 
 

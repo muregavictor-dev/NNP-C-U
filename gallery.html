@@ -27,172 +27,77 @@
             overflow-x: hidden;
         }
 
-        /* Hero Section */
         .hero-gallery {
             background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
             padding: 100px 0 60px;
-            position: relative;
             text-align: center;
         }
 
-        /* Category Filter Stickiness */
         .category-filter {
-            background: white;
-            padding: 1rem 0;
+            background: white; padding: 1rem 0;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
         }
 
         .filter-btn {
-            padding: 0.6rem 1.2rem;
-            border: 2px solid var(--primary-green);
-            background: white;
-            color: var(--primary-green);
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 0.3rem;
-            cursor: pointer;
+            padding: 0.6rem 1.2rem; border: 2px solid var(--primary-green);
+            background: white; color: var(--primary-green);
+            border-radius: 50px; font-weight: 600; margin: 0.3rem; transition: 0.3s;
         }
 
         .filter-btn.active, .filter-btn:hover {
-            background: var(--primary-green);
-            color: white;
-            box-shadow: 0 4px 12px rgba(49, 139, 46, 0.3);
+            background: var(--primary-green); color: white;
         }
 
-        /* Gallery Grid */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem 0;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem; padding: 2rem 0;
         }
 
         .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            aspect-ratio: 4/3;
-            background: #e5e7eb;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            position: relative; overflow: hidden; border-radius: 16px;
+            aspect-ratio: 4/3; background: #e5e7eb; cursor: pointer; transition: 0.3s;
         }
 
-        .gallery-item:hover { transform: translateY(-5px); }
-
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .gallery-item:hover img { transform: scale(1.1); }
 
         .gallery-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
             display: flex; flex-direction: column; justify-content: flex-end;
             padding: 1rem; color: white; opacity: 0; transition: 0.3s;
         }
 
         .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-        /* Video Cards */
-        .video-card {
-            background: white; border-radius: 16px; overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); height: 100%;
-        }
+        .video-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .video-thumbnail { position: relative; padding-top: 56.25%; }
         .video-thumbnail iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
 
-        /* Lightbox */
         .lightbox {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.95); z-index: 10000;
-            align-items: center; justify-content: center;
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 10000; align-items: center; justify-content: center;
         }
         .lightbox.active { display: flex; }
         .lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
-        
-        .lightbox-nav {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: white; border: none; width: 45px; height: 45px; border-radius: 50%;
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; background: none; border: none; }
-        
+        .lightbox-nav { position: absolute; top: 50%; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; }
+        .lightbox-prev { left: 20px; } .lightbox-next { right: 20px; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; background: none; border: none; cursor: pointer; }
+
         .download-btn {
-            position: absolute; bottom: 20px; right: 20px;
-            background: var(--secondary-orange); color: white;
-            padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;
+            position: absolute; bottom: 20px; right: 20px; background: var(--secondary-orange);
+            color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;
         }
 
         .spinner {
             border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid var(--primary-green);
-            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
-            margin: 20px auto;
+            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        @media (max-width: 576px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Include Header -->
-
-<div id="header-placeholder"></div>
-
-
-
-<script>
-
-    fetch('header.html')
-
-        .then(response => response.text())
-
-        .then(data => {
-
-            // Extract just the header element
-
-            const parser = new DOMParser();
-
-            const doc = parser.parseFromString(data, 'text/html');
-
-            const header = doc.querySelector('header');
-
-            const styles = doc.querySelector('style');
-
-            
-
-            // Insert header
-
-            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
-
-            
-
-            // Insert styles if not already present
-
-            if (!document.getElementById('header-styles')) {
-
-                const styleTag = document.createElement('style');
-
-                styleTag.id = 'header-styles';
-
-                styleTag.textContent = styles.textContent;
-
-                document.head.appendChild(styleTag);
-
-            }
-
-        });
-
-</script>
     <div id="header-placeholder"></div>
 
     <section class="hero-gallery text-white">
@@ -201,13 +106,17 @@
             <p class="lead">Capturing God's work in NNP Christian Union</p>
         </div>
     </section>
-<section id="gallery">
-    <h2>Our Photo Gallery</h2>
-    <p>View and download prayer retreat photos on our shared drive. <strong HERE</strong></p>
-    <a href="https://photos.app.goo.gl/mSXe9V46ydnDapKW6" target="_blank" class="btn">
-        Open Photo Album
-    </a>
-</section>
+
+    <section class="container py-5 text-center">
+        <div class="card p-4 shadow-sm border-0">
+            <h2>Prayer Retreat Photo Drive</h2>
+            <p>View and download full-resolution photos from our latest retreats.</p>
+            <a href="https://photos.app.goo.gl/mSXe9V46ydnDapKW6" target="_blank" class="btn btn-success btn-lg px-4">
+                <i class="fab fa-google-drive me-2"></i>Open Photo Album
+            </a>
+        </div>
+    </section>
+
     <div class="category-filter">
         <div class="container d-flex flex-wrap justify-content-center">
             <button class="filter-btn active" data-category="all">All</button>
@@ -218,7 +127,6 @@
             <button class="filter-btn" data-category="mission">Missions</button>
         </div>
     </div>
-    
 
     <section class="container py-4">
         <div id="loading" class="spinner"></div>
@@ -247,64 +155,68 @@
         </div>
     </div>
 
+    <div id="footer-placeholder"></div>
+
     <script>
-        // ==========================================
-// CONFIGURATION FOR FLAT FOLDER
-// ==========================================
-const GITHUB_USERNAME = 'muregavictor-dev'; 
-const REPO_NAME = 'NNP-C-U';
-const IMAGE_BASE_PATH = 'images/gallary'; 
+        // CONFIGURATION
+        const GITHUB_USERNAME = 'muregavictor-dev'; 
+        const REPO_NAME = 'NNP-C-U';
+        const IMAGE_BASE_PATH = 'images/gallary'; 
 
-async function loadImages() {
-    const loading = document.getElementById('loading');
-    const gallery = document.getElementById('gallery');
-    allImages = []; 
+        // ADD YOUR VIDEO IDs HERE
+        const videoData = [
+            { id: '0eNXQHAthpQ', title: 'Makutano Mission', desc: 'Day 1 Highlights' },
+            { id: 'dQw4w9WgXcQ', title: 'Sunday Service', desc: 'Worship and Word' }
+        ];
 
-    try {
-        // We only fetch the main folder once
-        const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}`);
-        
-        if (!res.ok) throw new Error("Folder not found");
-        
-        const files = await res.json();
-        
-        files.forEach(file => {
-            // 1. Check if it's an image
-            if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+        let allImages = [];
+        let filteredImages = [];
+        let currentIndex = 0;
+
+        // Fetch Header & Footer
+        function loadComponent(id, file) {
+            fetch(file).then(r => r.text()).then(data => {
+                document.getElementById(id).innerHTML = data;
+            }).catch(err => console.error("Error loading component:", file));
+        }
+
+        async function loadImages() {
+            const loading = document.getElementById('loading');
+            const gallery = document.getElementById('gallery');
+            
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}`);
+                if (!res.ok) throw new Error("Folder not found");
+                const files = await res.json();
                 
-                // 2. Determine Category based on filename
-                // If filename is 'worship_night.jpg', category becomes 'worship'
-                let category = 'other'; 
-                const nameLower = file.name.toLowerCase();
-                
-                if (nameLower.includes('worship')) category = 'worship';
-                else if (nameLower.includes('outreach')) category = 'outreach';
-                else if (nameLower.includes('fellowship')) category = 'fellowship';
-                else if (nameLower.includes('event')) category = 'events';
-                else if (nameLower.includes('mission')) category = 'mission';
+                files.forEach(file => {
+                    if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                        let category = 'other'; 
+                        const nameLower = file.name.toLowerCase();
+                        if (nameLower.includes('worship')) category = 'worship';
+                        else if (nameLower.includes('outreach')) category = 'outreach';
+                        else if (nameLower.includes('fellowship')) category = 'fellowship';
+                        else if (nameLower.includes('event')) category = 'events';
+                        else if (nameLower.includes('mission')) category = 'mission';
 
-                allImages.push({
-                    url: file.download_url,
-                    category: category,
-                    title: file.name.split('.')[0].replace(/[_-]/g, ' ') // Cleans up 'worship_night' to 'worship night'
+                        allImages.push({
+                            url: file.download_url,
+                            category: category,
+                            title: file.name.split('.')[0].replace(/[_-]/g, ' ')
+                        });
+                    }
                 });
+                renderGallery('all');
+            } catch (err) {
+                console.error("Image load error:", err);
+            } finally {
+                loading.style.display = 'none';
             }
-        });
+        }
 
-        renderGallery('all');
-        
-    } catch (err) {
-        console.error("Error loading images:", err);
-    } finally {
-        loading.style.display = 'none';
-    }
-}
-
-        // 3. Render Gallery
         function renderGallery(filter) {
             const gallery = document.getElementById('gallery');
             const empty = document.getElementById('empty-state');
-            
             filteredImages = filter === 'all' ? allImages : allImages.filter(i => i.category === filter);
             
             if (filteredImages.length === 0) {
@@ -315,7 +227,7 @@ async function loadImages() {
                     <div class="gallery-item" onclick="openLightbox(${idx})">
                         <img src="${img.url}" loading="lazy">
                         <div class="gallery-overlay">
-                            <span class="badge bg-warning text-dark mb-2" style="width:fit-content">${img.category}</span>
+                            <span class="badge bg-warning text-dark mb-2">${img.category}</span>
                             <h5>${img.title}</h5>
                         </div>
                     </div>
@@ -323,7 +235,6 @@ async function loadImages() {
             }
         }
 
-        // 4. Video Rendering
         function renderVideos() {
             const grid = document.getElementById('video-grid');
             grid.innerHTML = videoData.map(v => `
@@ -341,7 +252,6 @@ async function loadImages() {
             `).join('');
         }
 
-        // 5. Lightbox Logic
         function openLightbox(index) {
             currentIndex = index;
             const img = filteredImages[index];
@@ -351,7 +261,7 @@ async function loadImages() {
             document.getElementById('lightbox').classList.add('active');
         }
 
-        // Event Listeners
+        // Global Event Listeners
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelector('.filter-btn.active').classList.remove('active');
@@ -364,42 +274,12 @@ async function loadImages() {
         document.querySelector('.lightbox-next').onclick = () => openLightbox((currentIndex + 1) % filteredImages.length);
         document.querySelector('.lightbox-prev').onclick = () => openLightbox((currentIndex - 1 + filteredImages.length) % filteredImages.length);
 
-        window.onload = () => { loadImages(); renderVideos(); };
+        window.onload = () => {
+            loadComponent('header-placeholder', 'header.html');
+            loadComponent('footer-placeholder', 'footer.html');
+            loadImages();
+            renderVideos();
+        };
     </script>
-     <!-- Include Footer -->
-<div id="footer-placeholder"></div>
-
-<script>
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extract just the footer element
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const footer = doc.querySelector('footer');
-            const styles = doc.querySelector('style');
-            const footerScript = doc.querySelector('script');
-            
-            // Insert footer
-            document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-            
-            // Insert styles if not already present
-            if (!document.getElementById('footer-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'footer-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
-            }
-            
-            // Update current year
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-        });
-</script>
-           
 </body>
 </html>
-
-
-
-
-

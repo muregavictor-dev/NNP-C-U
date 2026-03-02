@@ -106,181 +106,20 @@
             <p class="lead">Capturing God's work in NNP Christian Union</p>
         </div>
     </section>
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- Font Awesome (if not already added) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-/* ===== SECTION BACKGROUND ===== */
-.prayer-section {
-    background:
-        radial-gradient(circle at top, rgba(212,175,55,0.15), transparent 60%),
-        linear-gradient(135deg, #0a0f1f, #121a33, #0a0f1f);
-    padding: 90px 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* subtle church light rays */
-.prayer-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        rgba(212,175,55,0.04),
-        rgba(212,175,55,0.04) 2px,
-        transparent 2px,
-        transparent 120px
-    );
-    pointer-events: none;
-}
-
-/* ===== CARD ===== */
-.prayer-card {
-    max-width: 680px;
-    margin: auto;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(14px);
-    border-radius: 24px;
-    padding: 55px 35px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    color: #fff;
-    text-align: center;
-
-    /* animation start state */
-    opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    transition: all 0.8s cubic-bezier(.17,.67,.3,1);
-}
-
-/* reveal on scroll */
-.prayer-card.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* gentle float */
-@keyframes floatCard {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-
-.prayer-card.show:hover {
-    animation: floatCard 3s ease-in-out infinite;
-}
-
-/* ===== TITLE ===== */
-.prayer-card h2 {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    margin-bottom: 18px;
-    letter-spacing: 1px;
-    font-size: 2rem;
-    background: linear-gradient(135deg, #d4af37, #ffd700, #fff2a6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* ===== TEXT ===== */
-.prayer-card p {
-    font-family: 'Poppins', sans-serif;
-    opacity: 0.92;
-    margin-bottom: 32px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-/* ===== BUTTON ===== */
-.prayer-btn {
-    background: linear-gradient(135deg, #c9a227, #ffd700);
-    border: none;
-    padding: 15px 34px;
-    font-size: 15px;
-    font-weight: 600;
-    border-radius: 60px;
-    color: #1a1a1a;
-    text-decoration: none;
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.4px;
-    box-shadow: 0 12px 30px rgba(212,175,55,0.35);
-    transition: all 0.3s ease;
-}
-
-/* button hover glow */
-.prayer-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 18px 45px rgba(255,215,0,0.55);
-    color: #000;
-}
-
-/* ===== MOBILE OPTIMIZATION ===== */
-@media (max-width: 768px) {
-    .prayer-section {
-        padding: 70px 15px;
-    }
-
-    .prayer-card {
-        padding: 40px 22px;
-        border-radius: 18px;
-    }
-
-    .prayer-card h2 {
-        font-size: 1.6rem;
-    }
-
-    .prayer-card p {
-        font-size: 0.98rem;
-    }
-
-    .prayer-btn {
-        width: 100%;
-        padding: 16px;
-        font-size: 14px;
-    }
-}
-</style>
-
-<section class="prayer-section">
-    <div class="prayer-card" id="prayerCard">
-        <h2>✝️ Prayer Retreat Photo Drive</h2>
-        <p>
-            Relive the powerful moments of worship, prayer, and divine encounters.
-            Click below to view and download the full-resolution photo album.
-        </p>
-
-        <a href="https://photos.app.goo.gl/mSXe9V46ydnDapKW6"
-           target="_blank"
-           class="prayer-btn">
-            <i class="fab fa-google-drive me-2"></i>
-            OPEN PRAYER RETREAT ALBUM
-        </a>
-    </div>
-</section>
-
-<script>
-/* ===== SCROLL REVEAL ANIMATION ===== */
-const card = document.getElementById('prayerCard');
-
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            card.classList.add('show');
-        }
-    });
-}, { threshold: 0.25 });
-
-observer.observe(card);
-</script>
      <section class="container py-5 text-center">
         <div class="card p-4 shadow-sm border-0">
-            <h2>ASSOCIATES SUNDAY PHOTO DRIVE</h2>
+            <h2>ASSOCIATES SUNDAY 1ST MARCH PHOTO DRIVE</h2>
             <p>View and download full-resolution photos for this glorious day</p>
             <a href="https://photos.app.goo.gl/rzgt5oV2iPnM5szP7" target="_blank" class="btn btn-success btn-lg px-4">
                 <i class="fab fa-google-drive me-2"></i> <strong> CLICK HERE TO OPEN ASSOCIATES SUNDAY ALBUM</strong>
+            </a>
+        </div>
+          <div class="card p-4 shadow-sm border-0">
+            <h2>WORSHIP EXPERIENCE 1ST MARCH PHOTO DRIVE</h2>
+            <p>View and download full-resolution photos for these worship moments</p>
+            <a href="https://photos.app.goo.gl/xXN5jK2oA51sbBtP8" target="_blank" class="btn btn-success btn-lg px-4">
+                <i class="fab fa-google-drive me-2"></i> <strong> CLICK HERE WORSHIP EXPERIENCE ALBUM</strong>
             </a>
         </div>
     </section>
@@ -463,6 +302,7 @@ observer.observe(card);
     </script>
 </body>
 </html>
+
 
 
 

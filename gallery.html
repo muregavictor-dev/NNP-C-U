@@ -107,24 +107,22 @@
         </div>
     </section>
 
-    <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
-/* ===== AUTO THEME COLORS (inherits your site) ===== */
+/* ===== THEME MATCHED COLORS ===== */
 :root{
-  --church-primary: var(--bs-primary, #0d6efd);
-  --church-success: var(--bs-success, #198754);
-  --church-dark: #0f172a;
+  --nnp-green: #2e7d32;      /* hero green match */
+  --nnp-green-soft: #43a047; /* lighter accent */
+  --nnp-text-dark: #1f2937;
 }
 
 /* ===== SECTION ===== */
-.gallery-royal-section{
-  padding: 80px 20px;
+.nnp-gallery-section{
+  padding:80px 20px;
+  background:#f8fafc;
 }
 
 /* ===== GRID ===== */
-.gallery-royal-grid{
+.nnp-gallery-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:28px;
@@ -133,98 +131,97 @@
 }
 
 /* ===== CARD ===== */
-.gallery-royal-card{
+.nnp-gallery-card{
   background:#ffffff;
-  border-radius:18px;
-  padding:40px 28px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+  border-radius:16px;
+  padding:38px 26px;
   text-align:center;
-  transition:all .4s ease;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+  transition:all .35s ease;
 
   opacity:0;
   transform:translateY(40px);
 }
 
-.gallery-royal-card.show{
+.nnp-gallery-card.show{
   opacity:1;
   transform:translateY(0);
 }
 
-.gallery-royal-card:hover{
+.nnp-gallery-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 25px 60px rgba(0,0,0,0.12);
+  box-shadow:0 18px 45px rgba(0,0,0,0.10);
 }
 
 /* ===== TITLE ===== */
-.gallery-royal-card h2{
-  font-family:'Cinzel',serif;
-  font-size:1.35rem;
-  margin-bottom:12px;
-  color:var(--church-primary);
+.nnp-gallery-card h2{
+  color:var(--nnp-green);
   font-weight:700;
+  font-size:1.35rem;
+  margin-bottom:10px;
 }
 
 /* ===== TEXT ===== */
-.gallery-royal-card p{
-  font-family:'Poppins',sans-serif;
-  color:#555;
-  margin-bottom:26px;
-  font-size:.97rem;
+.nnp-gallery-card p{
+  color:#6b7280;
+  margin-bottom:24px;
+  font-size:.96rem;
 }
 
 /* ===== BUTTON ===== */
-.gallery-royal-btn{
-  background:var(--church-success);
+.nnp-gallery-btn{
+  background:var(--nnp-green);
   color:#fff;
-  padding:14px 26px;
+  padding:13px 26px;
   border-radius:50px;
   text-decoration:none;
   font-weight:600;
   display:inline-block;
   transition:all .25s ease;
-  box-shadow:0 10px 25px rgba(25,135,84,.25);
+  box-shadow:0 8px 22px rgba(46,125,50,.25);
 }
 
-.gallery-royal-btn:hover{
+.nnp-gallery-btn:hover{
+  background:var(--nnp-green-soft);
   transform:translateY(-2px);
-  box-shadow:0 15px 35px rgba(25,135,84,.35);
+  box-shadow:0 14px 32px rgba(46,125,50,.35);
   color:#fff;
 }
 
 /* ===== MOBILE ===== */
 @media(max-width:768px){
-  .gallery-royal-section{ padding:60px 14px; }
-  .gallery-royal-card{ padding:30px 20px; }
-  .gallery-royal-btn{ width:100%; }
+  .nnp-gallery-section{ padding:60px 14px; }
+  .nnp-gallery-card{ padding:30px 20px; }
+  .nnp-gallery-btn{ width:100%; }
 }
 </style>
 
-<section class="gallery-royal-section">
-  <div class="gallery-royal-grid">
+<section class="nnp-gallery-section">
+  <div class="nnp-gallery-grid">
 
     <!-- CARD 1 -->
-    <div class="gallery-royal-card reveal">
+    <div class="nnp-gallery-card reveal">
       <h2>✝️ ASSOCIATES SUNDAY — 1ST MARCH</h2>
       <p>View and download full-resolution photos for this glorious day.</p>
-      <a href="https://photos.app.goo.gl/rzgt5oV2iPnM5szP7" target="_blank" class="gallery-royal-btn">
+      <a href="https://photos.app.goo.gl/rzgt5oV2iPnM5szP7" target="_blank" class="nnp-gallery-btn">
         OPEN ASSOCIATES SUNDAY ALBUM
       </a>
     </div>
 
     <!-- CARD 2 -->
-    <div class="gallery-royal-card reveal">
+    <div class="nnp-gallery-card reveal">
       <h2>🎶 WORSHIP EXPERIENCE — 1ST MARCH</h2>
       <p>View and download full-resolution photos from these worship moments.</p>
-      <a href="https://photos.app.goo.gl/xXN5jK2oA51sbBtP8" target="_blank" class="gallery-royal-btn">
+      <a href="https://photos.app.goo.gl/xXN5jK2oA51sbBtP8" target="_blank" class="nnp-gallery-btn">
         OPEN WORSHIP EXPERIENCE ALBUM
       </a>
     </div>
 
     <!-- CARD 3 -->
-    <div class="gallery-royal-card reveal">
+    <div class="nnp-gallery-card reveal">
       <h2>🙏 PRAYER RETREAT PHOTO DRIVE</h2>
       <p>Relive the powerful moments of prayer and divine encounters.</p>
-      <a href="https://photos.app.goo.gl/mSXe9V46ydnDapKW6" target="_blank" class="gallery-royal-btn">
+      <a href="https://photos.app.goo.gl/mSXe9V46ydnDapKW6" target="_blank" class="nnp-gallery-btn">
         OPEN PRAYER RETREAT ALBUM
       </a>
     </div>
@@ -237,7 +234,9 @@
 const reveals=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('show'); }
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+    }
   });
 },{threshold:.2});
 reveals.forEach(el=>obs.observe(el));
@@ -410,6 +409,7 @@ reveals.forEach(el=>obs.observe(el));
     </script>
 </body>
 </html>
+
 
 
 

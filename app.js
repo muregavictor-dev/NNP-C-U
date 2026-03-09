@@ -44,6 +44,191 @@ function cacheDOM() {
     }
 }
 
+// ===== API CONFIGURATION (OpenAI + Bible APIs) =====
+/**
+ * API Keys Configuration
+ * IMPORTANT: For production, store these in environment variables, not here!
+ * 
+ * Setup Instructions:
+ * 1. OpenAI API Key: Get from https://platform.openai.com/api-keys
+ * 2. Bible API Key: Get from https://api.scripture.api.bible/
+ */
+const API_CONFIG = {
+    // OpenAI Configuration
+    openai: {
+        apiKey: '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', // Replace with actual key
+        endpoint: 'https://api.openai.com/v1/chat/completions',
+        model: 'gpt-3.5-turbo',
+        maxTokens: 150,
+        temperature: 0.7,
+        enabled: true // Set to true when key is added
+    },
+    
+    // Bible API Configuration (Scripture.API.Bible - Free tier)
+    bible: {
+        apiKey: 'YOUR_BIBLE_API_KEY_HERE', // Get from https://api.scripture.api.bible/
+        endpoint: 'https://api.scripture.api.bible/v1',
+        bibleId: 'de4e12af7f28f599-02', // ESV Bible ID (free tier)
+        enabled: false // Set to true when key is added
+    },
+    
+    // Rate Limiting
+    rateLimit: {
+        openaiCallsPerMinute: 10,
+        bibleCallsPerMinute: 20,
+        lastOpenaiCall: 0,
+        lastBibleCall: 0
+    }
+};
+
+/**
+ * Check rate limit for API calls
+ */
+function checkRateLimit(apiType) {
+    const now = Date.now();
+    const limitConfig = apiType === 'openai' 
+        ? { lastKey: 'lastOpenaiCall', limit: 6000 }  // 1 call per 6 seconds
+        : { lastKey: 'lastBibleCall', limit: 3000 };   // 1 call per 3 seconds
+    
+    if (now - API_CONFIG.rateLimit[limitConfig.lastKey] < limitConfig.limit) {
+        return false; // Rate limited
+    }
+    
+    API_CONFIG.rateLimit[limitConfig.lastKey] = now;
+    return true;
+}
+
+/**
+ * Fetch Bible verses using Scripture.API.Bible
+ * Free verses without API key: Genesis, John (selected chapters)
+ */
+async function fetchBibleVerse(query) {
+    try {
+        if (!checkRateLimit('bible')) {
+            console.warn('Bible API rate limited');
+            return null;
+        }
+        
+        // Search for terms like "John 3:16", "Genesis 1:1", etc.
+        const verseMatch = query.match(/(\d?\s*\w+)\s+(\d+):?(\d*)/i);
+        if (!verseMatch) {
+            return null; // Not a Bible verse query
+        }
+        
+        const bookName = verseMatch[1].trim();
+        const chapter = verseMatch[2];
+        const verse = verseMatch[3] || '';
+        
+        // Use free public Bible data endpoint (OpenBSD Project)
+        const endpoint = `https://bible-api.com/${bookName}+${chapter}:${verse}`;
+        
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+            console.warn('Bible API error:', response.status);
+            return null;
+        }
+        
+        const data = await response.json();
+        
+        // Format response
+        return {
+            text: data.text || '',
+            verse: data.reference || query,
+            translation: data.translation_name || 'KJV',
+            source: 'Bible API'
+        };
+        
+    } catch (err) {
+        console.warn('Bible API fetch error:', err);
+        return null;
+    }
+}
+
+/**
+ * Fetch response from OpenAI GPT-3.5-turbo
+ * Better for NLP and complex questions
+ */
+async function fetchOpenAIResponse(userMessage, context = '') {
+    try {
+        if (!API_CONFIG.openai.enabled) {
+            console.warn('OpenAI API not enabled - add API key first');
+            return null;
+        }
+        
+        if (!checkRateLimit('openai')) {
+            console.warn('OpenAI API rate limited');
+            return null;
+        }
+        
+        const systemPrompt = `You are a friendly AI assistant for NNP Christian Union at Nyeri National Polytechnic. 
+Help students with questions about CU events, schedules, membership, and Christian ministry.
+Be encouraging, supportive, and concise (max 150 words).
+If asked about topics outside CU, politely redirect to CU-related topics.
+
+Context: ${context}`;
+        
+        const response = await fetch(API_CONFIG.openai.endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_CONFIG.openai.apiKey}`
+            },
+            body: JSON.stringify({
+                model: API_CONFIG.openai.model,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userMessage }
+                ],
+                max_tokens: API_CONFIG.openai.maxTokens,
+                temperature: API_CONFIG.openai.temperature
+            })
+        });
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                console.error('OpenAI: Invalid API key');
+            } else if (response.status === 429) {
+                console.error('OpenAI: Rate limited');
+            } else {
+                console.error('OpenAI API error:', response.status);
+            }
+            return null;
+        }
+        
+        const data = await response.json();
+        
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+            return {
+                text: data.choices[0].message.content,
+                source: 'OpenAI GPT-3.5'
+            };
+        }
+        
+        return null;
+        
+    } catch (err) {
+        console.warn('OpenAI fetch error:', err);
+        return null;
+    }
+}
+
+/**
+ * Detect if question is Bible-related
+ */
+function isBibleQuestion(text) {
+    const bibleKeywords = [
+        'bible', 'verse', 'scripture', 'john', 'genesis', 'psalm',
+        'proverbs', 'matthew', 'mark', 'luke', 'romans', 'corinthians',
+        'galatians', 'ephesians', 'philippians', 'colossians',
+        'thessalonians', 'timothy', 'titus', 'thessalonians',
+        'hebrews', 'james', 'peter', 'peter', 'revelation',
+        'god says', 'god', 'lord', 'jesus', 'christ'
+    ];
+    
+    const query = text.toLowerCase();
+    return bibleKeywords.some(keyword => query.includes(keyword));
+}
+
 // ===== 1. SMOOTH SCROLLING NAVIGATION =====
 function initSmoothScroll() {
     DOM.scrollLinks.forEach(link => {
@@ -587,25 +772,44 @@ function sanitizeInput(text) {
 }
 
 /**
- * Phase 1-2: Get bot response with improved matching
+ * Phase 1-2: Get bot response with API integration (OpenAI + Bible APIs)
+ * NEW: Tries APIs first, then falls back to local knowledge base
  */
-function getBotResponse(userText) {
+async function getBotResponse(userText) {
     const query = userText.toLowerCase();
     
-    // Check each category for keyword/synonym matches
+    // Step 1: Try Bible API for Bible-related questions
+    if (isBibleQuestion(query)) {
+        const bibleResponse = await fetchBibleVerse(query);
+        if (bibleResponse) {
+            logChatAnalytics(userText, bibleResponse.text, true, 'bible-api');
+            return `📖 **${bibleResponse.verse}** (${bibleResponse.translation})\n\n"${bibleResponse.text}"\n\n_Source: ${bibleResponse.source}_`;
+        }
+    }
+    
+    // Step 2: Check local knowledge base for CU-specific questions
     for (const [category, data] of Object.entries(chatbotKnowledge)) {
         const allKeywords = [...data.keywords, ...(data.synonyms || [])];
         const matched = allKeywords.some(keyword => query.includes(keyword));
         
         if (matched) {
-            logChatAnalytics(userText, data.answer, true);
+            logChatAnalytics(userText, data.answer, true, 'knowledge-base');
             return data.answer;
         }
     }
     
-    // No match found - return smart fallback
+    // Step 3: Try OpenAI for general questions (if enabled)
+    if (API_CONFIG.openai.enabled) {
+        const openaiResponse = await fetchOpenAIResponse(userText, 'NNP Christian Union chatbot context');
+        if (openaiResponse) {
+            logChatAnalytics(userText, openaiResponse.text, true, 'openai');
+            return `🤖 ${openaiResponse.text}\n\n_Source: ${openaiResponse.source}_`;
+        }
+    }
+    
+    // Step 4: Fall back to smart fallback response
     const fallback = getSmartFallback(userText);
-    logChatAnalytics(userText, fallback, false);
+    logChatAnalytics(userText, fallback, false, 'fallback');
     return fallback;
 }
 
@@ -616,6 +820,7 @@ function getSmartFallback(userText) {
     return `I'm still learning! 🤖
 
 **Try asking me about:**
+• 📖 Bible verses (e.g., "John 3:16", "What does the Bible say about...")
 • 📅 Weekly schedule
 • 🎉 Upcoming events (Mega Kesha, Prayer Retreat, Mission)
 • 👥 How to join CU
@@ -743,13 +948,14 @@ function loadChatHistory(container) {
 /**
  * Phase 3-4: Log analytics for bot improvements
  */
-function logChatAnalytics(userText, botResponse, isSuccess) {
+function logChatAnalytics(userText, botResponse, isSuccess, source = 'unknown') {
     try {
         const event = {
             timestamp: new Date().toISOString(),
             userMessage: userText,
             botResponse: botResponse,
             success: isSuccess,
+            source: source, // NEW: Track which source provided the answer (bible-api, openai, knowledge-base, fallback)
             userAgent: navigator.userAgent,
             pageUrl: window.location.href
         };
@@ -789,8 +995,8 @@ function initImprovedChatbot() {
     // Load previous chat history (Phase 2)
     loadChatHistory(chatMessages);
 
-    // Add event listener for form submission
-    chatForm.addEventListener('submit', (e) => {
+    // Add event listener for form submission (NOW ASYNC to support API calls)
+    chatForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const userText = chatInput.value.trim();
@@ -813,24 +1019,22 @@ function initImprovedChatbot() {
             // Step 5: Show typing indicator (Phase 1-2)
             showTypingIndicator(chatMessages);
 
-            // Step 6: Simulate bot thinking (~800ms) then respond
-            setTimeout(() => {
-                removeTypingIndicator(chatMessages);
+            // Step 6: Wait for bot response (now includes API calls - Bible API / OpenAI / Knowledge Base)
+            // This is async so APIs can complete
+            const reply = await getBotResponse(userText);
+            
+            // Step 7: Remove typing indicator and display response
+            removeTypingIndicator(chatMessages);
+            addMessage(chatMessages, 'bot', reply);
+            
+            // Step 8: Save bot response (Phase 2)
+            saveChatMessage('bot', reply);
+            
+            // Step 9: Show quick replies (first message only, Phase 2)
+            if (chatMessages.children.length === 4) { // Only user msg + bot response + quick replies
+                showQuickReplies(chatMessages);
+            }
                 
-                // Step 7: Get bot response (Phase 2-3)
-                const reply = getBotResponse(userText);
-                addMessage(chatMessages, 'bot', reply);
-                
-                // Step 8: Save bot response (Phase 2)
-                saveChatMessage('bot', reply);
-                
-                // Step 9: Show quick replies (first message only, Phase 2)
-                if (chatMessages.children.length === 4) { // Only user msg + bot response + quick replies
-                    showQuickReplies(chatMessages);
-                }
-                
-            }, 800);
-
         } catch (err) {
             console.error('Chat error:', err);
             removeTypingIndicator(chatMessages);

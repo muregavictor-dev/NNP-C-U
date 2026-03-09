@@ -19,7 +19,19 @@
     /* Spacing */
     --bs-body-line-height: 1.7;
     --border-radius-lg: 12px;
-}
+    
+    /* Premium Shadow Elevation System */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.18);
+    --shadow-2xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+    
+    /* Transition Durations */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 html {
     overflow-x: hidden;
     width: 100%;
@@ -76,23 +88,124 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     background-color: var(--warm-gold);
     color: var(--rich-black);
     border-color: var(--warm-gold);
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: var(--shadow-md);
 }
 .btn-gold:hover {
     background-color: var(--muted-yellow);
     border-color: var(--muted-yellow);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-    transform: translateY(-2px); /* Subtle lift on hover */
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+.btn-gold:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+}
+.btn-gold:focus-visible {
+    outline: 2px solid rgba(248, 192, 7, 0.4);
+    outline-offset: 2px;
 }
 .btn-primary-green {
     background-color: var(--primary-green);
     color: white;
     border-color: var(--primary-green);
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: var(--shadow-md);
 }
 .btn-primary-green:hover {
     background-color: var(--deep-green);
     border-color: var(--deep-green);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+.btn-primary-green:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+}
+.btn-primary-green:focus-visible {
+    outline: 2px solid rgba(49, 139, 46, 0.4);
+    outline-offset: 2px;
+}
+.btn-primary-green:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.btn-gold:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* === EVENT CARD STYLING === */
+.event-card {
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.event-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px);
+}
+
+.event-card .card-body {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 1));
+}
+
+.event-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.event-card .rsvp-btn {
+    transition: all var(--transition-fast);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.event-card .rsvp-btn:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* === VIDEO CARD STYLING === */
+.video-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.video-card .card-title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+}
+
+/* === UTILITY CLASSES FOR HERO & SECTIONS === */
+.hero-75vh {
+    height: 75vh;
+}
+
+.section-light-green {
+    background-color: #d2f8ac;
+}
+
+.contact-form-gradient {
+    background: linear-gradient(145deg, #0edc2d, #FFB300, #FFCC00, #0edc2d);
+    box-shadow: 0 0 15px rgba(136, 255, 0, 0.5);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.btn-primary-green:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-gold:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .btn-outline-light-green {
@@ -155,18 +268,17 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 
 
 /* === HERO SECTION === */
- .hero-section {
-     min-height: 100vh;
+.hero-section {
+    min-height: 75vh; /* More appropriate for landing page */
     position: relative;
     display: flex;
     flex-direction: column;
-    background: var(--deep-green);
-    overflow: hidden;
-    min-height: 100vh;
-    display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--deep-green);
+    overflow: hidden;
     color: white;
+    padding: 40px 20px; /* Safe padding */
 }
 
 .hero-section::before {
@@ -259,13 +371,25 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 .table-schedule tbody tr:nth-child(even) {
-    background-color:var(--light-gray); /* Alternating row colors */
+    background-color: var(--light-gray); /* Zebra striping */
 }
 .table-schedule tbody tr.table-primary-row {
-    background-color: red; 
+    background-color: rgba(49, 139, 46, 0.08); /* Premium soft green tint */
+}
+.table-schedule tbody tr {
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.table-schedule tbody tr:hover {
+    background-color: rgba(49, 139, 46, 0.12);
 }
 .table-schedule tbody td {
     vertical-align: middle;
+    font-size: 0.95rem;
+}
+.table-schedule .badge {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: var(--shadow-xs);
 }
 
 /* Video Cards */
@@ -292,15 +416,33 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     transform: scale(1.1);
 }
 
-/* Gallery Cards (Overlapping/Masonry Look) */
-.gallery-card {
-    height: 350px;
-    overflow: hidden;
-    position: relative;
-    border-radius: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* ===== FORM STYLING ===== */
+.form-control, .form-select {
+    border: 1.5px solid rgba(0, 0, 0, 0.1);\n    border-radius: 8px;
+    transition: all var(--transition-fast);
+    font-size: 0.95rem;
 }
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(49, 139, 46, 0.1);
+    outline: none;
+}
+.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.9rem;
+}
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.2px;
+}
+.invalid-feedback {
+    font-size: 0.85rem;
+    color: #dc3545;
+    margin-top: 0.25rem;\n}\n\n/* ===== PREMIUM CARD STYLING ===== */\n.card {
+    transition: all var(--transition-base);\n    border: 1px solid rgba(0, 0, 0, 0.06);\n}\n.card:hover {\n    box-shadow: var(--shadow-lg);\n    transform: translateY(-4px);\n}\n.card-body {\n    padding: 1.5rem;\n}\n.card-title {\n    margin-bottom: 0.75rem;\n    font-size: 1.1rem;\n}\n\n/* Gallery Cards (Overlapping/Masonry Look) */\n.gallery-card {\n    height: 350px;\n    overflow: hidden;\n    position: relative;\n    border-radius: 16px;\n    cursor: pointer;\n    box-shadow: var(--shadow-md);\n    transition: all var(--transition-base);\n    border: 1px solid rgba(0, 0, 0, 0.05);\n}
 
 /* Adjust height for mobile */
 @media (max-width: 767px) {
@@ -310,7 +452,10 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 }
 
 .gallery-card img {
-    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
 }
 
 .caption-overlay {
@@ -318,17 +463,16 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     bottom: 0;
     left: 0;
     width: 100%;
-    /* Text flowing: use a soft gradient mask */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 80%);
-    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%);
+    padding: 1.5rem;
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--transition-base);
 }
 
 .lightbox-btn {
     opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
+    transform: translateY(10px) scale(0.95);
+    transition: all var(--transition-base);
 }
 
 .gallery-card:hover .caption-overlay {
@@ -336,12 +480,12 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 }
 
 .gallery-card:hover img {
-    transform: scale(1.05); /* Subtle Zoom */
+    transform: scale(1.08);
 }
 
 .gallery-card:hover .lightbox-btn {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 
@@ -403,35 +547,34 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
 
 .gold-glow-section {
   position: relative;
-  background: linear-gradient(135deg, #4dff00, #f8f7f5, #FFC600,#f8f7f5, #ebd476);
-  box-shadow: 0 0 35px rgba(136, 255, 0, 0.5);
-  border-radius: 20px;
-  color: #222;
+  background: linear-gradient(135deg, rgba(248, 192, 7, 0.08) 0%, rgba(248, 192, 7, 0.04) 50%, rgba(248, 192, 7, 0.06) 100%);
+  border: 1px solid rgba(248, 192, 7, 0.2);
+  box-shadow: 0 10px 40px rgba(248, 192, 7, 0.15), inset 0 1px 0 rgba(248, 192, 7, 0.1);
+  border-radius: 16px;
+  color: var(--rich-black);
   overflow: hidden;
+  transition: all var(--transition-base);
 }
 
-/* Soft radiant glow behind it */
 .gold-glow-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(136, 255, 0, 0.5) 0%, transparent 70%);
-  filter: blur(40px);
-  opacity: 0.8;
+  background: radial-gradient(circle at center, rgba(248, 192, 7, 0.08) 0%, transparent 70%);
+  filter: blur(30px);
+  opacity: 0.5;
   z-index: 0;
+  pointer-events: none;
 }
 
-/* Ensure content stays above the glow */
 .gold-glow-section > .container {
   position: relative;
   z-index: 1;
 }
 
-/* Optional hover effect */
 .gold-glow-section:hover {
-  box-shadow: 0 0 55px rgba(136, 255, 0, 0.8);
-  transform: scale(1.01);
-  transition: all 0.4s ease;
+  box-shadow: 0 12px 48px rgba(248, 192, 7, 0.2), inset 0 1px 0 rgba(248, 192, 7, 0.15);
+  transform: translateY(-2px);
 }
 .fab-icon {
   position: fixed;
@@ -532,7 +675,6 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 
 
 

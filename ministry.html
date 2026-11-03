@@ -347,6 +347,8 @@ html {
             to { transform: rotate(360deg); }
         }
     </style>
+    <link rel="stylesheet" href="modernization.css">
+    <script src="components.js" defer></script>
 </head>
 
 
@@ -354,28 +356,6 @@ html {
     <div class="progress-bar-custom" id="progressBar"></div>
 <div id="header-placeholder"></div>
 <body>
-<script>
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            // Extract just the header element
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const header = doc.querySelector('header');
-            const styles = doc.querySelector('style');
-            
-            // Insert header
-            document.getElementById('header-placeholder').innerHTML = header.outerHTML;
-            
-            // Insert styles if not already present
-            if (!document.getElementById('header-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'header-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
-            }
-        });
-</script>
     <!-- MAIN CONTENT -->
     <main>
         <!-- Hero Section -->
@@ -899,26 +879,6 @@ html {
 <div id="footer-placeholder"></div>
 
 <script>
-fetch('footer.html')
-  .then(response => response.text())
-  .then(data => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(data, 'text/html');
-    const footer = doc.querySelector('footer');
-    const styles = doc.querySelector('style');
-
-    document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-
-    if (!document.getElementById('footer-styles')) {
-      const styleTag = document.createElement('style');
-      styleTag.id = 'footer-styles';
-      styleTag.textContent = styles.textContent;
-      document.head.appendChild(styleTag);
-    }
-
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-  });
-
 // ✅ Custom JavaScript to handle Formspree without redirect
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
@@ -958,8 +918,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 </html>
-
-
 
 
 

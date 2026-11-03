@@ -42,6 +42,8 @@
     
     <!-- ===== CUSTOM STYLES ===== -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="modernization.css">
+    <script src="components.js" defer></script>
     
     <!-- ===== STRUCTURED DATA (SCHEMA.ORG) ===== -->
     <script type="application/ld+json">
@@ -75,27 +77,6 @@
     <!-- ===== HEADER (DYNAMIC LOAD) ===== -->
     <div id="header-placeholder"></div>
     
-    <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, 'text/html');
-                const header = doc.querySelector('header');
-                const styles = doc.querySelector('style');
-                
-                document.getElementById('header-placeholder').innerHTML = header.outerHTML;
-                
-                if (!document.getElementById('header-styles')) {
-                    const styleTag = document.createElement('style');
-                    styleTag.id = 'header-styles';
-                    styleTag.textContent = styles.textContent;
-                    document.head.appendChild(styleTag);
-                }
-            })
-            .catch(err => console.error('Error loading header:', err));
-    </script>
-
     <main id="main-content">
         
         <section id="hero" class="hero-section d-flex align-items-center text-white" style="height: 75vh;">
@@ -764,34 +745,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <!-- ===== FOOTER (DYNAMIC LOAD) ===== -->
 <div id="footer-placeholder"></div>
 
-<script>
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-            const footer = doc.querySelector('footer');
-            const styles = doc.querySelector('style');
-            
-            document.getElementById('footer-placeholder').innerHTML = footer.outerHTML;
-            
-            if (!document.getElementById('footer-styles')) {
-                const styleTag = document.createElement('style');
-                styleTag.id = 'footer-styles';
-                styleTag.textContent = styles.textContent;
-                document.head.appendChild(styleTag);
-            }
-            
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-        })
-        .catch(err => {
-            console.error('Error loading footer:', err);
-            document.getElementById('footer-placeholder').innerHTML = '<p class="text-muted text-center p-4">Footer failed to load</p>';
-        });
-</script>
-
-
-
 <!-- ==============================
      NOTIFICATION PANEL
 ============================== -->
@@ -1211,8 +1164,6 @@ form.addEventListener('submit', async (e) => {
     <script src="app.js" defer></script>
 </body>
 </html>
-
-
 
 
 

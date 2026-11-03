@@ -182,6 +182,8 @@
           .nnp-gallery-btn{ width:100%; }
         }
     </style>
+    <link rel="stylesheet" href="modernization.css">
+    <script src="components.js" defer></script>
 </head>
 <body>
 
@@ -320,16 +322,6 @@
         let filteredImages = [];
         let currentIndex = 0;
 
-        function loadComponent(id, file) {
-            fetch(file).then(r => r.text()).then(data => {
-                document.getElementById(id).innerHTML = data;
-
-                // Initialize all offcanvas elements inside the loaded header
-                const offcanvasElements = document.querySelectorAll('.offcanvas');
-                offcanvasElements.forEach(el => bootstrap.Offcanvas.getOrCreateInstance(el));
-            }).catch(err => console.error("Error loading component:", file));
-        }
-
         async function loadImages() {
             const loading = document.getElementById('loading');
             try {
@@ -411,15 +403,11 @@
         }
 
         window.onload = () => {
-            loadComponent('header-placeholder', 'header.html');
-            loadComponent('footer-placeholder', 'footer.html');
             loadImages();
             renderVideos();
         };
     </script>
 </body>
 </html>
-
-
 
 

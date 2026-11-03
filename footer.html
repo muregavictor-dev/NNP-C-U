@@ -9,18 +9,35 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('modernization.css');
-    :root { --primary-green: #318b2e; --deep-green: #2a6f19; --warm-gold: #f8c007; --rich-black: #0B0B0B; --light-gray: #6c757d; }
-    footer { border-top: 4px solid var(--nnp-gold, #d3a62d); background: var(--nnp-forest, #174b2b) !important; color: #fff; padding: 3rem 0 1.25rem; }
+    :root {
+      --brand-forest: #174B32;
+      --brand-green: #236B45;
+      --brand-green-light: #43865C;
+      --brand-gold: #D6AD45;
+      --brand-gold-soft: #E8D49A;
+      --surface-primary: #FFFFFF;
+      --surface-secondary: #F8F7F1;
+      --surface-green: #EAF1EB;
+      --text-primary: #202923;
+      --text-secondary: #6B756E;
+      --border-subtle: #E5EAE5;
+    }
+    footer {
+      border-top: 4px solid var(--brand-gold, #D6AD45);
+      background: linear-gradient(180deg, var(--brand-forest), #133f29) !important;
+      color: #fff;
+      padding: 3rem 0 1.25rem;
+    }
     footer h3 { color: #fff; font-size: 1.5rem; font-weight: 750; }
     footer h4 { color: #fff; font-size: 1rem; font-weight: 700; }
     footer p, footer .text-muted-custom { color: rgba(255,255,255,.76) !important; }
     footer a { color: rgba(255,255,255,.8); text-decoration: none; transition: color .18s ease; }
-    footer a:hover, footer a:focus-visible { color: #f3d982; }
+    footer a:hover, footer a:focus-visible { color: var(--brand-gold-soft); }
     footer .social-icons { display: flex; flex-wrap: wrap; gap: 1rem; }
-    footer .social-icons a { color: #f3d982; font-size: 1.2rem; }
+    footer .social-icons a { color: var(--brand-gold-soft); font-size: 1.2rem; }
     footer .list-unstyled li { margin-bottom: .55rem; }
     footer .border-gray-custom { border-color: rgba(255,255,255,.16) !important; }
-    footer .portfolio-link { color: #f3d982; font-weight: 650; }
+    footer .portfolio-link { color: var(--brand-gold-soft); font-weight: 650; }
     footer .pulse-icon { animation: none; }
     @media (max-width: 767.98px) { footer .mb-4 { margin-bottom: 1.5rem !important; } }
   </style>

@@ -107,6 +107,7 @@ p, li { max-width: 75ch; }
 .navbar-toggler { min-width: 44px; min-height: 44px; }
 .offcanvas { --bs-offcanvas-width: min(22rem, 90vw); }
 .offcanvas { color: var(--text-primary); background-color: var(--surface-primary); }
+.chat-offcanvas { --bs-offcanvas-width: 350px; }
 .offcanvas .nav-link { color: var(--brand-forest) !important; }
 .offcanvas .nav-link:hover, .offcanvas .nav-link.active { background: var(--surface-green); color: var(--brand-green) !important; }
 
@@ -237,3 +238,45 @@ section.my-5 { margin-top: 0 !important; margin-bottom: 0 !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.brand-tagline { margin-top: -5px; }
+.toast-container { z-index: 1055; }
+
+.btn-outline-light-green {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .8);
+  background: transparent;
+}
+.btn-outline-light-green:hover {
+  color: #fff;
+  background: rgba(232, 212, 154, .16);
+  border-color: var(--brand-gold-soft);
+}
+
+.hover-lift {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--nnp-shadow-hover);
+}
+
+#footer-placeholder footer {
+  border-top: 4px solid var(--brand-gold);
+  background: var(--brand-forest) !important;
+  color: #fff;
+  padding: 3rem 0 1.25rem;
+}
+#footer-placeholder footer h3,
+#footer-placeholder footer h4 { color: #fff; }
+#footer-placeholder footer p,
+#footer-placeholder footer .text-muted-custom { color: rgba(255, 255, 255, .76) !important; }
+#footer-placeholder footer a { color: rgba(255, 255, 255, .8); }
+#footer-placeholder footer a:hover,
+#footer-placeholder footer a:focus-visible { color: var(--brand-gold-soft); }
+#footer-placeholder footer .social-icons { display: flex; flex-wrap: wrap; gap: 1rem; }
+#footer-placeholder footer .social-icons a { color: var(--brand-gold-soft); font-size: 1.2rem; }
+#footer-placeholder footer .list-unstyled li { margin-bottom: .55rem; }
+#footer-placeholder footer .border-gray-custom { border-color: rgba(255, 255, 255, .16) !important; }
+#footer-placeholder footer .portfolio-link { color: var(--brand-gold-soft); font-weight: 650; }
+#footer-placeholder footer .pulse-icon { animation: none; }

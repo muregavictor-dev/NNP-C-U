@@ -1,0 +1,73 @@
+.registration-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.registration-success {
+    background: linear-gradient(135deg, var(--brand-forest, #174B32), var(--brand-green, #236B45));
+}
+
+.registration-error {
+    background: linear-gradient(135deg, #b42323, #e34848);
+}
+
+.success-card,
+.error-card {
+    width: min(100%, 600px);
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    text-align: center;
+    background: var(--surface-primary, #fff);
+    border-radius: var(--nnp-radius, 1rem);
+    box-shadow: var(--nnp-shadow-hover, 0 10px 40px rgba(0, 0, 0, 0.3));
+}
+
+.success-icon,
+.error-icon {
+    margin-bottom: 1.25rem;
+    font-size: 5rem;
+}
+
+.success-icon {
+    color: var(--brand-green-light, #43865C);
+}
+
+.error-icon {
+    color: #d32f2f;
+}
+
+.registration-page .btn-custom {
+    display: inline-block;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.875rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.registration-success .btn-custom {
+    color: #fff;
+    background-color: var(--brand-forest, #174B32);
+}
+
+.registration-success .btn-custom:hover {
+    color: #fff;
+    background-color: var(--brand-green, #236B45);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.registration-error .btn-custom {
+    color: #202923;
+    background-color: #e8d49a;
+}
+
+.registration-error .btn-custom:hover {
+    color: #202923;
+    background-color: #d6ad45;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}

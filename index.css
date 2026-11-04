@@ -1,0 +1,72 @@
+/* Floating Buttons */
+.fab-btn {
+  position: fixed;
+  bottom: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: all 0.2s ease;
+  border: none;
+  z-index: 1050;
+}
+
+/* Left - AI Chat */
+.fab-chat { left: 20px; background-color: #FFD54F; color: #222; }
+
+/* Right - WhatsApp */
+.fab-whatsapp { right: 20px; background-color: #25D366; }
+
+/* Hover Effects */
+.fab-btn:hover { transform: scale(1.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+
+/* Tooltip */
+.fab-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 70px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.fab-btn:hover::after { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .fab-btn { width: 45px; height: 45px; bottom: 15px; }
+  .fab-chat { left: 15px; }
+  .fab-whatsapp { right: 15px; }
+}
+
+.home-page .event-image-tall {
+  height: 300px;
+  object-fit: cover;
+}
+
+.home-page .event-image-short {
+  height: 200px;
+  object-fit: cover;
+}
+
+.home-page .contact-form-panel {
+  padding: 30px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--brand-green), var(--brand-gold), var(--brand-gold-soft), var(--brand-green));
+  box-shadow: 0 0 15px rgba(35, 107, 69, .35);
+}
+
+.form-honeypot {
+  display: none;
+}

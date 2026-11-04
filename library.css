@@ -44,8 +44,8 @@
             }
         }
         :root {
-            --primary-color: #318b2e;
-            --secondary-color: #f59e0b;
+            --primary-color: #2F8A4B;
+            --secondary-color: #E8B83D;
             --text-color: #293343;
             --light-bg: #d2f8ac;
             --card-bg: #ffffff;
@@ -54,8 +54,8 @@
         
         @media (prefers-color-scheme: dark) {
             :root {
-                --primary-color: #4CAF50;
-                --secondary-color: #FFB74D;
+                --primary-color: #5BA66D;
+                --secondary-color: #F6DEA0;
                 --text-color: #E0E0E0;
                 --light-bg: #1E2A3E;
                 --card-bg: #2C3E50;
@@ -145,7 +145,7 @@
         }
 
         .search-btn:hover {
-            background-color: #276b25;
+            background-color: #185A35;
         }
 
         .text-hint {
@@ -271,7 +271,7 @@
         }
 
         .borrow-btn:hover {
-            background-color: #276b25;
+            background-color: #185A35;
         }
 
         .borrow-btn.disabled {
@@ -372,7 +372,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #276b25;
+            background-color: #185A35;
         }
 
         .mini-card {

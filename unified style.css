@@ -1,16 +1,16 @@
 /*
 * NNP Christian Union Landing Page - Custom Styles
-* Branding: #2E8B57 (Primary Green), #196F3D (Deep Green), #D4AF37 (Warm Gold)
+* Branding: #2F8A4B (Primary Green), #185A35 (Deep Green), #E8B83D (Warm Gold)
 * Typography: Inter (Headings) + Roboto (Body)
 */
 
 /* === Variables & Base === */
 :root {
     /* Colors */
-    --primary-green: #318b2e;
-    --deep-green: #2a6f19;
-    --warm-gold: #f8c007;
-    --muted-yellow: #f5bf0d;
+    --primary-green: #2F8A4B;
+    --deep-green: #185A35;
+    --warm-gold: #E8B83D;
+    --muted-yellow: #F6DEA0;
     --rich-black: #0B0B0B;
     --off-white: #FAFBF9;
     --soft-gray: #494848;
@@ -791,8 +791,8 @@ footer {
             transition: all 0.3s;
         }
         .btn-primary:hover {
-            background-color: #15803d; /* Darker Green */
-            border-color: #15803d;
+            background-color: #185A35; /* Darker Green */
+            border-color: #185A35;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -829,7 +829,7 @@ footer {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(22, 163, 74, 0.7); /* Green overlay */
+            background-color: rgba(47, 138, 75, 0.7); /* Green overlay */
             color: white;
             transition: opacity 0.3s ease;
         }
@@ -862,8 +862,8 @@ footer {
     font-weight: 600; /* Adjusted for Inter semi-bold */
 }
 .btn-primary:hover {
-    background-color: #15803d; /* Darker Green */
-    border-color: #15803d;
+    background-color: #185A35; /* Darker Green */
+    border-color: #185A35;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -881,7 +881,7 @@ footer {
 }
 .info-icon-wrapper {
     background-color: var(--primary-color);
-    box-shadow: 0 4px 8px rgba(22, 163, 74, 0.4);
+    box-shadow: 0 4px 8px rgba(47, 138, 75, 0.4);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -908,7 +908,7 @@ footer {
 .form-control:focus, .form-select:focus {
     border-color: var(--secondary-color);
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25); /* Orange shadow */
+    box-shadow: 0 0 0 0.25rem rgba(232, 184, 61, 0.25); /* Gold shadow */
 }
 
 /* Map Placeholder Style */

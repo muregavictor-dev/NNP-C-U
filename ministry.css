@@ -1,8 +1,8 @@
 :root {
-            --primary-green: #318b2e;
-            --deep-green:  #2a6f19;
-            --secondary-orange:#f5bf0d;
-            --warm-orange: #f8c007;
+            --primary-green: #2F8A4B;
+            --deep-green:  #185A35;
+            --secondary-orange:#E8B83D;
+            --warm-orange: #F6DEA0;
             --bg-light: #f9fafb;
             --bg-white: #FAFBF9;
             --rich-black: #0B0B0B;
@@ -82,7 +82,7 @@ html {
        
         /* Hero Section */
         .hero-ministry {
-            background:#2a6f19;
+            background:#185A35;
             padding: 100px 0 80px;
             position: relative;
             overflow: hidden;
@@ -112,7 +112,7 @@ html {
             padding: 2rem;
             box-shadow: var(--shadow-lg);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(22, 163, 74, 0.1);
+            border: 1px solid rgba(47, 138, 75, 0.1);
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -168,7 +168,7 @@ html {
 
         /* Enrollment Form */
         .enrollment-section {
-            background: linear-gradient(135deg, rgba(35, 107, 69, 0.05) 0%, rgba(214, 173, 69, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(47, 138, 75, 0.05) 0%, rgba(232, 184, 61, 0.08) 100%);
         }
 
         .form-wrapper {
@@ -176,17 +176,17 @@ html {
             border-radius: 20px;
             padding: 3rem;
             box-shadow: var(--shadow-xl);
-            border: 2px solid rgba(22, 163, 74, 0.1);
+            border: 2px solid rgba(47, 138, 75, 0.1);
         }
 
         .form-control:focus {
             border-color: var(--secondary-orange);
-            box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(232, 184, 61, 0.25);
         }
 
         .form-select:focus {
             border-color: var(--secondary-orange);
-            box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(232, 184, 61, 0.25);
         }
 
         /* Buttons */
@@ -198,12 +198,12 @@ html {
             border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+            box-shadow: 0 4px 15px rgba(47, 138, 75, 0.3);
         }
 
         .btn-primary-green:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+            box-shadow: 0 6px 20px rgba(47, 138, 75, 0.4);
             background: linear-gradient(135deg, var(--deep-green) 0%, var(--primary-green) 100%);
         }
 
@@ -215,12 +215,12 @@ html {
             border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 4px 15px rgba(232, 184, 61, 0.3);
         }
 
         .btn-secondary-orange:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 6px 20px rgba(232, 184, 61, 0.4);
         }
 
         /* Text Colors */

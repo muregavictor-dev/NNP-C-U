@@ -1,17 +1,17 @@
 /* NNP Christian Union — shared UI modernization layer. Bootstrap remains the layout foundation. */
 :root {
-  --brand-forest: #174B32;
-  --brand-green: #236B45;
-  --brand-green-light: #43865C;
-  --brand-gold: #D6AD45;
-  --brand-gold-soft: #E8D49A;
+  --brand-forest: #185A35;
+  --brand-green: #2F8A4B;
+  --brand-green-light: #5BA66D;
+  --brand-gold: #E8B83D;
+  --brand-gold-soft: #F6DEA0;
 
   --surface-primary: #FFFFFF;
   --surface-ivory: #F8F7F1;
-  --surface-green: #EAF1EB;
+  --surface-green: #EDF4EC;
   --text-primary: #202923;
   --text-secondary: #6B756E;
-  --text-gold: #80600E;
+  --text-gold: #8A6413;
   --border-subtle: #E5EAE5;
 
   --nnp-forest: var(--brand-forest);
@@ -28,7 +28,7 @@
   --primary-green: var(--brand-green);
   --deep-green: var(--brand-forest);
   --warm-gold: var(--brand-gold);
-  --muted-yellow: var(--text-gold);
+  --muted-yellow: var(--brand-gold-soft);
   --primary-color: var(--brand-green);
   --secondary-color: var(--surface-ivory);
   --secondary-orange: var(--brand-gold);
@@ -54,13 +54,13 @@
   --bs-body-color: var(--nnp-ink);
   --bs-body-bg: var(--nnp-paper);
   --bs-primary: var(--nnp-green);
-  --bs-primary-rgb: 35, 107, 69;
+  --bs-primary-rgb: 47, 138, 75;
   --bs-success: var(--nnp-green);
-  --bs-success-rgb: 35, 107, 69;
+  --bs-success-rgb: 47, 138, 75;
   --bs-warning: var(--brand-gold);
-  --bs-warning-rgb: 214, 173, 69;
+  --bs-warning-rgb: 232, 184, 61;
   --bs-link-color: var(--nnp-green);
-  --bs-link-color-rgb: 35, 107, 69;
+  --bs-link-color-rgb: 47, 138, 75;
   --bs-link-hover-color: var(--nnp-forest);
 }
 
@@ -122,12 +122,12 @@ p, li { max-width: 75ch; }
 .btn-primary { background-color: var(--brand-green) !important; border-color: var(--brand-green) !important; color: #fff !important; }
 .btn-primary:hover { background-color: var(--brand-forest) !important; border-color: var(--brand-forest) !important; }
 .form-control, .form-select { color: var(--text-primary); background-color: var(--surface-primary); border-color: #C8D2C9; }
-.form-control:focus, .form-select:focus { border-color: var(--brand-green) !important; box-shadow: 0 0 0 .2rem rgba(35,107,69,.18) !important; }
+.form-control:focus, .form-select:focus { border-color: var(--brand-green) !important; box-shadow: 0 0 0 .2rem rgba(47,138,75,.18) !important; }
 
 /* Page heroes and section rhythm */
 .hero-section { min-height: min(680px, 82svh) !important; height: auto !important; padding: clamp(4.5rem, 10vw, 8rem) 0 !important; background-color: var(--nnp-forest) !important; }
 .hero-section::before { opacity: .48; }
-.hero-overlay { background: linear-gradient(90deg, rgba(23,75,50,.88), rgba(35,107,69,.48)) !important; }
+.hero-overlay { background: linear-gradient(90deg, rgba(24,90,53,.88), rgba(47,138,75,.48)) !important; }
 .hero-section h1 { max-width: 15ch; text-align: left !important; font-size: clamp(2.35rem, 6vw, 4.5rem); line-height: 1.08; }
 .hero-section h1, .hero-section h2, .hero-section h3 { color: #FFFFFF !important; }
 .hero-section .lead { max-width: 58ch; color: rgba(255,255,255,.92) !important; }
@@ -179,7 +179,7 @@ section.my-5 { margin-top: 0 !important; margin-bottom: 0 !important; }
 .btn-outline-primary-green, .btn-outline-deep-green { color: var(--nnp-forest) !important; border-color: var(--nnp-green) !important; }
 .btn-outline-primary-green:hover, .btn-outline-deep-green:hover { background: var(--nnp-green) !important; color: white !important; }
 .form-control, .form-select { min-height: 46px; border-color: #cfd8cf; border-radius: .65rem !important; }
-.form-control:focus, .form-select:focus { border-color: var(--nnp-green) !important; box-shadow: 0 0 0 .2rem rgba(35,107,69,.18) !important; }
+.form-control:focus, .form-select:focus { border-color: var(--nnp-green) !important; box-shadow: 0 0 0 .2rem rgba(47,138,75,.18) !important; }
 .form-wrapper { padding: clamp(1.25rem, 4vw, 3rem) !important; border: 1px solid var(--nnp-border) !important; border-radius: var(--nnp-radius) !important; box-shadow: var(--nnp-shadow) !important; }
 .filter-btn { border: 1px solid var(--nnp-border) !important; color: var(--nnp-forest) !important; margin: .25rem !important; }
 .filter-btn.active, .filter-btn:hover { background: var(--nnp-green) !important; color: #fff !important; }

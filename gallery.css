@@ -1,8 +1,8 @@
 :root {
-            --primary-green: #318b2e;
-            --deep-green: #2a6f19;
-            --secondary-orange: #f59e0b;
-            --warm-orange: #f8c007;
+            --primary-green: #2F8A4B;
+            --deep-green: #185A35;
+            --secondary-orange: #E8B83D;
+            --warm-orange: #F6DEA0;
             --bg-light: #f9fafb;
             --text-gray: #6b7280;
             --rich-black: #0B0B0B;
@@ -85,8 +85,8 @@
 
         /* THEME MATCHED COLORS */
         :root{
-          --nnp-green: #2e7d32;
-          --nnp-green-soft: #43a047;
+          --nnp-green: #2F8A4B;
+          --nnp-green-soft: #5BA66D;
           --nnp-text-dark: #1f2937;
         }
 
@@ -153,13 +153,13 @@
           font-weight:600;
           display:inline-block;
           transition:all .25s ease;
-          box-shadow:0 8px 22px rgba(46,125,50,.25);
+          box-shadow:0 8px 22px rgba(47,138,75,.25);
         }
 
         .nnp-gallery-btn:hover{
           background:var(--brand-green-light);
           transform:translateY(-2px);
-          box-shadow:0 14px 32px rgba(46,125,50,.35);
+          box-shadow:0 14px 32px rgba(47,138,75,.35);
           color:#fff;
         }
 

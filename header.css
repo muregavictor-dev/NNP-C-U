@@ -1,16 +1,16 @@
 /*
 * NNP Christian Union - Improved & Responsive Styles
 * Brand Colors:
-* Institutional Green: #236B45
-* Forest Green: #174B32
-* Muted Gold: #D6AD45
+* Institutional Green: #2F8A4B
+* Forest Green: #185A35
+* Warm Gold: #E8B83D
 */
 
 /* === VARIABLES & BASE === */
 :root {
-  --primary-green: #236B45;
-  --deep-green: #174B32;
-  --warm-gold: #D6AD45;
+  --primary-green: #2F8A4B;
+  --deep-green: #185A35;
+  --warm-gold: #E8B83D;
   --text-dark: #202923;
   --text-light: #FFFFFF;
   --bg-light: #F8F7F1;
@@ -153,7 +153,7 @@ body {
   position: relative;
   padding: var(--space-lg) var(--space-sm);
   background: 
-    linear-gradient(rgba(46, 139, 87, 0.7), rgba(25, 111, 61, 0.7)),
+    linear-gradient(rgba(47, 138, 75, 0.7), rgba(24, 90, 53, 0.7)),
     url("assets/images/hero-bg.jpg") center/cover no-repeat;
 }
 

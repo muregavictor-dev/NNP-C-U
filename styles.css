@@ -1,18 +1,18 @@
 /*
  * NNP Christian Union Landing Page - Custom Styles
- * Branding: #2E8B57 (Primary Green), #196F3D (Deep Green), #D4AF37 (Warm Gold)
+ * Branding: #2F8A4B (Primary Green), #185A35 (Deep Green), #E8B83D (Warm Gold)
  * Typography: Inter (Headings) + Roboto (Body)
  */
 
 /* === Design Foundation & Shared Tokens === */
 :root {
     /* Brand palette */
-    --primary-green: #318b2e;
-    --deep-green: #2a6f19;
-    --deep-green-700: #1d5311;
-    --warm-gold: #f8c007;
-    --muted-yellow: #f5bf0d;
-    --gold-600: #d69d00;
+    --primary-green: #2F8A4B;
+    --deep-green: #185A35;
+    --deep-green-700: #12452A;
+    --warm-gold: #E8B83D;
+    --muted-yellow: #F6DEA0;
+    --gold-600: #B98518;
 
     /* Neutral scales */
     --rich-black: #0B0B0B;
@@ -28,7 +28,7 @@
     --surface-muted: #edf2eb;
     --light-gray: #f5f5f5;
     --border-color: #e5e7eb;
-    --border-strong: rgba(42, 111, 25, 0.18);
+    --border-strong: rgba(24, 90, 53, 0.18);
 
     /* Semantic colors */
     --success: #1f9d69;
@@ -227,7 +227,7 @@ h1, h2, h3, h4, h5, h6,
 .form-select:focus-visible,
 .nav-link:focus-visible,
 .navbar-toggler:focus-visible {
-    outline: 3px solid rgba(49, 139, 46, 0.22);
+    outline: 3px solid rgba(47, 138, 75, 0.22);
     outline-offset: 2px;
 }
 
@@ -311,7 +311,7 @@ input {
 textarea:focus,
 input:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 0 0 0.2rem rgba(49, 139, 46, 0.12);
+    box-shadow: 0 0 0 0.2rem rgba(47, 138, 75, 0.12);
     outline: none;
 }
 
@@ -326,7 +326,7 @@ input:focus {
 /* === Shared Navigation === */
 .navbar {
     background-color: rgba(233, 246, 233, 0.98);
-    border-bottom: 1px solid rgba(42, 111, 25, 0.08);
+    border-bottom: 1px solid rgba(24, 90, 53, 0.08);
     box-shadow: var(--shadow-xs);
 }
 
@@ -358,7 +358,7 @@ input:focus {
 
 .modal-header {
     border-bottom: 1px solid var(--border-color);
-    background: linear-gradient(180deg, rgba(49, 139, 46, 0.08), rgba(49, 139, 46, 0.02));
+    background: linear-gradient(180deg, rgba(47, 138, 75, 0.08), rgba(47, 138, 75, 0.02));
 }
 
 .modal-title {
@@ -397,17 +397,17 @@ input:focus {
 
 /*
  * NNP Christian Union Landing Page - Custom Styles
- * Branding: #2E8B57 (Primary Green), #196F3D (Deep Green), #D4AF37 (Warm Gold)
+ * Branding: #2F8A4B (Primary Green), #185A35 (Deep Green), #E8B83D (Warm Gold)
  * Typography: Inter (Headings) + Roboto (Body)
  */
 
 /* === Variables & Base === */
 :root {
     /* Colors */
-    --primary-green: #318b2e;
-    --deep-green: #2a6f19;
-    --warm-gold: #f8c007;
-    --muted-yellow: #f5bf0d;
+    --primary-green: #2F8A4B;
+    --deep-green: #185A35;
+    --warm-gold: #E8B83D;
+    --muted-yellow: #F6DEA0;
     --rich-black: #0B0B0B;
     --off-white: #FAFBF9;
     --soft-gray: #494848;
@@ -503,7 +503,7 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     box-shadow: var(--shadow-md);
 }
 .btn-gold:focus-visible {
-    outline: 2px solid rgba(248, 192, 7, 0.4);
+    outline: 2px solid rgba(232, 184, 61, 0.4);
     outline-offset: 2px;
 }
 .btn-primary-green {
@@ -526,7 +526,7 @@ h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display
     box-shadow: var(--shadow-md);
 }
 .btn-primary-green:focus-visible {
-    outline: 2px solid rgba(49, 139, 46, 0.4);
+    outline: 2px solid rgba(47, 138, 75, 0.4);
     outline-offset: 2px;
 }
 .btn-primary-green:disabled {

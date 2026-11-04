@@ -7,7 +7,7 @@
 }
 
 .registration-success {
-    background: linear-gradient(135deg, var(--brand-forest, #174B32), var(--brand-green, #236B45));
+    background: linear-gradient(135deg, var(--brand-forest, #185A35), var(--brand-green, #2F8A4B));
 }
 
 .registration-error {
@@ -31,7 +31,7 @@
 }
 
 .success-icon {
-    color: var(--brand-green-light, #43865C);
+    color: var(--brand-green-light, #5BA66D);
 }
 
 .error-icon {
@@ -50,24 +50,24 @@
 
 .registration-success .btn-custom {
     color: #fff;
-    background-color: var(--brand-forest, #174B32);
+    background-color: var(--brand-forest, #185A35);
 }
 
 .registration-success .btn-custom:hover {
     color: #fff;
-    background-color: var(--brand-green, #236B45);
+    background-color: var(--brand-green, #2F8A4B);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .registration-error .btn-custom {
     color: #202923;
-    background-color: #e8d49a;
+    background-color: #F6DEA0;
 }
 
 .registration-error .btn-custom:hover {
     color: #202923;
-    background-color: #d6ad45;
+    background-color: #E8B83D;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }

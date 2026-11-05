@@ -154,7 +154,7 @@ body {
   padding: var(--space-lg) var(--space-sm);
   background: 
     linear-gradient(rgba(47, 138, 75, 0.7), rgba(24, 90, 53, 0.7)),
-    url("images/hero.jpg") center/cover no-repeat;
+    url("hero.jpg") center/cover no-repeat;
 }
 
 .hero-section h1 {

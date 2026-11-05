@@ -70,7 +70,7 @@ body {
 }
 
 .nav-link {
-  color: var(--deep-green);
+  color: var(--text-white);
   font-weight: 500;
   transition: color 0.3s ease;
 }

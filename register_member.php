@@ -39,6 +39,7 @@ if (!$servername || !$username || !$password || !$dbname) {
 }
 
 // --- 2. Create Connection ---
+mysqli_report(MYSQLI_REPORT_OFF);
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection

@@ -187,18 +187,13 @@ function initSmoothScroll() {
 
 // ===== 2. RSVP BUTTON HANDLERS =====
 function initRsvpButtons() {
-    const eventNames = {
-        'e1': 'Mega Kesha (Jan 30, 2026)',
-        'e2': 'Prayer Retreat (Feb 7, 2026)',
-        'e3': 'Mission (April 2026)'
-    };
-
     DOM.rsvpButtons.forEach((btn) => {
         btn.addEventListener('click', async (e) => {
             e.preventDefault();
             
             const eventId = btn.getAttribute('data-event-id');
-            const eventName = eventNames[eventId] || 'the event';
+            const event = window.NNP_EVENTS?.find(item => item.id === eventId);
+            const eventName = event ? event.title : 'the event';
             btn.disabled = true;
 
             try {
@@ -578,29 +573,6 @@ const chatbotKnowledge = {
 ⚪ **Sunday** - 7:30-11 AM | Worship + 4-6 PM | Prayer (Main Hall, Mountain)`
     },
     
-    events: {
-        keywords: ['event', 'happening', 'upcoming', 'what', 'when is'],
-        synonyms: ['activity', 'program', 'occasion', 'gathering', 'event'],
-        answer: `🎉 **Upcoming Events:**
-
-🎊 **MEGA KESHA** 
-📅 Jan 30, 2026 | 9 PM - 5 AM
-📍 Main Hall
-👤 Guest: Apostle Joseph Murimi
-📞 Contact: 0702970150 (Prayer Coordinator)
-
-🙏 **PRAYER RETREAT**
-📅 Feb 7, 2026 | 7 AM - 4 PM
-📍 Mount Olivet
-💰 Cost: Ksh 350
-✨ Life-changing spiritual encounter!
-
-✝️ **MISSION**
-📅 April 2026 (Sun-Mon)
-📍 Venue TBD
-🎯 Student leadership excellence & maturity`
-    },
-    
     joining: {
         keywords: ['join', 'member', 'register', 'how', 'apply', 'become'],
         synonyms: ['signup', 'enroll', 'participate', 'membership', 'join us'],
@@ -716,6 +688,14 @@ function sanitizeInput(text) {
  */
 async function getBotResponse(userText) {
     const query = userText.toLowerCase();
+
+    if (query.includes('event') || query.includes('upcoming')) {
+        if (typeof window.getNNPEventsSummary === 'function') {
+            const eventsResponse = window.getNNPEventsSummary();
+            logChatAnalytics(userText, eventsResponse, true, 'events');
+            return eventsResponse;
+        }
+    }
     
     // Step 1: Try Bible API for Bible-related questions
     if (isBibleQuestion(query)) {
@@ -759,7 +739,7 @@ function getSmartFallback(userText) {
 **Try asking me about:**
 • 📖 Bible verses (e.g., "John 3:16", "What does the Bible say about...")
 • 📅 Weekly schedule
-• 🎉 Upcoming events (Mega Kesha, Prayer Retreat, Mission)
+• 🎉 Events listed on the home page
 • 👥 How to join CU
 • 🎯 Our ministry groups
 • ℹ️ About NNP CU

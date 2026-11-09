@@ -16,16 +16,27 @@
 <body class="header-component-page">
   <!-- HEADER -->
   <header id="top-header" class="sticky-top">
-    <nav class="navbar navbar-expand-lg py-3">
+    <nav class="navbar navbar-expand-lg py-3" aria-label="Main navigation">
       <div class="container-xl">
         <a class="navbar-brand" href="index.html">
           NNP Christian Union
           <span class="brand-tagline d-block small text-soft-gray fw-light">Faith • Fellowship • Growth</span>
         </a>
 
+        <div class="collapse navbar-collapse" id="desktopNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="library.html" class="nav-link">Library</a></li>
+            <li class="nav-item"><a href="ministry.html" class="nav-link">Ministries</a></li>
+            <li class="nav-item"><a href="index.html#live" class="nav-link">Live</a></li>
+            <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+
         <div class="d-flex align-items-center order-lg-3">
           <!-- Notification -->
-          <button class="btn btn-link text-deep-green position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
+          <button class="btn btn-link notification-toggle position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
             <i class="fa-solid fa-bell fs-4"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" id="notificationBadge">1</span>
           </button>
@@ -34,7 +45,7 @@
           <button class="btn btn-gold d-none d-lg-block ms-2" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
 
           <!-- Mobile Nav -->
-          <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
+          <button class="navbar-toggler d-lg-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu" aria-controls="offcanvasNav">
             <i class="fa-solid fa-bars text-deep-green fs-4"></i>
           </button>
         </div>

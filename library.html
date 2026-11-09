@@ -36,17 +36,17 @@
             <section>
                 <h2 class="section-title">Quick Access & Tools</h2>
                 <div class="dashboard-grid">
-                    <article class="card interactive-card" onclick="scrollToBible()">
+                    <article class="card interactive-card" role="button" tabindex="0" onclick="scrollToBible()">
                         <i class="fas fa-bible fa-2x"></i>
                         <h3>Bible Verse Lookup</h3>
                         <p>Find passages quickly.</p>
                     </article>
-                    <article class="card interactive-card" onclick="scrollToSuggestion()">
+                    <article class="card interactive-card" role="button" tabindex="0" onclick="scrollToSuggestion()">
                         <i class="fas fa-lightbulb fa-2x"></i>
                         <h3>Suggest a Book</h3>
                         <p>Request new titles.</p>
                     </article>
-                    <article class="card interactive-card" onclick="scrollToDict()">
+                    <article class="card interactive-card" role="button" tabindex="0" onclick="scrollToDict()">
                         <i class="fas fa-book-open fa-2x"></i>
                         <h3>Dictionary Tools</h3>
                         <p>Define Christian terms.</p>
@@ -101,9 +101,9 @@
 
             <!-- Borrowing Modal -->
             <div id="booking-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h3 class="modal-title">Book Borrowing Request</h3>
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" tabindex="-1">
+                    <span class="close-modal" role="button" tabindex="0" aria-label="Close borrowing request">&times;</span>
+                    <h3 class="modal-title" id="booking-modal-title">Book Borrowing Request</h3>
                     <p class="modal-hint">No request is sent unless an authorized library service is configured. Otherwise, contact the library at TODO(owner): provide verified library contact details.</p>
                     <form id="booking-form">
                         <div class="form-group">
@@ -386,28 +386,65 @@
         const closeBtn = document.querySelector('.close-modal');
         const bookingForm = document.getElementById('booking-form');
         const bookTitleInput = document.getElementById('book-title-modal');
+        const admissionInput = document.getElementById('admission-number');
+        let modalTrigger = null;
+
+        function closeBookingModal() {
+            modal.style.display = 'none';
+            bookingForm.reset();
+            if (modalTrigger) modalTrigger.focus();
+        }
 
         // Open modal when borrow button clicked
         document.querySelectorAll('.borrow-btn:not(.disabled)').forEach(btn => {
             btn.addEventListener('click', function() {
+                modalTrigger = this;
                 const bookTitle = this.getAttribute('data-book');
                 bookTitleInput.value = bookTitle;
                 modal.style.display = 'block';
+                admissionInput.focus();
             });
         });
 
         // Close modal
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            bookingForm.reset();
-        });
+        closeBtn.addEventListener('click', closeBookingModal);
 
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.style.display = 'none';
-                bookingForm.reset();
+                closeBookingModal();
             }
+        });
+
+        modal.addEventListener('keydown', (e) => {
+            if (modal.style.display !== 'block') return;
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeBookingModal();
+                return;
+            }
+            if (e.key !== 'Tab') return;
+
+            const focusable = [...modal.querySelectorAll('button:not([disabled]), input:not([disabled]), [role="button"][tabindex="0"]')]
+                .filter(element => element.getClientRects().length > 0);
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+
+        document.querySelectorAll('.interactive-card[role="button"], .close-modal[role="button"]').forEach(button => {
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
         });
 
         // Handle form submission
@@ -434,8 +471,7 @@
                 });
                 if (!response.ok) throw new Error(`Library service returned ${response.status}`);
                 alert('Your request was sent to the configured library service.');
-                modal.style.display = 'none';
-                bookingForm.reset();
+                closeBookingModal();
             } catch (error) {
                 alert('Your request could not be sent. Please try again.');
             }
@@ -448,5 +484,3 @@
     </script>
 </body>
 </html>
-
-

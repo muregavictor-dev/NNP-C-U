@@ -457,19 +457,25 @@
 
   // ✅ Ministry Email Routing Configuration
   const ministryEmails = {
-    'praise-worship': 'praiseandworship@example.com',
-    'bible-study': 'biblestudy@example.com',
-    'evangelism': 'evangelism@example.com',
-    'ushering': 'ushering@example.com',
-    'intercessory': 'intercessory@example.com',
-    'hospitality': 'hospitality@example.com',
-    'discipleship': 'discipleship@example.com',
-    'revival-wave': 'revivalwave@example.com',
-    'media': 'media@example.com',
-    'hope-restoration': 'hoperestoration@example.com',
-    'piano-class': 'pianoclass@example.com',
-    'christ-dancers': 'christdancers@example.com'
+    'praise-worship': null, // TODO(owner): confirm Praise & Worship ministry email.
+    'bible-study': null, // TODO(owner): confirm Bible Study ministry email.
+    'evangelism': null, // TODO(owner): confirm Evangelism ministry email.
+    'ushering': null, // TODO(owner): confirm Ushering ministry email.
+    'intercessory': null, // TODO(owner): confirm Intercessory ministry email.
+    'hospitality': null, // TODO(owner): confirm Hospitality ministry email.
+    'discipleship': null, // TODO(owner): confirm Discipleship ministry email.
+    'revival-wave': null, // TODO(owner): confirm Revival Wave ministry email.
+    'media': null, // TODO(owner): confirm Media ministry email.
+    'hope-restoration': null, // TODO(owner): confirm Hope & Restoration ministry email.
+    'piano-class': null, // TODO(owner): confirm Piano Class ministry email.
+    'christ-dancers': null // TODO(owner): confirm Christ Dancers ministry email.
   };
+
+  function escapeHtml(value) {
+    const element = document.createElement('span');
+    element.textContent = value;
+    return element.innerHTML;
+  }
 
   // ✅ Form Submission Handler
   document.getElementById('group-registration').addEventListener('submit', async function (e) {
@@ -485,6 +491,7 @@
     const selectedGroupValue = groupSelect.value;
     const selectedGroupText = groupSelect.options[groupSelect.selectedIndex].text;
     const targetEmail = ministryEmails[selectedGroupValue];
+    let submitted = false;
 
     // Add loading state
     submitBtn.classList.add('btn-loading');
@@ -503,34 +510,36 @@
           group: selectedGroupValue
         })
       });
+      const result = await response.json();
 
-      if (response.ok) {
+      if (response.ok && result.success === true) {
         messageBox.innerHTML = `
           <div class="success-message p-4 text-center">
             <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
             <h4 class="fw-bold text-success mb-3">🎉 Successfully Enrolled!</h4>
-            <p><strong>Thank you, ${name}!</strong></p>
-            <p>Your signup has been saved and sent to the <strong>${selectedGroupText}</strong> ministry.</p>
-            <p class="text-muted small mb-0">
-              <i class="fas fa-envelope me-2"></i>Sending to: <strong>${targetEmail}</strong>
-            </p>
+            <p><strong>Thank you, ${escapeHtml(name)}!</strong></p>
+            <p>Your enrollment was confirmed for the <strong>${escapeHtml(selectedGroupText)}</strong> ministry.</p>
+            ${targetEmail ? `<p class="text-muted small mb-0"><i class="fas fa-envelope me-2"></i>Contact: <strong>${escapeHtml(targetEmail)}</strong></p>` : ''}
           </div>`;
+        submitted = true;
       } else {
-        messageBox.innerHTML = `<p class="error">❌ Error submitting. Please try again later.</p>`;
+        messageBox.innerHTML = `<p class="error">❌ ${escapeHtml(result.message || 'Enrollment could not be confirmed. Please try again.')}</p>`;
       }
     } catch (error) {
       messageBox.innerHTML = `<p class="error">❌ Network error. Check your connection and try again.</p>`;
+    } finally {
+      submitBtn.classList.remove('btn-loading');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Submit Enrollment';
     }
 
-    // ✅ Reset button and form
-    submitBtn.classList.remove('btn-loading');
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Submit Enrollment';
-    document.getElementById('group-registration').reset();
-
-    // Scroll to message and hide after 15s
+    // Keep failed submissions visible and preserve their form data for retry.
+    messageBox.classList.remove('d-none');
     messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => messageBox.classList.add('d-none'), 15000);
+    if (submitted) {
+      document.getElementById('group-registration').reset();
+      setTimeout(() => messageBox.classList.add('d-none'), 15000);
+    }
   });
 
   // ✅ Smooth scroll for anchor links
@@ -589,7 +598,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 </html>
-
 
 
 

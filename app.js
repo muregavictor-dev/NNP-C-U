@@ -44,29 +44,10 @@ function cacheDOM() {
     }
 }
 
-// ===== API CONFIGURATION (OpenAI + Bible APIs) =====
-/**
- * API Keys Configuration
- * IMPORTANT: For production, store these in environment variables, not here!
- * 
- * Setup Instructions:
- * 1. OpenAI API Key: Get from https://platform.openai.com/api-keys
- * 2. Bible API Key: Get from https://api.scripture.api.bible/
- */
+// ===== API CONFIGURATION (Bible API) =====
 const API_CONFIG = {
-    // OpenAI Configuration
-    openai: {
-        apiKey: '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', // Replace with actual key
-        endpoint: 'https://api.openai.com/v1/chat/completions',
-        model: 'gpt-3.5-turbo',
-        maxTokens: 150,
-        temperature: 0.7,
-        enabled: true // Set to true when key is added
-    },
-    
     // Bible API Configuration (Scripture.API.Bible - Free tier)
     bible: {
-        apiKey: 'YOUR_BIBLE_API_KEY_HERE', // Get from https://api.scripture.api.bible/
         endpoint: 'https://api.scripture.api.bible/v1',
         bibleId: 'de4e12af7f28f599-02', // ESV Bible ID (free tier)
         enabled: false // Set to true when key is added
@@ -74,9 +55,7 @@ const API_CONFIG = {
     
     // Rate Limiting
     rateLimit: {
-        openaiCallsPerMinute: 10,
         bibleCallsPerMinute: 20,
-        lastOpenaiCall: 0,
         lastBibleCall: 0
     }
 };
@@ -86,9 +65,7 @@ const API_CONFIG = {
  */
 function checkRateLimit(apiType) {
     const now = Date.now();
-    const limitConfig = apiType === 'openai' 
-        ? { lastKey: 'lastOpenaiCall', limit: 6000 }  // 1 call per 6 seconds
-        : { lastKey: 'lastBibleCall', limit: 3000 };   // 1 call per 3 seconds
+    const limitConfig = { lastKey: 'lastBibleCall', limit: 3000 };
     
     if (now - API_CONFIG.rateLimit[limitConfig.lastKey] < limitConfig.limit) {
         return false; // Rate limited
@@ -145,69 +122,21 @@ async function fetchBibleVerse(query) {
 }
 
 /**
- * Fetch response from OpenAI GPT-3.5-turbo
- * Better for NLP and complex questions
+ * Fetch a response through the server-side chat proxy
  */
 async function fetchOpenAIResponse(userMessage, context = '') {
     try {
-        if (!API_CONFIG.openai.enabled) {
-            console.warn('OpenAI API not enabled - add API key first');
-            return null;
-        }
-        
-        if (!checkRateLimit('openai')) {
-            console.warn('OpenAI API rate limited');
-            return null;
-        }
-        
-        const systemPrompt = `You are a friendly AI assistant for NNP Christian Union at Nyeri National Polytechnic. 
-Help students with questions about CU events, schedules, membership, and Christian ministry.
-Be encouraging, supportive, and concise (max 150 words).
-If asked about topics outside CU, politely redirect to CU-related topics.
-
-Context: ${context}`;
-        
-        const response = await fetch(API_CONFIG.openai.endpoint, {
+        const response = await fetch('/api/chat', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_CONFIG.openai.apiKey}`
-            },
-            body: JSON.stringify({
-                model: API_CONFIG.openai.model,
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userMessage }
-                ],
-                max_tokens: API_CONFIG.openai.maxTokens,
-                temperature: API_CONFIG.openai.temperature
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMessage, context })
         });
-        
-        if (!response.ok) {
-            if (response.status === 401) {
-                console.error('OpenAI: Invalid API key');
-            } else if (response.status === 429) {
-                console.error('OpenAI: Rate limited');
-            } else {
-                console.error('OpenAI API error:', response.status);
-            }
-            return null;
-        }
-        
+        if (!response.ok) return null;
         const data = await response.json();
-        
-        if (data.choices && data.choices[0] && data.choices[0].message) {
-            return {
-                text: data.choices[0].message.content,
-                source: 'OpenAI GPT-3.5'
-            };
-        }
-        
-        return null;
-        
+        return typeof data.text === 'string' && data.text.trim()
+            ? { text: data.text, source: 'AI assistant' }
+            : null;
     } catch (err) {
-        console.warn('OpenAI fetch error:', err);
         return null;
     }
 }
@@ -798,17 +727,15 @@ async function getBotResponse(userText) {
         }
     }
     
-    // Step 3: Try OpenAI for general questions (if enabled)
-    if (API_CONFIG.openai.enabled) {
-        const openaiResponse = await fetchOpenAIResponse(userText, 'NNP Christian Union chatbot context');
-        if (openaiResponse) {
-            logChatAnalytics(userText, openaiResponse.text, true, 'openai');
-            return `🤖 ${openaiResponse.text}\n\n_Source: ${openaiResponse.source}_`;
-        }
+    // Step 3: Try the server-side AI proxy for general questions
+    const openaiResponse = await fetchOpenAIResponse(userText, 'NNP Christian Union chatbot context');
+    if (openaiResponse) {
+        logChatAnalytics(userText, openaiResponse.text, true, 'openai');
+        return `🤖 ${openaiResponse.text}\n\n_Source: ${openaiResponse.source}_`;
     }
     
-    // Step 4: Fall back to smart fallback response
-    const fallback = getSmartFallback(userText);
+    // Step 4: Fall back to local help if the server-side AI is unavailable
+    const fallback = `The AI assistant is temporarily unavailable, but I can still help with CU information.\n\n${getSmartFallback(userText)}`;
     logChatAnalytics(userText, fallback, false, 'fallback');
     return fallback;
 }

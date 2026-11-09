@@ -217,7 +217,7 @@
                 empty.style.display = 'none';
                 gallery.innerHTML = filteredImages.map((img, idx) => `
                     <div class="gallery-item" onclick="openLightbox(${idx})">
-                        <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.alt || 'NNP Christian Union gallery photo')}" loading="lazy">
+                        <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.alt || 'NNP Christian Union gallery photo')}" width="800" height="600" loading="lazy">
                         <div class="gallery-overlay">
                             <span class="badge bg-warning text-dark mb-2">${escapeHtml(img.category)}</span>
                             <h5>${escapeHtml(img.title)}</h5>

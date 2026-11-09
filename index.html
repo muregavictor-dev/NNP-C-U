@@ -778,59 +778,6 @@ mobileEvents.innerHTML = events.map((event, index) => {
 
 eventAnnouncement.hidden = events.some(event => !window.isNNPEventPast(event));
 
-const chatForm = document.getElementById('chatForm');
-const chatInput = document.getElementById('chatInput');
-const chatMessages = document.getElementById('chatMessages');
-
-const cuData = {
-  schedules: "CU meetings happen every Thursday at 5 PM in the main hall.",
-  joining: "To join CU, fill the membership form on our website or visit the office during meeting hours.",
-  contact: "You can reach CU via WhatsApp at +254742812494."
-};
-
-function addMessage(sender, text) {
-  const div = document.createElement('div');
-  div.className = `message ${sender}-message mb-2 p-2 rounded-3`;
-  div.textContent = text;
-  div.style.background = sender === 'bot' ? '#f0f0f0' : '#d4edda';
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const userText = chatInput.value.trim();
-  if (!userText) return;
-
-  addMessage('user', userText);
-  chatInput.value = '';
-
-  // Bot thinking indicator
-  addMessage('bot', '⏳ Thinking…');
-
-  setTimeout(() => {
-    // Remove thinking message
-    chatMessages.lastChild.remove();
-
-    // Convert to lowercase for easier matching
-    const query = userText.toLowerCase();
-
-    // Simple keyword-based AI
-    let reply = "I'm sorry, I'm still training and can't answer that yet.";
-
-    if (query.includes("schedule") || query.includes("meeting")) {
-      reply = cuData.schedules;
-    } else if (query.includes("event") || query.includes("upcoming")) {
-      reply = window.getNNPEventsSummary();
-    } else if (query.includes("join") || query.includes("membership")) {
-      reply = cuData.joining;
-    } else if (query.includes("contact") || query.includes("whatsapp")) {
-      reply = cuData.contact;
-    }
-
-    addMessage('bot', reply);
-  }, 800); // simulate thinking
-});
 </script>
 
 <!-- ==============================
@@ -1047,7 +994,6 @@ form.addEventListener('submit', async (e) => {
     <script src="app.js" defer></script>
 </body>
 </html>
-
 
 
 

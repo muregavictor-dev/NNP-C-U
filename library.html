@@ -57,7 +57,7 @@
             <!-- Physical Book Catalogue -->
             <section id="hardcopy-books-section">
                 <h2 id="hardcopy-books-title" class="section-title"><i class="fas fa-box-open"></i> Physical Book Catalogue</h2>
-                <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to reserve a copy!</p>
+                <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to prepare a request.</p>
 
                 <div class="books-catalogue-grid">
                     <div class="card category-card">
@@ -104,7 +104,7 @@
                 <div class="modal-content">
                     <span class="close-modal">&times;</span>
                     <h3 class="modal-title">Book Borrowing Request</h3>
-                    <p class="modal-hint">Submit your request. The Library team will contact you for pickup/delivery arrangements.</p>
+                    <p class="modal-hint">No request is sent unless an authorized library service is configured. Otherwise, contact the library at TODO(owner): provide verified library contact details.</p>
                     <form id="booking-form">
                         <div class="form-group">
                             <label for="book-title-modal">Book Title:</label>
@@ -192,6 +192,9 @@
 <div id="footer-placeholder"></div>
 
     <script>
+        const LIBRARY_BORROW_ENDPOINT = null;
+        const BOOK_SUGGESTION_ENDPOINT = null;
+
         // Scroll helpers
         function scrollToBible() {
             document.getElementById('bible-search-card').scrollIntoView({ behavior: 'smooth' });
@@ -348,16 +351,33 @@
         }
 
         // Suggestion Form
-        document.getElementById('suggestion-form').addEventListener('submit', (e) => {
+        document.getElementById('suggestion-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const suggestion = document.getElementById('suggestion-input').value.trim();
+            const input = document.getElementById('suggestion-input');
+            const suggestion = input.value.trim();
             const results = document.getElementById('suggestion-results');
             
-            if (suggestion) {
-                results.innerHTML = `<p style="color: var(--primary-color);">✅ Thank you! Your suggestion has been logged: "${suggestion}"</p>`;
-                document.getElementById('suggestion-input').value = '';
-            } else {
-                results.innerHTML = '<p class="error">Please type a suggestion.</p>';
+            if (!suggestion) {
+                results.textContent = 'Please type a suggestion.';
+                return;
+            }
+
+            if (!BOOK_SUGGESTION_ENDPOINT) {
+                results.textContent = 'No suggestion was sent. Please contact the library at TODO(owner): provide verified library contact details.';
+                return;
+            }
+
+            try {
+                const response = await fetch(BOOK_SUGGESTION_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ suggestion })
+                });
+                if (!response.ok) throw new Error(`Suggestion service returned ${response.status}`);
+                results.textContent = 'Thank you. Your suggestion was sent to the configured library service.';
+                input.value = '';
+            } catch (error) {
+                results.textContent = 'Your suggestion could not be sent. Please try again.';
             }
         });
 
@@ -391,7 +411,7 @@
         });
 
         // Handle form submission
-        bookingForm.addEventListener('submit', (e) => {
+        bookingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = {
@@ -401,13 +421,24 @@
                 returnDate: document.getElementById('return-date').value
             };
 
-            // In a real app, this would send to a server
-            console.log('Booking Request:', formData);
-            
-            alert(`✅ Booking Request Submitted!\n\nBook: ${formData.book}\nAdmission: ${formData.admission}\nMobile: ${formData.mobile}\nReturn Date: ${formData.returnDate}\n\nThe library team will contact you soon!`);
-            
-            modal.style.display = 'none';
-            bookingForm.reset();
+            if (!LIBRARY_BORROW_ENDPOINT) {
+                alert('No request was sent. Please contact the library at TODO(owner): provide verified library contact details.');
+                return;
+            }
+
+            try {
+                const response = await fetch(LIBRARY_BORROW_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                if (!response.ok) throw new Error(`Library service returned ${response.status}`);
+                alert('Your request was sent to the configured library service.');
+                modal.style.display = 'none';
+                bookingForm.reset();
+            } catch (error) {
+                alert('Your request could not be sent. Please try again.');
+            }
         });
 
         // Set minimum date for return date to today
@@ -417,7 +448,6 @@
     </script>
 </body>
 </html>
-
 
 
 

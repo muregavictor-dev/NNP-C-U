@@ -23,6 +23,7 @@ const DOM = {
     lightboxButtons: [],
     toastContainer: null
 };
+const RSVP_ENDPOINT = null;
 
 /**
  * Cache frequently accessed DOM elements for better performance
@@ -193,41 +194,37 @@ function initRsvpButtons() {
     };
 
     DOM.rsvpButtons.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', async (e) => {
             e.preventDefault();
             
             const eventId = btn.getAttribute('data-event-id');
             const eventName = eventNames[eventId] || 'the event';
-            
-            // Visual feedback
-            const originalText = btn.textContent;
             btn.disabled = true;
-            btn.style.opacity = '0.6';
-            btn.innerHTML = '✓ RSVP\'d';
-            
-            // Show success notification
-            showToast(`✅ You've RSVP'd for ${eventName}! We'll see you there.`, 'success');
-            
-            // Save to localStorage
+
             try {
-                const rsvpList = JSON.parse(localStorage.getItem('nnp-rsvp-list') || '[]');
-                if (!rsvpList.includes(eventId)) {
-                    rsvpList.push(eventId);
-                    localStorage.setItem('nnp-rsvp-list', JSON.stringify(rsvpList));
+                if (RSVP_ENDPOINT) {
+                    const response = await fetch(RSVP_ENDPOINT, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ eventId, eventName })
+                    });
+                    if (!response.ok) throw new Error(`RSVP service returned ${response.status}`);
+                    btn.textContent = 'RSVP sent';
+                    showToast('✅ Your RSVP request was sent to the configured service.', 'success');
+                } else {
+                    const rsvpList = JSON.parse(localStorage.getItem('nnp-rsvp-list') || '[]');
+                    if (!rsvpList.includes(eventId)) {
+                        rsvpList.push(eventId);
+                        localStorage.setItem('nnp-rsvp-list', JSON.stringify(rsvpList));
+                    }
+                    btn.textContent = '✓ Saved locally';
+                    showToast(`Saved on this device only. The CU team has not been notified about ${eventName}.`, 'info');
                 }
             } catch (err) {
-                console.warn('Could not save RSVP to localStorage:', err);
-            }
-
-            // Reset button after delay to allow multiple RSVPs (optional)
-            // Uncomment if you want users to be able to change their RSVP
-            /*
-            setTimeout(() => {
+                console.error('Could not save RSVP:', err);
                 btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.textContent = originalText;
-            }, 3000);
-            */
+                showToast('RSVP could not be saved or sent. Please try again.', 'warning');
+            }
         });
     });
 }

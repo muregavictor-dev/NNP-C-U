@@ -25,7 +25,7 @@
                 <p class="subtitle">Search, learn, and grow with resources curated for NNP Christian Union.</p>
                 <div class="search-bar-container">
                     <form id="global-search-form">
-                        <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." required />
+                        <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." aria-label="Search for a book, Bible verse, or topic" required />
                         <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
                     </form>
                     <p class="text-hint">Tip: Try a book title, 'John 3:16', or 'grace'.</p>
@@ -133,7 +133,7 @@
                     <article class="card tool-card" id="bible-search-card">
                         <h3>Bible Verse Search</h3>
                         <form id="bible-search-form">
-                            <input type="text" id="bible-search-input" placeholder="e.g., John 3:16" required class="form-control" />
+                            <input type="text" id="bible-search-input" placeholder="e.g., John 3:16" aria-label="Search for a Bible verse" required class="form-control" />
                             <button type="submit" class="btn-primary">Read Verse</button>
                         </form>
                         <div id="bible-results" class="results-container"></div>
@@ -142,7 +142,7 @@
                     <article class="card tool-card" id="dict-card">
                         <h3>Christian Dictionary</h3>
                         <form id="christian-dict-form">
-                            <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" required class="form-control">
+                            <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" aria-label="Search a Christian dictionary term" required class="form-control">
                             <button type="submit" class="btn-primary">Define</button>
                         </form>
                         <div id="christian-dict-results" class="results-container"></div>
@@ -151,7 +151,7 @@
                     <article class="card tool-card" id="suggest-card">
                         <h3>Suggestion Box</h3>
                         <form id="suggestion-form">
-                            <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." required class="form-control" rows="3"></textarea>
+                            <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." aria-label="Suggest a book or provide feedback" required class="form-control" rows="3"></textarea>
                             <button type="submit" class="btn-primary">Submit Suggestion</button>
                         </form>
                         <div id="suggestion-results" class="results-container"></div>
@@ -448,6 +448,5 @@
     </script>
 </body>
 </html>
-
 
 

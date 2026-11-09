@@ -149,9 +149,21 @@
         let allImages = [];
         let filteredImages = [];
         let currentIndex = 0;
+        let galleryLoadFailed = false;
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, character => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[character]);
+        }
 
         async function loadImages() {
             const loading = document.getElementById('loading');
+            const empty = document.getElementById('empty-state');
             try {
                 const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}`);
                 if (!res.ok) throw new Error("Folder not found");
@@ -168,16 +180,23 @@
                         else if (nameLower.includes('event')) category = 'events';
                         else if (nameLower.includes('mission')) category = 'mission';
 
+                        const title = file.name.split('.')[0].replace(/[_-]/g, ' ');
                         allImages.push({
                             url: file.download_url,
                             category: category,
-                            title: file.name.split('.')[0].replace(/[_-]/g, ' ')
+                            title: title,
+                            alt: title
+                                ? `NNP CU gallery photo - ${category}: ${title}`
+                                : `NNP CU gallery photo - ${category || 'general'}`
                         });
                     }
                 });
                 renderGallery('all');
             } catch (err) {
                 console.error("Image load error:", err);
+                galleryLoadFailed = true;
+                empty.querySelector('p').textContent = 'Gallery photos could not be loaded. Please try again later.';
+                empty.style.display = 'block';
             } finally {
                 loading.style.display = 'none';
             }
@@ -189,15 +208,19 @@
             filteredImages = filter === 'all' ? allImages : allImages.filter(i => i.category === filter);
             
             if (filteredImages.length === 0) {
-                gallery.innerHTML = ''; empty.style.display = 'block';
+                gallery.innerHTML = '';
+                empty.querySelector('p').textContent = galleryLoadFailed
+                    ? 'Gallery photos could not be loaded. Please try again later.'
+                    : 'No photos found in this category.';
+                empty.style.display = 'block';
             } else {
                 empty.style.display = 'none';
                 gallery.innerHTML = filteredImages.map((img, idx) => `
                     <div class="gallery-item" onclick="openLightbox(${idx})">
-                        <img src="${img.url}" loading="lazy">
+                        <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.alt || 'NNP Christian Union gallery photo')}" loading="lazy">
                         <div class="gallery-overlay">
-                            <span class="badge bg-warning text-dark mb-2">${img.category}</span>
-                            <h5>${img.title}</h5>
+                            <span class="badge bg-warning text-dark mb-2">${escapeHtml(img.category)}</span>
+                            <h5>${escapeHtml(img.title)}</h5>
                         </div>
                     </div>
                 `).join('');
@@ -237,4 +260,3 @@
     </script>
 </body>
 </html>
-

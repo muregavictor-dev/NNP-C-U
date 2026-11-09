@@ -110,6 +110,11 @@ p, li { max-width: 75ch; }
 .chat-offcanvas { --bs-offcanvas-width: 350px; }
 .offcanvas .nav-link { color: var(--brand-forest) !important; }
 .offcanvas .nav-link:hover, .offcanvas .nav-link.active { background: var(--surface-green); color: var(--brand-green) !important; }
+#header-placeholder #offcanvasNav:not(.show):not(.showing):not(.hiding) { display: none; }
+
+@media (max-width: 991.98px) {
+  .home-page [data-aos="fade-left"] { transform: none !important; transition-property: opacity !important; }
+}
 
 /* Align Bootstrap semantic colors and shared controls with the same palette. */
 .text-primary { color: var(--brand-green) !important; }

@@ -330,7 +330,20 @@ function initContactForm() {
         return;
     }
     
-    DOM.contactForm.addEventListener('submit', handleContactSubmit);
+    let isSubmitting = false;
+    DOM.contactForm.addEventListener('submit', (event) => {
+        if (isSubmitting) {
+            event.preventDefault();
+            return;
+        }
+        isSubmitting = true;
+        const submitBtn = DOM.contactForm.querySelector("button[type='submit']");
+        if (submitBtn) submitBtn.disabled = true;
+        handleContactSubmit(event).finally(() => {
+            isSubmitting = false;
+            if (submitBtn) submitBtn.disabled = false;
+        });
+    });
 }
 
 async function handleContactSubmit(e) {

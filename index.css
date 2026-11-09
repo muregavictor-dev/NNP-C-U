@@ -21,6 +21,7 @@
 
 /* Right - WhatsApp */
 .fab-whatsapp { right: 20px; background-color: #25D366; }
+.fab-whatsapp-icon { display: block; width: 26px; height: 26px; fill: currentColor; }
 
 /* Hover Effects */
 .fab-btn:hover { transform: scale(1.08); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }

@@ -578,34 +578,31 @@
 <!-- ==============================
      NOTIFICATION PANEL
 ============================== -->
+
 <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel"
      aria-labelledby="notificationPanelLabel">
+
   <div class="offcanvas-header bg-deep-green text-white">
     <h5 class="offcanvas-title" id="notificationPanelLabel">
-      Notifications (<span id="unreadCount">1</span>)
+      Notifications (<span id="unreadCount">0</span>)
     </h5>
+
     <button type="button" class="btn-close btn-close-white"
             data-bs-dismiss="offcanvas" aria-label="Close Notifications"></button>
   </div>
 
   <div class="offcanvas-body">
-    <div id="notificationItem"
-         class="alert alert-gold border-start border-4 border-deep-green p-3 rounded"
-         role="alert">
-      <h6 class="alert-heading fw-bold">Event RSVP Confirmed!</h6>
-      <p class="mb-0 small">
-        You have successfully RSVP'd for the
-        <strong>Campus Evangelism</strong> on Oct 27th to Nov 1st.
+
+    <!-- Announcements from Firebase -->
+    <div id="announcementsContainer">
+      <p class="text-muted small text-center">
+        Loading announcements...
       </p>
-      <button id="markAsReadBtn"
-              class="btn btn-sm btn-link p-0 mt-2 text-deep-green"
-              aria-label="Mark notification as read">
-        Mark as Read
-      </button>
     </div>
-    <p class="text-muted small mt-4">No older notifications.</p>
+
   </div>
 </div>
+
 
 <!-- ==============================
      FLOATING ACTION BUTTONS
@@ -844,6 +841,8 @@
     <script src="js/events.js"></script>
     <script src="js/livestream.js" defer></script>
     <script src="js/app.js" defer></script>
+<script type="module" src="js/firebase-config.js"></script>
+<script type="module" src="js/announcements.js"></script>
 </body>
 </html>
 

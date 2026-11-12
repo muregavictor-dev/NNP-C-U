@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Church CMS Library</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <noscript>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     </noscript>
     <link rel="stylesheet" href="library.css">
     <link rel="stylesheet" href="modernization.css">
-    <script src="components.js" defer></script>
+    <script src="js/components.js" defer></script>
 </head>
 <body class="library-page-root">
     <!-- Include Header -->
@@ -25,7 +24,7 @@
                 <p class="subtitle">Search, learn, and grow with resources curated for NNP Christian Union.</p>
                 <div class="search-bar-container">
                     <form id="global-search-form">
-                        <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." required />
+                        <input type="search" id="global-search-input" placeholder="Search for a book, Bible verse, or topic..." aria-label="Search for a book, Bible verse, or topic" required />
                         <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
                     </form>
                     <p class="text-hint">Tip: Try a book title, 'John 3:16', or 'grace'.</p>
@@ -36,17 +35,17 @@
             <section>
                 <h2 class="section-title">Quick Access & Tools</h2>
                 <div class="dashboard-grid">
-                    <article class="card interactive-card" onclick="scrollToBible()">
+                    <article class="card interactive-card" role="button" tabindex="0" data-scroll-target="bible">
                         <i class="fas fa-bible fa-2x"></i>
                         <h3>Bible Verse Lookup</h3>
                         <p>Find passages quickly.</p>
                     </article>
-                    <article class="card interactive-card" onclick="scrollToSuggestion()">
+                    <article class="card interactive-card" role="button" tabindex="0" data-scroll-target="suggestion">
                         <i class="fas fa-lightbulb fa-2x"></i>
                         <h3>Suggest a Book</h3>
                         <p>Request new titles.</p>
                     </article>
-                    <article class="card interactive-card" onclick="scrollToDict()">
+                    <article class="card interactive-card" role="button" tabindex="0" data-scroll-target="dictionary">
                         <i class="fas fa-book-open fa-2x"></i>
                         <h3>Dictionary Tools</h3>
                         <p>Define Christian terms.</p>
@@ -57,7 +56,7 @@
             <!-- Physical Book Catalogue -->
             <section id="hardcopy-books-section">
                 <h2 id="hardcopy-books-title" class="section-title"><i class="fas fa-box-open"></i> Physical Book Catalogue</h2>
-                <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to reserve a copy!</p>
+                <p class="section-description">Browse and check the availability of books located in the CU office. Use the 'Borrow' button to prepare a request.</p>
 
                 <div class="books-catalogue-grid">
                     <div class="card category-card">
@@ -101,10 +100,10 @@
 
             <!-- Borrowing Modal -->
             <div id="booking-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <h3 class="modal-title">Book Borrowing Request</h3>
-                    <p class="modal-hint">Submit your request. The Library team will contact you for pickup/delivery arrangements.</p>
+                <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" tabindex="-1">
+                    <span class="close-modal" role="button" tabindex="0" aria-label="Close borrowing request">&times;</span>
+                    <h3 class="modal-title" id="booking-modal-title">Book Borrowing Request</h3>
+                    <p class="modal-hint">No request is sent unless an authorized library service is configured. Otherwise, contact the library at TODO(owner): provide verified library contact details.</p>
                     <form id="booking-form">
                         <div class="form-group">
                             <label for="book-title-modal">Book Title:</label>
@@ -133,7 +132,7 @@
                     <article class="card tool-card" id="bible-search-card">
                         <h3>Bible Verse Search</h3>
                         <form id="bible-search-form">
-                            <input type="text" id="bible-search-input" placeholder="e.g., John 3:16" required class="form-control" />
+                            <input type="text" id="bible-search-input" placeholder="e.g., John 3:16" aria-label="Search for a Bible verse" required class="form-control" />
                             <button type="submit" class="btn-primary">Read Verse</button>
                         </form>
                         <div id="bible-results" class="results-container"></div>
@@ -142,7 +141,7 @@
                     <article class="card tool-card" id="dict-card">
                         <h3>Christian Dictionary</h3>
                         <form id="christian-dict-form">
-                            <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" required class="form-control">
+                            <input type="text" id="christian-dict-input" placeholder="Search term (e.g. grace)" aria-label="Search a Christian dictionary term" required class="form-control">
                             <button type="submit" class="btn-primary">Define</button>
                         </form>
                         <div id="christian-dict-results" class="results-container"></div>
@@ -151,7 +150,7 @@
                     <article class="card tool-card" id="suggest-card">
                         <h3>Suggestion Box</h3>
                         <form id="suggestion-form">
-                            <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." required class="form-control" rows="3"></textarea>
+                            <textarea id="suggestion-input" placeholder="Suggest a book or provide feedback..." aria-label="Suggest a book or provide feedback" required class="form-control" rows="3"></textarea>
                             <button type="submit" class="btn-primary">Submit Suggestion</button>
                         </form>
                         <div id="suggestion-results" class="results-container"></div>
@@ -191,233 +190,8 @@
 <!-- Include Footer -->
 <div id="footer-placeholder"></div>
 
-    <script>
-        // Scroll helpers
-        function scrollToBible() {
-            document.getElementById('bible-search-card').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => document.getElementById('bible-search-input').focus(), 500);
-        }
-        function scrollToDict() {
-            document.getElementById('dict-card').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => document.getElementById('christian-dict-input').focus(), 500);
-        }
-        function scrollToSuggestion() {
-            document.getElementById('suggest-card').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => document.getElementById('suggestion-input').focus(), 500);
-        }
 
-        // Global Search
-        document.getElementById('global-search-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const query = document.getElementById('global-search-input').value.trim();
-            const results = document.getElementById('global-search-results');
-            
-            if (!query) return;
-
-            results.innerHTML = `<p>🔍 Searching for <strong>${query}</strong>...</p>`;
-
-            // Check if it's a Bible verse
-            if (query.match(/[a-z]+\s*\d+:\d+/i)) {
-                await fetchBibleVerse(query, results);
-                return;
-            }
-
-            // Search in book catalogue
-            const books = document.querySelectorAll('.book-list li p');
-            let found = false;
-
-            books.forEach(p => {
-                if (p.textContent.toLowerCase().includes(query.toLowerCase())) {
-                    const title = p.textContent;
-                    results.innerHTML = `
-                        <div class="mini-card" style="border-left:3px solid var(--secondary-color)">
-                            <h5>📚 Found in catalogue</h5>
-                            <p><strong>${title}</strong></p>
-                        </div>`;
-                    document.getElementById('hardcopy-books-section').scrollIntoView({ behavior: 'smooth' });
-                    found = true;
-                }
-            });
-
-            if (!found) {
-                results.innerHTML = `<p>No match found in catalogue. Try Bible or Dictionary tools below.</p>`;
-            }
-        });
-
-        // Bible Verse Search
-        document.getElementById('bible-search-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const query = document.getElementById('bible-search-input').value.trim();
-            const results = document.getElementById('bible-results');
-            
-            if (!query) return;
-            await fetchBibleVerse(query, results);
-        });
-
-        async function fetchBibleVerse(query, target) {
-            target.innerHTML = '<p>📖 Searching scripture...</p>';
-            try {
-                const res = await fetch(`https://bible-api.com/${encodeURIComponent(query)}`);
-                if (!res.ok) throw new Error('API error');
-                const data = await res.json();
-
-                if (!data.verses || data.verses.length === 0) {
-                    target.innerHTML = `<p class="error">No results for "${query}". Try format like "John 3:16"</p>`;
-                    return;
-                }
-
-                target.innerHTML = data.verses.map(v => `
-                    <div class="mini-card">
-                        <h5>${v.book_name} ${v.chapter}:${v.verse}</h5>
-                        <p>${v.text}</p>
-                    </div>`).join('');
-            } catch (err) {
-                target.innerHTML = `<p class="error">Failed to fetch verse. Check format (e.g., "Romans 8:28")</p>`;
-                console.error(err);
-            }
-        }
-
-        // Christian Dictionary with AI
-        const christianTerms = {
-            'grace': 'Unmerited favor from God, received through faith in Christ.',
-            'faith': 'Complete trust and confidence in God and His promises.',
-            'salvation': 'Deliverance from sin and reconciliation with God through Jesus.',
-            'repentance': 'Turning away from sin and toward God with a sincere heart.',
-            'baptism': 'Symbol of spiritual cleansing and public declaration of faith.',
-            'covenant': 'A sacred agreement between God and His people.',
-            'redemption': 'Being bought back or freed from sin through Christ\'s sacrifice.',
-            'sanctification': 'The process of becoming more holy and Christ-like.',
-            'justification': 'Being declared righteous before God through faith in Jesus.',
-            'atonement': 'The reconciliation of God and humanity through Christ\'s sacrifice.',
-            'trinity': 'The belief in one God existing in three persons: Father, Son, and Holy Spirit.'
-        };
-
-        document.getElementById('christian-dict-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const term = document.getElementById('christian-dict-input').value.trim().toLowerCase();
-            const results = document.getElementById('christian-dict-results');
-            
-            if (!term) return;
-
-            results.innerHTML = `<p>Searching for <strong>${term}</strong>...</p>`;
-            
-            const definition = christianTerms[term] || 'No local definition found. Check external resources.';
-            
-            let html = `
-                <div class="mini-card">
-                    <h5>${term.charAt(0).toUpperCase() + term.slice(1)}</h5>
-                    <p>${definition}</p>
-                </div>
-            `;
-
-            // Add AI explanation for known terms
-            if (christianTerms[term]) {
-                const aiExplanation = await getAIExplanation(term);
-                html += aiExplanation;
-            }
-
-            results.innerHTML = html;
-            document.getElementById('christian-dict-input').value = '';
-        });
-
-        // AI Explanation (using free API)
-        async function getAIExplanation(term) {
-            // Simple spiritual insights based on term
-            const insights = {
-                'grace': 'Grace empowers believers to live righteously, not by their own strength, but through God\'s enabling power.',
-                'faith': 'Faith is not blind belief, but a confident trust based on God\'s character and promises revealed in Scripture.',
-                'salvation': 'Salvation is a gift that cannot be earned through good works, but is received through faith in Jesus Christ.',
-                'repentance': 'True repentance involves both a change of mind and a change of direction, turning from sin to God.',
-                'baptism': 'Baptism represents the believer\'s identification with Christ\'s death, burial, and resurrection.',
-                'covenant': 'God\'s covenants show His faithfulness and commitment to His promises throughout history.',
-                'redemption': 'Redemption illustrates the cost of sin and the price Jesus paid to set humanity free.',
-                'sanctification': 'Sanctification is both an instant act at salvation and a lifelong process of spiritual growth.',
-                'justification': 'Justification means God declares believers righteous, not because of their merit, but because of Christ.',
-                'atonement': 'Atonement shows God\'s justice and mercy meeting at the cross, satisfying both.',
-                'trinity': 'The Trinity shows the relational nature of God and the perfect unity in diversity within the Godhead.'
-            };
-
-            const insight = insights[term] || 'Consider how this concept applies to your daily walk with God.';
-            
-            return `
-                <div class="ai-result">
-                    <h4>🤖 Spiritual Insight:</h4>
-                    <p>${insight}</p>
-                </div>
-            `;
-        }
-
-        // Suggestion Form
-        document.getElementById('suggestion-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const suggestion = document.getElementById('suggestion-input').value.trim();
-            const results = document.getElementById('suggestion-results');
-            
-            if (suggestion) {
-                results.innerHTML = `<p style="color: var(--primary-color);">✅ Thank you! Your suggestion has been logged: "${suggestion}"</p>`;
-                document.getElementById('suggestion-input').value = '';
-            } else {
-                results.innerHTML = '<p class="error">Please type a suggestion.</p>';
-            }
-        });
-
-        // Book Borrowing Modal
-        const modal = document.getElementById('booking-modal');
-        const closeBtn = document.querySelector('.close-modal');
-        const bookingForm = document.getElementById('booking-form');
-        const bookTitleInput = document.getElementById('book-title-modal');
-
-        // Open modal when borrow button clicked
-        document.querySelectorAll('.borrow-btn:not(.disabled)').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const bookTitle = this.getAttribute('data-book');
-                bookTitleInput.value = bookTitle;
-                modal.style.display = 'block';
-            });
-        });
-
-        // Close modal
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            bookingForm.reset();
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                bookingForm.reset();
-            }
-        });
-
-        // Handle form submission
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                book: document.getElementById('book-title-modal').value,
-                admission: document.getElementById('admission-number').value,
-                mobile: document.getElementById('mobile-number').value,
-                returnDate: document.getElementById('return-date').value
-            };
-
-            // In a real app, this would send to a server
-            console.log('Booking Request:', formData);
-            
-            alert(`✅ Booking Request Submitted!\n\nBook: ${formData.book}\nAdmission: ${formData.admission}\nMobile: ${formData.mobile}\nReturn Date: ${formData.returnDate}\n\nThe library team will contact you soon!`);
-            
-            modal.style.display = 'none';
-            bookingForm.reset();
-        });
-
-        // Set minimum date for return date to today
-        const returnDateInput = document.getElementById('return-date');
-        const today = new Date().toISOString().split('T')[0];
-        returnDateInput.setAttribute('min', today);
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="js/library.js"></script>
 </body>
 </html>
-
-
-
-

@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="gallery.css">
     <link rel="stylesheet" href="modernization.css">
-    <script src="components.js" defer></script>
+    <script src="js/components.js" defer></script>
 </head>
 <body class="gallery-page">
 
@@ -111,130 +111,6 @@
 
     <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // SCROLL REVEAL
-        const reveals=document.querySelectorAll('.reveal');
-        const obs=new IntersectionObserver(entries=>{
-          entries.forEach(e=>{
-            if(e.isIntersecting){
-              e.target.classList.add('show');
-            }
-          });
-        },{threshold:.2});
-        reveals.forEach(el=>obs.observe(el));
-
-        // CATEGORY FILTER
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelector('.filter-btn.active').classList.remove('active');
-                e.target.classList.add('active');
-                renderGallery(e.target.dataset.category);
-            });
-        });
-
-        // LIGHTBOX
-        document.querySelector('.lightbox-close').onclick = () => document.getElementById('lightbox').classList.remove('active');
-        document.querySelector('.lightbox-next').onclick = () => openLightbox((currentIndex + 1) % filteredImages.length);
-        document.querySelector('.lightbox-prev').onclick = () => openLightbox((currentIndex - 1 + filteredImages.length) % filteredImages.length);
-
-        // HEADER & FOOTER + IMAGES + VIDEOS
-        const GITHUB_USERNAME = 'muregavictor-dev';
-        const REPO_NAME = 'NNP-C-U';
-        const IMAGE_BASE_PATH = 'images/gallary';
-        const videoData = [
-            { id: '0eNXQHAthpQ', title: 'Makutano Mission', desc: 'Day 1 Highlights' },
-            { id: 'dQw4w9WgXcQ', title: 'Sunday Service', desc: 'Worship and Word' }
-        ];
-
-        let allImages = [];
-        let filteredImages = [];
-        let currentIndex = 0;
-
-        async function loadImages() {
-            const loading = document.getElementById('loading');
-            try {
-                const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${IMAGE_BASE_PATH}`);
-                if (!res.ok) throw new Error("Folder not found");
-                const files = await res.json();
-                
-                files.forEach(file => {
-                    if (file.name.match(/\.(jpg|jpeg|png|webp)$/i)) {
-                        let category = 'other';
-                        const nameLower = file.name.toLowerCase();
-                        if (nameLower.includes('worship')) category = 'worship';
-                        else if (nameLower.includes('outreach')) category = 'outreach';
-                        else if (nameLower.includes('fellowship')) category = 'fellowship';
-                        else if (nameLower.includes('prayer retreat')) category = 'prayer retreat';
-                        else if (nameLower.includes('event')) category = 'events';
-                        else if (nameLower.includes('mission')) category = 'mission';
-
-                        allImages.push({
-                            url: file.download_url,
-                            category: category,
-                            title: file.name.split('.')[0].replace(/[_-]/g, ' ')
-                        });
-                    }
-                });
-                renderGallery('all');
-            } catch (err) {
-                console.error("Image load error:", err);
-            } finally {
-                loading.style.display = 'none';
-            }
-        }
-
-        function renderGallery(filter) {
-            const gallery = document.getElementById('gallery');
-            const empty = document.getElementById('empty-state');
-            filteredImages = filter === 'all' ? allImages : allImages.filter(i => i.category === filter);
-            
-            if (filteredImages.length === 0) {
-                gallery.innerHTML = ''; empty.style.display = 'block';
-            } else {
-                empty.style.display = 'none';
-                gallery.innerHTML = filteredImages.map((img, idx) => `
-                    <div class="gallery-item" onclick="openLightbox(${idx})">
-                        <img src="${img.url}" loading="lazy">
-                        <div class="gallery-overlay">
-                            <span class="badge bg-warning text-dark mb-2">${img.category}</span>
-                            <h5>${img.title}</h5>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function renderVideos() {
-            const grid = document.getElementById('video-grid');
-            grid.innerHTML = videoData.map(v => `
-                <div class="col-md-6 col-lg-4">
-                    <div class="video-card">
-                        <div class="video-thumbnail">
-                            <iframe src="https://www.youtube.com/embed/${v.id}" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-3">
-                            <h6 class="fw-bold mb-1">${v.title}</h6>
-                            <small class="text-muted">${v.desc}</small>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openLightbox(index) {
-            currentIndex = index;
-            const img = filteredImages[index];
-            document.getElementById('lightbox-img').src = img.url;
-            document.getElementById('lightbox-caption').innerText = img.title;
-            document.getElementById('download-link').href = img.url;
-            document.getElementById('lightbox').classList.add('active');
-        }
-
-        window.onload = () => {
-            loadImages();
-            renderVideos();
-        };
-    </script>
+    <script src="js/gallery.js"></script>
 </body>
 </html>
-

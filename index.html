@@ -44,7 +44,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="modernization.css">
-    <script src="components.js" defer></script>
+    <script src="js/components.js" defer></script>
     
     <!-- ===== STRUCTURED DATA (SCHEMA.ORG) ===== -->
     <script type="application/ld+json">
@@ -62,14 +62,7 @@
     }
     </script>
     
-    <!-- ===== GOOGLE ANALYTICS ===== -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_ID_HERE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YOUR_ID_HERE');
-    </script>
+    <!-- TODO(owner): add a verified analytics measurement ID before enabling analytics. -->
 </head>
 
 <body class="home-page">
@@ -150,108 +143,10 @@
             <div class="container-xl">
                 <h2 class="text-center display-5 fw-bold text-deep-green mb-5" data-aos="fade-up">Upcoming Events </h2>
                 
-                <div class="row g-4 d-none d-md-flex" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-lg-4">
-                        <div class="card event-card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                            <img src="kesha 2026.jpeg" class="card-img-top event-image-tall" alt="Mega kesha">
-                            <div class="card-body p-4">
-                                <span class="badge bg-gold text-rich-black fw-bold mb-2">30th Jan 2026</span>
-                                <h5 class="card-title fw-bold text-primary-green">Mega Kesha</h5>
-                                <p class="card-text text-soft-gray small mb-3">Join the Nyeri National Polytechnic Christian Union for a transformative Mega Kesha on January 30th, featuring Guest Minister Apostle Joseph Murimi, for a dedicated night of prayer, worship, and the Word.</p>
-                                <ul class="list-unstyled small text-soft-gray">
-                                    <li><strong class="text-deep-green">Time:</strong> 9:00 PM - 5:00AM</li>
-                                    <li><strong class="text-deep-green">Location:</strong>Main Hall</li>
-                                </ul>
-                                <button class="badge bg-gold text-rich-black fw-bold mb-2 btn btn-outline- btn-sm rsvp-btn" data-event-id="e1" aria-label="RSVP for Freshmen Welcome">RSVP</button>
-                                <p><strong>0702970150 - </strong><i>Prayer Coordinator </i></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card event-card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                            <img src="prayer retreat .jpeg" class="card-img-top event-image-tall" alt="prayer retreat">
-                            <div class="card-body p-4">
-                                <span class="badge bg-primary-green text-white fw-bold mb-2">7th Jan 2026</span>
-                                <h5 class="card-title fw-bold text-primary-green">Prayer Retreat</h5>
-                                <p class="card-text text-soft-gray small mb-3">Register now for <strong> Ksh 350</strong> to join us at Mt. Olivet on February 7th for a life-changing encounter with God.</strong></p>
-                                <ul class="list-unstyled small text-soft-gray">
-                                    <li><strong class="text-deep-green">Time:</strong> 7:00 AM – 4:00 PM</li>
-                                    <li><strong class="text-deep-green">Location:</strong> Mount Olivet</li>
-                                </ul>
-                                <button class="badge bg-primary-green btn btn-outline-primary-green btn-sm rsvp-btn" data-event-id="e2" aria-label="RSVP for Campus Outreach Day">RSVP</button>
-                                   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card event-card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800" class="card-img-top event-image-short" alt="Missions">
-                            <div class="card-body p-4">
-                                <span class="badge bg-gold text-rich-black fw-bold mb-2">April</span>
-                                <h5 class="card-title fw-bold text-primary-green">Mission</h5>
-                                <p class="card-text text-soft-gray small mb-3">Equipping our student leaders for ministry excellence and spiritual maturity.</p>
-                                <ul class="list-unstyled small text-soft-gray">
-                                    <li><strong class="text-deep-green">Day</strong> Sunday - Monday</li>
-                                    <li><strong class="text-deep-green">Venue</strong> <i>To be communicated</i></li>
-                                </ul>
-                                <button class="badge bg-gold text-rich-black fw-bold mb-2" data-event-id="e3" aria-label="RSVP for Leadership Training Summit">RSVP</button>
-                                <p><strong>0707029995 - </strong><i>Mission Coordinator</i></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="eventsDesktop" class="row g-4 d-none d-md-flex" data-aos="fade-up" data-aos-delay="200"></div>
 
                 <div id="eventsMobileCarousel" class="carousel slide d-md-none" data-bs-ride="carousel" data-aos="fade-up" data-aos-delay="200">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="card event-card shadow-sm border-0 rounded-3 overflow-hidden">
-                                <img src="kesha 2026.jpeg" class="card-img-top event-image-short" alt=" Mega kesha">
-                                <div class="card-body p-3">
-                                    <span class="badge bg-gold text-rich-black fw-bold mb-2">30th Jan</span>
-                                    <h5 class="card-title fw-bold text-primary-green">Mega kesha</h5>
-                                    <p class="card-text text-soft-gray small mb-3">Join the Nyeri National Polytechnic Christian Union for a transformative Mega Kesha, featuring Guest Minister Apostle Joseph Murimi, for a dedicated night of prayer, worship, and the Word.</p>
-                                    <ul class="list-unstyled small text-soft-gray mb-3">
-                                        <li><strong class="text-deep-green">Time:</strong> 9:00 PM - 5:00 AM</li>
-                                        <li><strong class="text-deep-green">Location:</strong> Main Hall</li>
-                                    </ul>
-                                    <button class="btn btn-outline-primary-green btn-sm rsvp-btn w-100" data-event-id="e1">RSVP</button>
-                                    <p class="small mt-2"><strong>07123455789 - </strong><i>Mission Coordinator</i></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card event-card shadow-sm border-0 rounded-3 overflow-hidden">
-                                <img src="prayer retreat .jpeg" class="card-img-top event-image-short" alt="prayer retreat">
-                                <div class="card-body p-3">
-                                    <span class="badge bg-primary-green text-white fw-bold mb-2">Feb 7th</span>
-                                    <h5 class="card-title fw-bold text-primary-green">Prayer Retreat</h5>
-                                    <p class="card-text text-soft-gray small mb-3">Register now for<strong> Ksh 350</strong> to join us at Mt. Olivet on February 7th for a life-changing encounter with God.</p>
-                                    <ul class="list-unstyled small text-soft-gray mb-3">
-                                        <li><strong class="text-deep-green">Time:</strong> 7:00 AM - 4:00 PM</li>
-                                        <li><strong class="text-deep-green">Location:</strong>Mount OLIVET</li>
-                                    </ul>
-                                    <button class="btn btn-outline-primary-green btn-sm rsvp-btn w-100" data-event-id="e2">RSVP</button>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="card event-card shadow-sm border-0 rounded-3 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800" class="card-img-top event-image-short" alt="Missions">
-                                <div class="card-body p-3">
-                                    <span class="badge bg-gold text-rich-black fw-bold mb-2">April</span>
-                                    <h5 class="card-title fw-bold text-primary-green">Missions</h5>
-                                    <p class="card-text text-soft-gray small mb-3">Equipping our student leaders for ministry excellence and spiritual maturity.</p>
-                                    <ul class="list-unstyled small text-soft-gray mb-3">
-                                        <li><strong class="text-deep-green">Day:</strong> Sunday - Monday</li>
-                                        <li><strong class="text-deep-green">Venue:</strong> <i>To be communicated</i></li>
-                                    </ul>
-                                    <button class="btn btn-outline-primary-green btn-sm rsvp-btn w-100" data-event-id="e3">RSVP</button>
-                                    <p class="small mt-2"><strong>07123455789 - </strong><i>Mission Coordinator</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="carousel-inner" id="eventsMobile"></div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#eventsMobileCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -261,6 +156,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+                <p id="eventsAnnouncement" class="text-center text-soft-gray mt-4" role="status" hidden>New events will be announced soon.</p>
             </div>
         </section>
         
@@ -475,11 +371,12 @@
                 <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-9">
                         <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden mb-4">
-                            <iframe width="652" height="367" src="https://www.youtube.com/embed/nYKts12XNPM" title="SUNDAY SERVICE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            
-                        </div>
+                    <iframe id="liveStreamPlayer" src="about:blank" title="NNP Christian Union worship stream" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p id="liveStreamStatus" class="text-center text-deep-green" role="status" aria-live="polite">Checking for a live broadcast...</p>
+                <p class="text-center"><a id="liveStreamLink" href="https://www.youtube.com/@nnpcumedia" target="_blank" rel="noopener noreferrer" class="btn btn-outline-deep-green" hidden>Watch on YouTube</a></p>
 
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 bg-light-gray rounded-3">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 bg-light-gray rounded-3">
                             <p class="mb-2 mb-md-0 fw-bold text-deep-green">Next Live Session: Sunday at 7:30 AM EAT</p>
                             <div class="d-flex gap-3">
                                 <button class="btn btn-primary-green btn-sm fw-bold">Remind Me</button>
@@ -543,7 +440,7 @@
         </div>
 
         <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-            <a href="https://www.youtube.com/@nnpchristianunion" 
+            <a href="https://www.youtube.com/@nnpcumedia" 
                target="_blank" 
                class="btn btn-outline-deep-green btn-lg fw-bold">
                View More Videos <i class="bi bi-arrow-right"></i>
@@ -559,7 +456,7 @@
                 <div class="row g-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-md-6">
                         <div class="gallery-card rounded-3 overflow-hidden shadow-lg position-relative" data-img="assets/img/gallery_1.webp" aria-label="Campus Worship">
-                            <img src="IMG_20251018_005801_038[1].jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="praise and worship section  during service" loading="lazy">
+                            <img src="IMG_20251018_005801_038[1].jpg" class="img-fluid w-100 h-100 object-fit-cover" alt="praise and worship section  during service" width="3840" height="1728" loading="lazy">
                             <div class="caption-overlay p-4">
                                 <h4 class="text-white fw-bold">worship moments </h4>
                                 <button class="btn btn-gold btn-sm lightbox-btn" aria-label="Open image lightbox">
@@ -573,7 +470,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="gallery-card rounded-3 overflow-hidden shadow-sm position-relative" data-img="assets/img/gallery_2.webp" aria-label="kanja mission fellowship">
-                                    <img src="images/gallary/kanja mission.jpeg" class="img-fluid w-100 h-100 object-fit-cover" alt="Kanja mission fellowship" loading="lazy">
+                                    <img src="images/gallary/kanja mission.jpeg" class="img-fluid w-100 h-100 object-fit-cover" alt="Kanja mission fellowship" width="1600" height="900" loading="lazy">
                                     <div class="caption-overlay p-4">
                                         <h5 class="text-white fw-bold">Kanja Mission</h5>
                                         <button class="btn btn-gold btn-sm lightbox-btn" aria-label="Open image lightbox">View</button>
@@ -669,72 +566,6 @@
                   <h5 class="fw-bold text-deep-green">✅ Message Sent Successfully!</h5>
                   <p class="mb-0">Thank you for reaching out. We'll get back to you shortly.</p>
                 </div>
-<!-- ✅ Script -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const successMsg = document.getElementById("contactSuccessMessage");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    if (!form.checkValidity()) {
-      form.classList.add("was-validated");
-      return;
-    }
-
-    const formData = new FormData(form);
-
-    try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" }
-      });
-
-      if (res.ok) {
-        showToast("✅ Message sent successfully! We’ll get back to you soon.", "success");
-        form.reset();
-      } else {
-        showToast("❌ Something went wrong. Please try again later.", "danger");
-      }
-    } catch (err) {
-      showToast("⚠️ Network error. Please check your connection.", "warning");
-    }
-  });
-
-  // ✅ Function to create floating toast
-  function showToast(message, type) {
-    const bgColors = {
-      success: "bg-success text-white",
-      danger: "bg-danger text-white",
-      warning: "bg-warning text-dark",
-      info: "bg-info text-dark"
-    };
-
-    const toast = document.createElement("div");
-    toast.className = `toast align-items-center border-0 show ${bgColors[type] || "bg-secondary text-white"}`;
-    toast.setAttribute("role", "alert");
-    toast.setAttribute("aria-live", "assertive");
-    toast.setAttribute("aria-atomic", "true");
-    toast.style.minWidth = "280px";
-    toast.style.boxShadow = "0 4px 10px rgba(0,0,0,0.15)";
-    toast.innerHTML = `
-      <div class="d-flex">
-        <div class="toast-body fw-semibold">${message}</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    `;
-    toastContainer.appendChild(toast);
-
-    // Auto remove after 5s
-    setTimeout(() => {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 500);
-    }, 5000);
-  }
-});
-</script>
                 </div>
             </div>
         </section>
@@ -799,7 +630,9 @@ document.addEventListener("DOMContentLoaded", () => {
    target="_blank"
    class="fab-btn fab-whatsapp"
    aria-label="Chat with us on WhatsApp">
-  <i class="bi bi-whatsapp fs-4"></i>
+  <svg class="fab-whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+  </svg>
 </a>
 
 <!-- ==============================
@@ -840,63 +673,6 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- ==============================
      AI FUNCTIONALITY
 ============================== -->
-<script>
-const chatForm = document.getElementById('chatForm');
-const chatInput = document.getElementById('chatInput');
-const chatMessages = document.getElementById('chatMessages');
-
-const cuData = {
-  schedules: "CU meetings happen every Thursday at 5 PM in the main hall.",
-  events: "Upcoming events: Campus Evangelism (Oct 27 - Nov 1), Bible Study Retreat (Nov 10).",
-  joining: "To join CU, fill the membership form on our website or visit the office during meeting hours.",
-  contact: "You can reach CU via WhatsApp at +254742812494."
-};
-
-function addMessage(sender, text) {
-  const div = document.createElement('div');
-  div.className = `message ${sender}-message mb-2 p-2 rounded-3`;
-  div.textContent = text;
-  div.style.background = sender === 'bot' ? '#f0f0f0' : '#d4edda';
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const userText = chatInput.value.trim();
-  if (!userText) return;
-
-  addMessage('user', userText);
-  chatInput.value = '';
-
-  // Bot thinking indicator
-  addMessage('bot', '⏳ Thinking…');
-
-  setTimeout(() => {
-    // Remove thinking message
-    chatMessages.lastChild.remove();
-
-    // Convert to lowercase for easier matching
-    const query = userText.toLowerCase();
-
-    // Simple keyword-based AI
-    let reply = "I'm sorry, I'm still training and can't answer that yet.";
-
-    if (query.includes("schedule") || query.includes("meeting")) {
-      reply = cuData.schedules;
-    } else if (query.includes("event")) {
-      reply = cuData.events;
-    } else if (query.includes("join") || query.includes("membership")) {
-      reply = cuData.joining;
-    } else if (query.includes("contact") || query.includes("whatsapp")) {
-      reply = cuData.contact;
-    }
-
-    addMessage('bot', reply);
-  }, 800); // simulate thinking
-});
-</script>
-
 <!-- ==============================
    MEMBERSHIP MODAL FORM
 ============================== -->
@@ -1013,30 +789,6 @@ chatForm.addEventListener('submit', (e) => {
     </div>
   </div>
 </div>
-<script>
-const form = document.getElementById('membershipForm');
-const successMsg = document.getElementById('successMessage');
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const data = new FormData(form);
-  const response = await fetch(form.action, {
-    method: form.method,
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  if (response.ok) {
-    form.reset();
-    successMsg.classList.remove('d-none');
-    successMsg.scrollIntoView({ behavior: 'smooth' });
-  } else {
-    alert('⚠️ Oops! Something went wrong. Please try again.');
-  }
-});
-</script>
-
 <!-- ===== TOAST CONTAINER (CONSOLIDATED) ===== -->
 <div class="toast-container position-fixed top-0 end-0 p-3"></div>
 
@@ -1088,40 +840,12 @@ form.addEventListener('submit', async (e) => {
     <!-- 2. AOS Library for animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- 3. Initialize AOS BEFORE custom app.js -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Initialize AOS animations
-        AOS.init({ 
-          duration: 800, 
-          once: true, 
-          easing: "ease-in-out", 
-          offset: 50 
-        });
-        
-        // Update year dynamically
-        const currentYearEl = document.getElementById("currentYear");
-        if (currentYearEl) {
-          currentYearEl.textContent = new Date().getFullYear();
-        }
-      });
-    </script>
-    
-    <!-- 4. Custom application logic (loads after dependencies initialized) -->
-    <script src="app.js" defer></script>
+    <!-- 3. Page behavior -->
+    <script src="js/events.js"></script>
+    <script src="js/livestream.js" defer></script>
+    <script src="js/app.js" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

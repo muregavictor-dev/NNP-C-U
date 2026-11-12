@@ -19,7 +19,7 @@
      <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="ministry.css">
     <link rel="stylesheet" href="modernization.css">
-    <script src="components.js" defer></script>
+    <script src="js/components.js" defer></script>
 </head>
 
 
@@ -410,190 +410,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <!-- AOS Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>
-  // ✅ Initialize AOS
-  AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100
-  });
+    <script src="js/ministry.js"></script>
 
-  // ✅ Scroll Progress Bar
-  window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById('progressBar').style.width = scrolled + '%';
-  });
-
-  // ✅ Counter Animation
-  const counters = document.querySelectorAll('.counter');
-  const speed = 200;
-
-  const animateCounter = (counter) => {
-    const target = +counter.getAttribute('data-target');
-    const count = +counter.innerText;
-    const increment = target / speed;
-
-    if (count < target) {
-      counter.innerText = Math.ceil(count + increment);
-      setTimeout(() => animateCounter(counter), 1);
-    } else {
-      counter.innerText = target + '+';
-    }
-  };
-
-  // ✅ Intersection Observer for Counters
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(counter => counterObserver.observe(counter));
-
-  // ✅ Ministry Email Routing Configuration
-  const ministryEmails = {
-    'praise-worship': 'praiseandworship@example.com',
-    'bible-study': 'biblestudy@example.com',
-    'evangelism': 'evangelism@example.com',
-    'ushering': 'ushering@example.com',
-    'intercessory': 'intercessory@example.com',
-    'hospitality': 'hospitality@example.com',
-    'discipleship': 'discipleship@example.com',
-    'revival-wave': 'revivalwave@example.com',
-    'media': 'media@example.com',
-    'hope-restoration': 'hoperestoration@example.com',
-    'piano-class': 'pianoclass@example.com',
-    'christ-dancers': 'christdancers@example.com'
-  };
-
-  // ✅ Form Submission Handler
-  document.getElementById('group-registration').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    const messageBox = document.getElementById('registration-message');
-
-    const name = document.getElementById('name').value.trim();
-    const regNumber = document.getElementById('reg-number').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const groupSelect = document.getElementById('group');
-    const selectedGroupValue = groupSelect.value;
-    const selectedGroupText = groupSelect.options[groupSelect.selectedIndex].text;
-    const targetEmail = ministryEmails[selectedGroupValue];
-
-    // Add loading state
-    submitBtn.classList.add('btn-loading');
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="opacity-0">Submitting...</span>';
-
-    try {
-      // ✅ Send form data to your Vercel proxy endpoint
-      const response = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          regNumber,
-          phone,
-          group: selectedGroupValue
-        })
-      });
-
-      if (response.ok) {
-        messageBox.innerHTML = `
-          <div class="success-message p-4 text-center">
-            <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
-            <h4 class="fw-bold text-success mb-3">🎉 Successfully Enrolled!</h4>
-            <p><strong>Thank you, ${name}!</strong></p>
-            <p>Your signup has been saved and sent to the <strong>${selectedGroupText}</strong> ministry.</p>
-            <p class="text-muted small mb-0">
-              <i class="fas fa-envelope me-2"></i>Sending to: <strong>${targetEmail}</strong>
-            </p>
-          </div>`;
-      } else {
-        messageBox.innerHTML = `<p class="error">❌ Error submitting. Please try again later.</p>`;
-      }
-    } catch (error) {
-      messageBox.innerHTML = `<p class="error">❌ Network error. Check your connection and try again.</p>`;
-    }
-
-    // ✅ Reset button and form
-    submitBtn.classList.remove('btn-loading');
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i> Submit Enrollment';
-    document.getElementById('group-registration').reset();
-
-    // Scroll to message and hide after 15s
-    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => messageBox.classList.add('d-none'), 15000);
-  });
-
-  // ✅ Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-</script>
-
-</body>
     <!-- Include Footer -->
 <div id="footer-placeholder"></div>
-
-<script>
-// ✅ Custom JavaScript to handle Formspree without redirect
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contact-form");
-  const box = document.getElementById("contact-message-box");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // prevent redirect
-
-    box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-info";
-    box.textContent = "⏳ Sending your message...";
-
-    const data = new FormData(form);
-
-    try {
-      const res = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { Accept: "application/json" }
-      });
-
-      if (res.ok) {
-        box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-success";
-        box.textContent = "✅ Message sent successfully! We’ll get back to you soon.";
-        form.reset();
-      } else {
-        box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-danger";
-        box.textContent = "❌ Failed to send message. Please try again later.";
-      }
-    } catch (err) {
-      box.className = "mt-4 p-3 text-center rounded-3 fw-semibold alert alert-warning";
-      box.textContent = "⚠️ Network error. Please check your connection.";
-    }
-
-    // Smooth scroll to the message box
-    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-});
-</script>
+</body>
 </html>
-
-
-
-
-
 
 
 

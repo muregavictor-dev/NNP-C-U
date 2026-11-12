@@ -32,6 +32,8 @@
 
       if (selector === "header") {
         addHeaderOverlays(componentDocument, placeholder);
+        bindHeaderScrollEffect(placeholder);
+        bindHeaderNavigation(placeholder);
         setActiveNavigation();
       } else {
         const currentYear = placeholder.querySelector("#currentYear");
@@ -46,6 +48,48 @@
     } finally {
       placeholder.removeAttribute("aria-busy");
     }
+  }
+
+  function bindHeaderScrollEffect(placeholder) {
+    const navbar = placeholder.querySelector(".navbar");
+    if (!navbar) return;
+
+    const updateScrollState = () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 30);
+    };
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    updateScrollState();
+  }
+
+  function bindHeaderNavigation(placeholder) {
+    const membershipModal = document.getElementById("membershipModal");
+    membershipModal?.addEventListener("show.bs.modal", () => {
+      const mobileNavigation = document.getElementById("offcanvasNav");
+      if (!mobileNavigation) return;
+      window.bootstrap?.Offcanvas?.getInstance(mobileNavigation)?.hide();
+    });
+
+    placeholder.addEventListener("click", (event) => {
+      const link = event.target.closest("#top-header .nav-link");
+      if (!link) return;
+
+      const targetUrl = new URL(link.href, window.location.href);
+      const currentUrl = new URL(window.location.href);
+      if (targetUrl.pathname !== currentUrl.pathname || !targetUrl.hash) return;
+
+      const target = document.getElementById(decodeURIComponent(targetUrl.hash.slice(1)));
+      if (!target) return;
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", targetUrl.hash);
+      setActiveNavigation();
+
+      const mobileNavigation = document.getElementById("offcanvasNav");
+      if (!mobileNavigation) return;
+      const offcanvas = window.bootstrap?.Offcanvas?.getInstance(mobileNavigation);
+      offcanvas?.hide();
+    });
   }
 
   function addHeaderOverlays(componentDocument, placeholder) {
@@ -66,25 +110,38 @@
 
   function bindNotificationActions() {
     const markAsReadButton = document.getElementById("markAsReadBtn");
-    if (!markAsReadButton) {
-      return;
-    }
+    if (!markAsReadButton) return;
 
-    markAsReadButton.addEventListener("click", () => {
+    const markAsRead = () => {
       const notification = document.getElementById("notificationItem");
       const unreadCount = document.getElementById("unreadCount");
       const badge = document.getElementById("notificationBadge");
 
       if (notification) {
-        notification.hidden = true;
+        notification.classList.add("d-none");
       }
       if (unreadCount) {
         unreadCount.textContent = "0";
       }
       if (badge) {
-        badge.hidden = true;
+        badge.classList.add("d-none");
       }
-    });
+
+      try {
+        localStorage.setItem("nnp-notifications-read", "true");
+      } catch (error) {
+        console.warn("Could not save notification state.", error);
+      }
+    };
+
+    markAsReadButton.addEventListener("click", markAsRead);
+    try {
+      if (localStorage.getItem("nnp-notifications-read") === "true") {
+        markAsRead();
+      }
+    } catch (error) {
+      console.warn("Could not retrieve notification state.", error);
+    }
   }
 
   function bindMembershipForm(form) {

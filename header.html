@@ -16,44 +16,27 @@
 <body class="header-component-page">
   <!-- HEADER -->
   <header id="top-header" class="sticky-top">
-    <style>
-      /* The shared nav markup is injected into pages, so keep its desktop link contrast local to the component. */
-      @media (min-width: 992px) {
-        #top-header .navbar #offcanvasNav .nav-link {
-          color: #fff !important;
-        }
-
-        #top-header .navbar #offcanvasNav .nav-link:hover,
-        #top-header .navbar #offcanvasNav .nav-link:focus-visible,
-        #top-header .navbar #offcanvasNav .nav-link.active {
-          color: #F6DEA0 !important;
-          background: rgba(246, 222, 160, .14);
-        }
-      }
-
-      @media (max-width: 991.98px) {
-        #top-header #offcanvasNav .nav-link {
-          color: #185A35 !important;
-        }
-
-        #top-header #offcanvasNav .nav-link:hover,
-        #top-header #offcanvasNav .nav-link:focus-visible,
-        #top-header #offcanvasNav .nav-link.active {
-          color: #185A35 !important;
-          background: #EDF4EC;
-        }
-      }
-    </style>
-    <nav class="navbar navbar-expand-lg py-3">
+    <nav class="navbar navbar-expand-lg py-3" aria-label="Main navigation">
       <div class="container-xl">
         <a class="navbar-brand" href="index.html">
           NNP Christian Union
           <span class="brand-tagline d-block small text-soft-gray fw-light">Faith • Fellowship • Growth</span>
         </a>
 
+        <div class="collapse navbar-collapse" id="desktopNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="library.html" class="nav-link">Library</a></li>
+            <li class="nav-item"><a href="ministry.html" class="nav-link">Ministries</a></li>
+            <li class="nav-item"><a href="index.html#live" class="nav-link">Live</a></li>
+            <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+
         <div class="d-flex align-items-center order-lg-3">
           <!-- Notification -->
-          <button class="btn btn-link text-deep-green position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
+          <button class="btn btn-link notification-toggle position-relative me-2" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-label="Notifications">
             <i class="fa-solid fa-bell fs-4"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" id="notificationBadge">1</span>
           </button>
@@ -62,7 +45,7 @@
           <button class="btn btn-gold d-none d-lg-block ms-2" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
 
           <!-- Mobile Nav -->
-          <button class="navbar-toggler ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu">
+          <button class="navbar-toggler d-lg-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-label="Menu" aria-controls="offcanvasNav">
             <i class="fa-solid fa-bars text-deep-green fs-4"></i>
           </button>
         </div>
@@ -118,23 +101,23 @@
         <div class="modal-body">
           <form id="membershipForm" class="row g-3">
             <div class="col-md-6">
-              <label class="form-label fw-bold">Full Name</label>
+              <label for="memberFullName" class="form-label fw-bold">Full Name</label>
               <input type="text" class="form-control" id="memberFullName" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Student/Institute ID</label>
+              <label for="memberStudentID" class="form-label fw-bold">Student/Institute ID</label>
               <input type="text" class="form-control" id="memberStudentID" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Email</label>
+              <label for="memberEmail" class="form-label fw-bold">Email</label>
               <input type="email" class="form-control" id="memberEmail" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Phone</label>
+              <label for="memberPhone" class="form-label fw-bold">Phone</label>
               <input type="tel" class="form-control" id="memberPhone" placeholder="+254..." required>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">Year/Class</label>
+              <label for="memberYearClass" class="form-label fw-bold">Year/Class</label>
               <select class="form-select" id="memberYearClass" required>
                 <option value="">Choose...</option>
                 <option>Year 1</option>
@@ -152,53 +135,5 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Navbar scroll effect
-    window.addEventListener("scroll", () => {
-      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 30);
-    });
-
-    // Notification mark as read
-    document.getElementById("markAsReadBtn").addEventListener("click", () => {
-      document.getElementById("notificationItem").style.display = "none";
-      document.getElementById("unreadCount").textContent = "0";
-      document.getElementById("notificationBadge").style.display = "none";
-    });
-
-    // Membership form submission (Google Apps Script)
-    document.getElementById("membershipForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = e.target.querySelector("button");
-      btn.disabled = true;
-      btn.textContent = "Submitting...";
-
-      const data = {
-        fullName: memberFullName.value,
-        studentID: memberStudentID.value,
-        email: memberEmail.value,
-        phone: memberPhone.value,
-        yearClass: memberYearClass.value,
-      };
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        const result = await res.json();
-        if (result.success) alert("✅ " + result.message);
-        else alert("❌ " + result.error);
-      } catch {
-        alert("⚠️ Network error. Try again.");
-      }
-
-      btn.disabled = false;
-      btn.textContent = "Submit & Receive Welcome Pack";
-      e.target.reset();
-    });
-  </script>
 </body>
 </html>

@@ -135,53 +135,5 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Navbar scroll effect
-    window.addEventListener("scroll", () => {
-      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 30);
-    });
-
-    // Notification mark as read
-    document.getElementById("markAsReadBtn").addEventListener("click", () => {
-      document.getElementById("notificationItem").style.display = "none";
-      document.getElementById("unreadCount").textContent = "0";
-      document.getElementById("notificationBadge").style.display = "none";
-    });
-
-    // Membership form submission (Google Apps Script)
-    document.getElementById("membershipForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = e.target.querySelector("button");
-      btn.disabled = true;
-      btn.textContent = "Submitting...";
-
-      const data = {
-        fullName: memberFullName.value,
-        studentID: memberStudentID.value,
-        email: memberEmail.value,
-        phone: memberPhone.value,
-        yearClass: memberYearClass.value,
-      };
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbwrT0WvUq1FwHp-LsOWa7PxVe_Herzz7LFc2BV8_J1Uwzf79KM6iM8_PXORxmazSY7w/exec", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        const result = await res.json();
-        if (result.success) alert("✅ " + result.message);
-        else alert("❌ " + result.error);
-      } catch {
-        alert("⚠️ Network error. Try again.");
-      }
-
-      btn.disabled = false;
-      btn.textContent = "Submit & Receive Welcome Pack";
-      e.target.reset();
-    });
-  </script>
 </body>
 </html>

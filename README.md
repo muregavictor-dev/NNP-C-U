@@ -2,13 +2,20 @@
 
 The site is a static HTML, CSS, and vanilla JavaScript website with Vercel serverless routes for selected forms and the chatbot.
 
+## Documentation
+
+- [docs/WEBSITE_AUDIT.md](./docs/WEBSITE_AUDIT.md) — full technical, architectural, functional, and operational audit of the repository.
+
 ## File map
 
 - `index.html` — homepage, events, contact and membership forms, and chatbot.
-- `header.html`, `footer.html`, `components.js` — shared site chrome and form wiring.
+- `header.html`, `footer.html`, `js/components.js` — shared site chrome and form wiring.
 - `library.html`, `ministry.html`, `gallery.html`, `contact.html` — supporting pages.
+- `js/` — page-specific event, contact, gallery, library, and ministry behavior.
+- `js/app.js` — homepage interactions and chatbot.
 - `api/chat.js` — server-side OpenAI proxy.
 - `api/submit.js` — ministry enrollment proxy to Google Apps Script.
+- `api/youtube.js` — selects the current NNPCU Media live stream or latest public upload.
 - `register_member.php` — standalone PHP/MySQL registration handler; no references were found in this repository.
 - `*.css` — page and shared stylesheets.
 - `sitemap.xml`, `robots.txt` — search engine crawl configuration.
@@ -28,6 +35,7 @@ Connect the repository to the Vercel project and deploy the reviewed branch thro
 Names only:
 
 - `OPENAI_API_KEY`
+- `YOUTUBE_API_KEY`
 - `DB_HOST`
 - `DB_USER`
 - `DB_PASS`
@@ -42,6 +50,7 @@ Names only:
 - Ministry enrollment passes through `/api/submit` to Google Apps Script.
 - The gallery reads image listings through the GitHub contents API.
 - Chatbot AI requests pass through `/api/chat`; chat history is stored in the visitor's browser.
+- The homepage livestream checks the `@nnpcumedia` YouTube channel for a live broadcast, then falls back to its latest public embeddable upload. Enable YouTube Data API v3 and set `YOUTUBE_API_KEY` in Vercel project environment variables; restrict the key to that API and keep it server-side. The endpoint is cached for 20 minutes to limit API quota use.
 - RSVP entries are stored on the visitor's device unless an owner-configured endpoint is supplied.
 - Library borrow and suggestion requests are not sent by default. Configure a verified service before claiming receipt.
 - `register_member.php` requires a separately configured MySQL-compatible database and currently has no detected in-repository callers.

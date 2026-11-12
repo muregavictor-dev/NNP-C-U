@@ -71,3 +71,27 @@
 .form-honeypot {
   display: none;
 }
+
+/* Homepage hero: use the root-level asset and keep the overlay translucent. */
+body.home-page #main-content .hero-section {
+  position: relative;
+  isolation: isolate;
+  background-color: #185A35 !important;
+  background-image: url("./hero.jpg") !important;
+  background-position: center 45% !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+body.home-page #main-content .hero-section .hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(13, 48, 29, .42), rgba(24, 90, 53, .18)) !important;
+}
+
+body.home-page #main-content .hero-section > .container-xl {
+  position: relative;
+  z-index: 1;
+}

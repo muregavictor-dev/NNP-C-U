@@ -3,100 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NNP CU | Admin Dashboard</title>
+    <meta name="theme-color" content="#176b3a">
+    <title>NNP CU | Master Administration</title>
 
+    <!-- Existing Bootstrap installation/CDN retained -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons for dashboard navigation -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
+        :root {
+            --nnp-green: #176b3a;
+            --nnp-green-dark: #0f4d29;
+            --nnp-green-soft: #eaf3ed;
+            --nnp-gold: #d4a017;
+            --nnp-gold-soft: #fff7df;
+            --page-bg: #f3f7f3;
+            --ink: #1d2b22;
+            --muted: #718078;
+            --line: #e5ece7;
+            --sidebar-width: 264px;
+            --card-shadow: 0 8px 26px rgba(18, 65, 38, .055);
+        }
+
+        * { box-sizing: border-box; }
         body {
-            background: #f3f7f3;
-            font-family: Arial, sans-serif;
+            margin: 0;
+            background: var(--page-bg);
+            color: var(--ink);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
         }
-
-        .navbar {
-            background: #176b3a;
+        button, input, textarea, select { font: inherit; }
+        .auth-screen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
         }
-
-        .dashboard-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        .auth-card {
+            width: min(420px, 100%);
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 34px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
         }
-
-        .brand {
-            color: #176b3a;
-            font-weight: 700;
+        .auth-mark {
+            width: 58px; height: 58px; margin: 0 auto 16px;
+            display: grid; place-items: center;
+            border-radius: 17px; background: var(--nnp-green); color: #fff;
+            font-size: 25px;
+        }
+        #app { min-height: 100vh; }
+        .sidebar {
+            --bs-offcanvas-width: var(--sidebar-width);
+            width: var(--sidebar-width);
+            background: #fff;
+            border-right: 1px solid var(--line);
+        }
+        .sidebar-brand {
+            min-height: 82px;
+            padding: 18px 20px;
+            display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid var(--line);
+        }
+        .brand-mark {
+            flex: 0 0 42px; width: 42px; height: 42px;
+            display: grid; place-items: center;
+            border-radius: 13px; background: var(--nnp-green); color: #fff;
+            font-weight: 800; letter-spacing: -.5px;
+        }
+        .brand-title { font-weight: 800; color: var(--nnp-green-dark); line-height: 1.15; }
+        .brand-subtitle { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+        .sidebar-content { height: calc(100vh - 83px); overflow-y: auto; padding: 17px 13px 24px; }
+        .nav-group {
+            padding: 15px 11px 7px;
+            color: #9aa69e;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .sidebar .nav-link {
+            min-height: 43px; margin: 2px 0; padding: 10px 12px;
+            display: flex; align-items: center; gap: 12px;
+            color: #526158; border-radius: 10px;
+            font-size: 13px; font-weight: 600;
+            transition: background .18s ease, color .18s ease;
+        }
+        .sidebar .nav-link i { width: 18px; font-size: 16px; text-align: center; }
+        .sidebar .nav-link:hover { background: var(--nnp-green-soft); color: var(--nnp-green-dark); }
+        .sidebar .nav-link.active {
+            color: var(--nnp-green-dark);
+            background: var(--nnp-green-soft);
+            box-shadow: inset 3px 0 0 var(--nnp-gold);
+        }
+        .badge-planned {
+            margin-left: auto; padding: 4px 6px; border-radius: 5px;
+            color: #80600d; background: var(--nnp-gold-soft);
+            font-size: 9px; font-weight: 800; text-transform: uppercase;
+        }
+        .sidebar-note {
+            margin: 22px 5px 0; padding: 13px;
+            background: #f8faf8; border: 1px solid var(--line); border-radius: 12px;
+            color: var(--muted); font-size: 11px; line-height: 1.55;
+        }
+        .app-main { min-height: 100vh; margin-left: var(--sidebar-width); }
+        .topbar {
+            min-height: 82px; padding: 15px 30px;
+            display: flex; align-items: center; justify-content: space-between; gap: 18px;
+            background: rgba(255,255,255,.94); border-bottom: 1px solid var(--line);
+            position: sticky; top: 0; z-index: 1020; backdrop-filter: blur(12px);
+        }
+        .topbar-title { margin: 0; color: var(--ink); font-size: 19px; font-weight: 800; }
+        .topbar-caption { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+        .admin-chip {
+            display: flex; align-items: center; gap: 10px;
+            padding: 7px 11px; background: #f8faf8; border: 1px solid var(--line); border-radius: 30px;
+            min-width: 0;
+        }
+        .admin-avatar {
+            width: 34px; height: 34px; display: grid; place-items: center;
+            border-radius: 50%; background: var(--nnp-gold-soft); color: var(--nnp-green-dark);
+        }
+        .admin-email { max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; font-weight: 700; }
+        .page-wrap { max-width: 1500px; margin: 0 auto; padding: 30px; }
+        .page-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+        .page-heading h2 { margin: 0 0 6px; color: var(--nnp-green-dark); font-size: 23px; font-weight: 800; }
+        .page-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+        .eyebrow { color: var(--nnp-gold); font-size: 10px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+        .panel {
+            background: #fff; border: 1px solid var(--line); border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+        .panel-header { padding: 19px 21px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .panel-header h3 { margin: 0; font-size: 14px; font-weight: 800; }
+        .panel-body { padding: 21px; }
+        .stat-card { height: 100%; padding: 19px; }
+        .stat-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .stat-label { color: var(--muted); font-size: 11px; font-weight: 700; }
+        .stat-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; color: var(--nnp-green); background: var(--nnp-green-soft); font-size: 17px; }
+        .stat-value { margin-top: 13px; font-size: 27px; line-height: 1; font-weight: 850; color: var(--ink); }
+        .stat-foot { margin-top: 8px; color: var(--muted); font-size: 10px; }
+        .stat-muted { opacity: .72; }
+        .btn-nnp { color: #fff; background: var(--nnp-green); border-color: var(--nnp-green); font-weight: 700; }
+        .btn-nnp:hover, .btn-nnp:focus { color: #fff; background: var(--nnp-green-dark); border-color: var(--nnp-green-dark); }
+        .btn-outline-nnp { color: var(--nnp-green); border-color: var(--nnp-green); font-weight: 700; }
+        .btn-outline-nnp:hover { color: #fff; background: var(--nnp-green); }
+        .form-label { color: #425148; font-size: 12px; font-weight: 700; }
+        .form-control, .form-select { border-color: #dce6df; border-radius: 9px; padding: 10px 12px; font-size: 13px; }
+        .form-control:focus, .form-select:focus { border-color: var(--nnp-green); box-shadow: 0 0 0 .2rem rgba(23,107,58,.10); }
+        .announcement-item { padding: 16px 0; border-bottom: 1px solid var(--line); }
+        .announcement-item:last-child { border-bottom: 0; padding-bottom: 0; }
+        .announcement-title { margin: 0; font-size: 13px; font-weight: 800; }
+        .announcement-message { margin: 9px 0; color: #526158; font-size: 12px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .announcement-meta { color: var(--muted); font-size: 10px; }
+        .category-badge { padding: 5px 8px; border-radius: 6px; background: var(--nnp-green-soft); color: var(--nnp-green-dark); font-size: 10px; font-weight: 800; }
+        .category-urgent { background: #fff0ee; color: #b42318; }
+        .empty-state { padding: 30px 15px; text-align: center; color: var(--muted); font-size: 12px; }
+        .empty-state i { display: block; margin-bottom: 10px; color: #aab8af; font-size: 26px; }
+        .status-dot { width: 8px; height: 8px; display: inline-block; border-radius: 50%; background: #20a464; margin-right: 7px; }
+        .planned-banner { padding: 22px; border: 1px dashed #d6c27e; background: #fffdf6; border-radius: 13px; }
+        .planned-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 15px; background: var(--nnp-gold-soft); color: #94700e; font-size: 23px; }
+        .feature-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px 18px; padding-left: 0; list-style: none; }
+        .feature-list li { color: #536158; font-size: 12px; }
+        .feature-list li::before { content: "✓"; color: var(--nnp-green); font-weight: 900; margin-right: 8px; }
+        .toast-container { z-index: 2000; }
+        #view:focus { outline: none; }
+        .mobile-menu { display: none; }
+        @media (min-width: 992px) {
+            .sidebar.offcanvas-lg { position: fixed; top: 0; bottom: 0; left: 0; transform: none !important; visibility: visible !important; }
+        }
+        @media (max-width: 991.98px) {
+            .app-main { margin-left: 0; }
+            .topbar { min-height: 70px; padding: 12px 17px; }
+            .mobile-menu { display: inline-flex; }
+            .page-wrap { padding: 22px 17px; }
+            .admin-email { max-width: 125px; }
+        }
+        @media (max-width: 575.98px) {
+            .topbar-caption { display: none; }
+            .admin-chip { padding: 5px; border: 0; background: transparent; }
+            .admin-email { display: none; }
+            .page-heading { flex-direction: column; }
+            .page-heading h2 { font-size: 20px; }
+            .panel-body { padding: 16px; }
+            .feature-list { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-
 <body>
 
-<nav class="navbar navbar-dark px-4 py-3">
-    <span class="navbar-brand fw-bold">NNP CU Administration</span>
-    <button id="logoutButton" class="btn btn-outline-light btn-sm">
-        Logout
-    </button>
-</nav>
+    <!-- Shown until Firebase confirms the administrator session -->
+    <section id="authLoading" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-mark"><i class="bi bi-shield-lock"></i></div>
+            <h1 class="h5 fw-bold mb-2">NNP CU Administration</h1>
+            <p class="text-secondary small mb-3">Verifying your administrator access…</p>
+            <div class="spinner-border spinner-border-sm text-success" role="status" aria-label="Loading"></div>
+            <div id="authError" class="small text-danger mt-3" role="alert"></div>
+        </div>
+    </section>
 
-<main class="container py-5">
-
-    <h2 class="brand mb-2">Announcement Dashboard</h2>
-    <p class="text-muted mb-4">
-        Manage announcements for the NNP Christian Union website.
-    </p>
-
-    <div class="dashboard-card">
-        <h5 class="mb-3">Create Announcement</h5>
-
-        <form id="announcementForm">
-
-            <div class="mb-3">
-                <label class="form-label">Announcement Title</label>
-                <input type="text" id="announcementTitle"
-                       class="form-control" required maxlength="100">
+    <div id="app" class="d-none">
+        <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="sidebar-brand">
+                <div class="brand-mark">NNP</div>
+                <div>
+                    <div id="sidebarLabel" class="brand-title">Christian Union</div>
+                    <span class="brand-subtitle">Administration portal</span>
+                </div>
+                <button type="button" class="btn-close d-lg-none ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close menu"></button>
             </div>
-
-            <div class="mb-3">
-                <label class="form-label">Announcement Message</label>
-                <textarea id="announcementMessage"
-                          class="form-control" rows="5"
-                          required maxlength="2000"></textarea>
+            <div class="sidebar-content">
+                <nav id="sideNav" class="nav flex-column" aria-label="Administration modules"></nav>
+                <div class="sidebar-note">
+                    <strong class="d-block text-dark mb-1"><i class="bi bi-shield-check me-1"></i> Secure administration</strong>
+                    Access is restricted to the approved administrator account. Planned modules remain inactive until their data and permissions are safely connected.
+                </div>
             </div>
+        </aside>
 
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select id="announcementCategory" class="form-select">
-                    <option value="General">General</option>
-                    <option value="Event">Event</option>
-                    <option value="Prayer">Prayer</option>
-                    <option value="Ministry">Ministry</option>
-                    <option value="Urgent">Urgent</option>
-                </select>
-            </div>
+        <div class="app-main">
+            <header class="topbar">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-secondary btn-sm mobile-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open navigation">
+                        <i class="bi bi-list fs-5"></i>
+                    </button>
+                    <div>
+                        <h1 id="pageTitle" class="topbar-title">Overview</h1>
+                        <p class="topbar-caption">NNP Christian Union · Management workspace</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="admin-chip">
+                        <div class="admin-avatar"><i class="bi bi-person-fill"></i></div>
+                        <div>
+                            <div class="admin-email" id="adminLabel">Administrator</div>
+                            <div class="text-secondary" style="font-size:10px;">Verified administrator</div>
+                        </div>
+                    </div>
+                    <button id="logoutButton" class="btn btn-outline-danger btn-sm" type="button" title="Sign out">
+                        <i class="bi bi-box-arrow-right"></i><span class="d-none d-sm-inline ms-1">Logout</span>
+                    </button>
+                </div>
+            </header>
 
-            <button type="submit" id="publishButton"
-                    class="btn btn-success">
-                Publish Announcement
-            </button>
-
-            <div id="statusMessage" class="mt-3"></div>
-
-        </form>
-    </div>
-
-    <div class="dashboard-card mt-4">
-        <h5 class="mb-3">Published Announcements</h5>
-        <div id="announcementsList">
-            Loading announcements...
+            <main id="view" class="page-wrap" tabindex="-1"></main>
         </div>
     </div>
 
-</main>
+    <div id="toasts" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
 
-<script type="module" src="../js/firebase-config.js"></script>
-<script type="module" src="dashboard.js"></script>
+    <!-- Reusable delete confirmation -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-6 fw-bold" id="confirmTitle">Please confirm</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body small" id="confirmText">Are you sure?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="confirmOk">Yes, delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- OVERVIEW -->
+    <template id="tpl-overview">
+        <div class="page-heading">
+            <div>
+                <div class="eyebrow mb-2">Administration centre</div>
+                <h2>Welcome to your dashboard</h2>
+                <p>Manage the digital operations and communication of NNP Christian Union.</p>
+            </div>
+            <a class="btn btn-outline-nnp btn-sm" href="../index.html" target="_blank" rel="noopener">
+                <i class="bi bi-box-arrow-up-right me-1"></i> View public website
+            </a>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-xl-3">
+                <div class="panel stat-card">
+                    <div class="stat-top"><span class="stat-label">Published announcements</span><span class="stat-icon"><i class="bi bi-megaphone"></i></span></div>
+                    <div class="stat-value" data-stat="announcements">—</div>
+                    <div class="stat-foot">Live count from Firebase</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="panel stat-card stat-muted">
+                    <div class="stat-top"><span class="stat-label">Registered members</span><span class="stat-icon"><i class="bi bi-people"></i></span></div>
+                    <div class="stat-value">—</div>
+                    <div class="stat-foot">Membership module not connected</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="panel stat-card stat-muted">
+                    <div class="stat-top"><span class="stat-label">Upcoming events</span><span class="stat-icon"><i class="bi bi-calendar-event"></i></span></div>
+                    <div class="stat-value">—</div>
+                    <div class="stat-foot">Events module not connected</div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="panel stat-card stat-muted">
+                    <div class="stat-top"><span class="stat-label">Prayer requests</span><span class="stat-icon"><i class="bi bi-heart"></i></span></div>
+                    <div class="stat-value">—</div>
+                    <div class="stat-foot">Prayer module not connected</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-xl-8">
+                <section class="panel h-100">
+                    <div class="panel-header">
+                        <h3><i class="bi bi-megaphone me-2 text-success"></i>Recent announcements</h3>
+                        <a href="#announcements" class="btn btn-sm btn-outline-nnp">Manage announcements</a>
+                    </div>
+                    <div class="panel-body" data-slot="recent"><div class="empty-state">Loading announcements…</div></div>
+                </section>
+            </div>
+            <div class="col-xl-4">
+                <section class="panel mb-3">
+                    <div class="panel-header"><h3><i class="bi bi-lightning-charge me-2 text-warning"></i>Quick actions</h3></div>
+                    <div class="panel-body d-grid gap-2">
+                        <a class="btn btn-nnp btn-sm text-start" href="#announcements"><i class="bi bi-plus-circle me-2"></i>Create announcement</a>
+                        <a class="btn btn-outline-nnp btn-sm text-start" href="../index.html" target="_blank" rel="noopener"><i class="bi bi-globe2 me-2"></i>Open public website</a>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-header"><h3><i class="bi bi-activity me-2 text-success"></i>System status</h3></div>
+                    <div class="panel-body small">
+                        <div class="d-flex justify-content-between mb-3"><span class="text-secondary">Administrator access</span><span class="badge text-bg-success">Verified</span></div>
+                        <div class="d-flex justify-content-between mb-3"><span class="text-secondary">Firebase connection</span><span data-slot="db" class="badge text-bg-secondary">Checking</span></div>
+                        <div class="d-flex justify-content-between"><span class="text-secondary">Announcement feed</span><span data-slot="feed" class="badge text-bg-secondary">Loading</span></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </template>
+
+    <!-- ANNOUNCEMENTS -->
+    <template id="tpl-announcements">
+        <div class="page-heading">
+            <div>
+                <div class="eyebrow mb-2">Website communication</div>
+                <h2>Announcements</h2>
+                <p>Create and manage announcements displayed on the public NNP CU website.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-xl-5">
+                <section class="panel">
+                    <div class="panel-header"><h3><i class="bi bi-pencil-square me-2 text-success"></i>Create announcement</h3></div>
+                    <div class="panel-body">
+                        <form id="announcementForm">
+                            <div class="mb-3">
+                                <label for="announcementTitle" class="form-label">Announcement title</label>
+                                <input type="text" id="announcementTitle" class="form-control" maxlength="100" required placeholder="Enter a clear title">
+                                <div class="form-text">Maximum 100 characters.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="announcementMessage" class="form-label">Message</label>
+                                <textarea id="announcementMessage" class="form-control" rows="6" maxlength="2000" required placeholder="Write the announcement details…"></textarea>
+                                <div class="form-text">Maximum 2,000 characters.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="announcementCategory" class="form-label">Category</label>
+                                <select id="announcementCategory" class="form-select">
+                                    <option value="General">General</option>
+                                    <option value="Event">Event</option>
+                                    <option value="Prayer">Prayer</option>
+                                    <option value="Ministry">Ministry</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="publishButton" class="btn btn-nnp w-100">
+                                <i class="bi bi-send me-2"></i>Publish announcement
+                            </button>
+                            <div id="statusMessage" class="small mt-3" role="status" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            <div class="col-xl-7">
+                <section class="panel">
+                    <div class="panel-header">
+                        <h3><i class="bi bi-broadcast me-2 text-success"></i>Published announcements</h3>
+                        <span class="badge text-bg-light" data-slot="announcement-count">Loading</span>
+                    </div>
+                    <div class="panel-body" id="announcementsList"><div class="empty-state">Loading announcements…</div></div>
+                </section>
+            </div>
+        </div>
+    </template>
+
+    <!-- PLANNED MODULES -->
+    <template id="tpl-planned">
+        <div class="page-heading">
+            <div>
+                <div class="eyebrow mb-2">Administration module</div>
+                <h2 data-slot="title">Module</h2>
+                <p>This section is part of the NNP CU administration workspace.</p>
+            </div>
+            <span class="badge-planned">Not yet integrated</span>
+        </div>
+        <section class="planned-banner">
+            <div class="d-flex flex-column flex-md-row gap-3 align-items-md-start">
+                <div class="planned-icon"><i data-slot="icon" class="bi"></i></div>
+                <div>
+                    <h3 class="h5 fw-bold mb-2">This module is planned for a future phase</h3>
+                    <p class="text-secondary small mb-3">The dashboard navigation is ready, but this module has not yet been connected to a database or operational workflow. No records are being displayed or changed here.</p>
+                    <div class="small fw-bold text-dark mb-2">Planned capabilities</div>
+                    <ul class="feature-list mb-3" data-slot="features"></ul>
+                    <div class="alert alert-warning py-2 px-3 small mb-0" data-slot="note"></div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Keep Firebase configuration loading before the dashboard module. -->
+    <script type="module" src="../js/firebase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </body>
 </html>

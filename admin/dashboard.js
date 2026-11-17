@@ -324,7 +324,7 @@ function openEditor(module, id) {
   const modal = document.createElement("div");
   modal.className = "modal fade";
   modal.tabIndex = -1;
-  modal.innerHTML = `<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">${id ? "Edit" : "Add"} ${escapeHtml(definition.title.replace(/s$/, ""))}</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-sm btn-green" type="submit">Save record</button></div></div></div>`;
+  modal.innerHTML = `<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fs-6">${id ? "Edit" : "Add"} ${escapeHtml(definition.title.replace(/s$/, ""))}</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button><button class="btn btn-sm btn-green" type="submit" form="recordForm">Save record</button></div></div></div>`;
   modal.querySelector(".modal-body").append(form);
   document.body.append(modal);
   const instance = new bootstrap.Modal(modal);

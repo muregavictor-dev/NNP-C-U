@@ -6,6 +6,17 @@
 (function () {
   'use strict';
 
+  /* Self-loading stylesheet: pages that only include this script (or that
+     inject the header's HTML without its <head>) still get the styles.
+     The CSS is expected next to this file. */
+  var self = document.currentScript;
+  if (self && self.src && !document.querySelector('link[href*="nav-dropdown.css"]')) {
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = self.src.replace(/\.js(\?.*)?$/, '.css$1');
+    document.head.appendChild(css);
+  }
+
   var OPEN_DELAY = 90;   // ms of hover before a panel opens (avoids accidental flicker)
   var CLOSE_DELAY = 220; // ms grace so the pointer can cross the gap into the panel
   var hoverMode = window.matchMedia('(min-width: 992px) and (hover: hover)');

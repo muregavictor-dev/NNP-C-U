@@ -1,0 +1,245 @@
+/*
+ * NNP Christian Union - Clustered dropdown navigation
+ * Everything is scoped to #top-header, so no other page element is touched.
+ * Load AFTER header.css.
+ */
+
+#top-header {
+  --nav-ease: cubic-bezier(.2, .7, .2, 1);
+  --nav-muted: #5b6b61;
+  --nav-line: #e4ebe4;
+}
+
+/* ---------- Top-level links ---------- */
+#top-header .nav-link {
+  color: var(--deep-green);
+  font-weight: 500;
+}
+
+#top-header .nav-split {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#top-header .nav-split .nav-link {
+  position: relative;
+  padding: .5rem .35rem .5rem .8rem;
+}
+
+#top-header .nav-item:not(.has-mega) > .nav-link {
+  padding: .5rem .8rem;
+  position: relative;
+}
+
+/* gold underline that grows in on hover / open / keyboard focus */
+#top-header .nav-link::after {
+  content: "";
+  position: absolute;
+  left: .8rem;
+  right: .8rem;
+  bottom: .2rem;
+  height: 2px;
+  background: var(--warm-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s var(--nav-ease);
+}
+
+#top-header .nav-link:hover,
+#top-header .nav-link:focus-visible,
+#top-header .has-mega.is-open > .nav-split .nav-link {
+  color: var(--deep-green);
+}
+
+#top-header .nav-link:hover::after,
+#top-header .nav-link:focus-visible::after,
+#top-header .has-mega.is-open > .nav-split .nav-link::after {
+  transform: scaleX(1);
+}
+
+#top-header .has-mega > .nav-split .nav-link::after { right: 0; }
+
+/* caret button (keyboard + touch access to the panel) */
+#top-header .mega-caret {
+  background: none;
+  border: 0;
+  color: var(--deep-green);
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: .7rem;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+#top-header .mega-caret:hover { background: rgba(47, 138, 75, .12); }
+
+#top-header .mega-caret:focus-visible,
+#top-header .mega-links a:focus-visible,
+#top-header .m-toggle:focus-visible {
+  outline: 2px solid var(--primary-green);
+  outline-offset: 2px;
+}
+
+#top-header .mega-caret i { transition: transform .25s var(--nav-ease); }
+#top-header .has-mega.is-open > .nav-split .mega-caret i { transform: rotate(180deg); }
+
+/* ---------- Panels ---------- */
+#top-header .mega-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-white);
+  border-top: 3px solid var(--warm-gold);
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: 0 22px 40px -12px rgba(24, 90, 53, .25);
+  text-align: left;
+  padding: 1.75rem 0 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .25s var(--nav-ease), visibility 0s linear .25s;
+  z-index: 1000;
+}
+
+#top-header .has-mega.is-open > .mega-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* compact dropdown (single cluster), anchored under its own link */
+#top-header .has-mega.is-compact { position: relative; }
+
+#top-header .is-compact > .mega-panel {
+  left: 0;
+  right: auto;
+  top: calc(100% + .9rem);
+  min-width: 270px;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border-radius: var(--radius);
+}
+
+/* invisible bridge so the pointer can travel from link to panel */
+#top-header .is-compact > .mega-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.4rem;
+  height: 1.4rem;
+}
+
+/* ---------- Clusters ---------- */
+#top-header .mega-heading {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--deep-green);
+  margin: 0 0 .6rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--nav-line);
+}
+
+#top-header .mega-links { list-style: none; margin: 0; padding: 0; }
+
+#top-header .mega-links a {
+  display: block;
+  padding: .5rem .65rem;
+  margin: 0 -.65rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: background-color .15s, transform .2s var(--nav-ease);
+}
+
+#top-header .mega-links a:hover {
+  background: #eef6ef;
+  transform: translateX(3px);
+}
+
+#top-header .mega-title { display: block; font-weight: 600; font-size: .95rem; line-height: 1.3; }
+#top-header .mega-desc { display: block; font-size: .8rem; color: var(--nav-muted); line-height: 1.35; }
+
+/* feature block */
+#top-header .mega-feature {
+  background: linear-gradient(160deg, var(--deep-green), var(--primary-green));
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+#top-header .mega-feature h6 { font-size: 1.05rem; font-weight: 700; margin: 0 0 .35rem; }
+#top-header .mega-feature p { font-size: .85rem; margin: 0; color: #e6f2e9; }
+#top-header .mega-feature .btn-gold { align-self: flex-start; }
+
+/* ---------- Mobile drawer accordion ---------- */
+#top-header .m-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--nav-line);
+}
+
+#top-header .m-row .nav-link { flex: 1; padding: .85rem .25rem; }
+#top-header .m-row .nav-link::after { display: none; }
+
+#top-header .m-toggle {
+  background: none;
+  border: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--deep-green);
+  cursor: pointer;
+}
+
+#top-header .m-toggle i { transition: transform .25s var(--nav-ease); }
+#top-header .m-toggle[aria-expanded="true"] i { transform: rotate(180deg); }
+
+#top-header .m-sub {
+  list-style: none;
+  margin: 0;
+  padding: .25rem 0 .75rem .9rem;
+  border-left: 3px solid var(--warm-gold);
+  margin-left: .25rem;
+}
+
+#top-header .m-sub[hidden] { display: none; }
+
+#top-header .m-sub a {
+  display: block;
+  padding: .55rem .5rem;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: .95rem;
+}
+
+#top-header .m-sub .m-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--nav-muted);
+  padding: .6rem .5rem .1rem;
+}
+
+#top-header .offcanvas-body > .navbar-nav > li:not(.m-group) > .nav-link {
+  padding: .85rem .25rem;
+  border-bottom: 1px solid var(--nav-line);
+}
+
+/* ---------- Motion preference ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #top-header .mega-panel,
+  #top-header .nav-link::after,
+  #top-header .mega-caret i,
+  #top-header .m-toggle i,
+  #top-header .mega-links a { transition: none; }
+}

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <link rel="stylesheet" href="header.css">
   <link rel="stylesheet" href="modernization.css">
+  <link rel="stylesheet" href="nav-dropdown.css">
 
 </head>
 
@@ -26,11 +27,118 @@
         <div class="collapse navbar-collapse" id="desktopNavigation">
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="library.html" class="nav-link">Library</a></li>
-            <li class="nav-item"><a href="ministry.html" class="nav-link">Ministries</a></li>
+            <li class="nav-item has-mega">
+              <div class="nav-split">
+                <a href="library.html" class="nav-link">Library</a>
+                <button type="button" class="mega-caret" aria-expanded="false" aria-controls="mega-library" aria-label="Show Library menu"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              </div>
+              <div class="mega-panel" id="mega-library">
+                <div class="container-xl">
+                  <div class="row g-4">
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Read</h6>
+                <ul class="mega-links">
+                    <li><a href="library.html#books"><span class="mega-title">Books &amp; devotionals</span><span class="mega-desc">Daily reads and study books</span></a></li>
+                    <li><a href="library.html#guides"><span class="mega-title">Study guides</span><span class="mega-desc">Notes for Bible study groups</span></a></li>
+                    <li><a href="library.html#magazines"><span class="mega-title">Magazines</span><span class="mega-desc">Digital issues to read online</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Listen &amp; watch</h6>
+                <ul class="mega-links">
+                    <li><a href="library.html#sermons"><span class="mega-title">Sermons</span><span class="mega-desc">Recorded messages</span></a></li>
+                    <li><a href="library.html#worship-audio"><span class="mega-title">Worship audio</span><span class="mega-desc">Songs from our services</span></a></li>
+                    <li><a href="library.html#series"><span class="mega-title">Teaching series</span><span class="mega-desc">Multi-week topical studies</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Browse</h6>
+                <ul class="mega-links">
+                    <li><a href="library.html#new"><span class="mega-title">New arrivals</span><span class="mega-desc">Latest additions</span></a></li>
+                    <li><a href="library.html#popular"><span class="mega-title">Popular</span><span class="mega-desc">Most read this month</span></a></li>
+                    <li><a href="library.html"><span class="mega-title">All resources</span><span class="mega-desc">The full library</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <div class="mega-feature">
+                  <div><h6>Read, listen, grow</h6><p>Free resources for members. Join to save your place and get new arrivals.</p></div>
+                  <button type="button" class="btn btn-gold btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
+                </div>
+              </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item has-mega">
+              <div class="nav-split">
+                <a href="ministry.html" class="nav-link">Ministries</a>
+                <button type="button" class="mega-caret" aria-expanded="false" aria-controls="mega-ministries" aria-label="Show Ministries menu"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              </div>
+              <div class="mega-panel" id="mega-ministries">
+                <div class="container-xl">
+                  <div class="row g-4">
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Worship &amp; prayer</h6>
+                <ul class="mega-links">
+                    <li><a href="ministry.html#worship"><span class="mega-title">Worship team</span><span class="mega-desc">Lead the fellowship in song</span></a></li>
+                    <li><a href="ministry.html#prayer"><span class="mega-title">Prayer ministry</span><span class="mega-desc">Weekly prayer and intercession</span></a></li>
+                    <li><a href="ministry.html#intercessors"><span class="mega-title">Intercessors</span><span class="mega-desc">Stand in the gap for others</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Outreach</h6>
+                <ul class="mega-links">
+                    <li><a href="ministry.html#evangelism"><span class="mega-title">Campus evangelism</span><span class="mega-desc">Share the gospel on campus</span></a></li>
+                    <li><a href="ministry.html#missions"><span class="mega-title">Missions</span><span class="mega-desc">Serve beyond the campus</span></a></li>
+                    <li><a href="ministry.html#service"><span class="mega-title">Community service</span><span class="mega-desc">Practical love in action</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <h6 class="mega-heading">Growth</h6>
+                <ul class="mega-links">
+                    <li><a href="ministry.html#bible-study"><span class="mega-title">Bible study</span><span class="mega-desc">Small groups through Scripture</span></a></li>
+                    <li><a href="ministry.html#discipleship"><span class="mega-title">Discipleship</span><span class="mega-desc">Grow in your walk with Christ</span></a></li>
+                    <li><a href="ministry.html#mentorship"><span class="mega-title">Mentorship</span><span class="mega-desc">Be guided by a senior member</span></a></li>
+                </ul>
+              </div>
+              <div class="col-lg-3">
+                <div class="mega-feature">
+                  <div><h6>Find your place</h6><p>Every member serves somewhere. Join the Union and we will connect you to a ministry.</p></div>
+                  <button type="button" class="btn btn-gold btn-sm" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
+                </div>
+              </div>
+                  </div>
+                </div>
+              </div>
+            </li>
             <li class="nav-item"><a href="index.html#live" class="nav-link">Live</a></li>
-            <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item has-mega is-compact">
+              <div class="nav-split">
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <button type="button" class="mega-caret" aria-expanded="false" aria-controls="mega-gallery" aria-label="Show Gallery menu"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              </div>
+              <div class="mega-panel" id="mega-gallery">
+                <ul class="mega-links">
+                  <li><a href="gallery.html#photos"><span class="mega-title">Photos</span><span class="mega-desc">Albums from our events</span></a></li>
+                  <li><a href="gallery.html#videos"><span class="mega-title">Videos</span><span class="mega-desc">Highlights and testimonies</span></a></li>
+                  <li><a href="gallery.html#events"><span class="mega-title">Events</span><span class="mega-desc">Browse by event</span></a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item has-mega is-compact">
+              <div class="nav-split">
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button type="button" class="mega-caret" aria-expanded="false" aria-controls="mega-contact" aria-label="Show Contact menu"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+              </div>
+              <div class="mega-panel" id="mega-contact">
+                <ul class="mega-links">
+                  <li><a href="contact.html"><span class="mega-title">Contact us</span><span class="mega-desc">Send a message</span></a></li>
+                  <li><a href="contact.html#leadership"><span class="mega-title">Leadership</span><span class="mega-desc">Meet the executive</span></a></li>
+                  <li><a href="contact.html#prayer-request"><span class="mega-title">Prayer request</span><span class="mega-desc">Share what we can pray for</span></a></li>
+                  <li><a href="contact.html#location"><span class="mega-title">Find us</span><span class="mega-desc">Meeting times and venue</span></a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
 
@@ -59,11 +167,70 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav ms-auto">
               <li><a href="index.html" class="nav-link">Home</a></li>
-              <li><a href="library.html" class="nav-link">Library</a></li>
-              <li><a href="ministry.html" class="nav-link">Ministries</a></li>
+              <li class="m-group">
+                <div class="m-row">
+                  <a href="library.html" class="nav-link">Library</a>
+                  <button type="button" class="m-toggle" aria-expanded="false" aria-controls="m-library" aria-label="Show Library links"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                </div>
+                <ul class="m-sub" id="m-library" hidden>
+                  <li class="m-label">Read</li>
+                  <li><a href="library.html#books">Books &amp; devotionals</a></li>
+                  <li><a href="library.html#guides">Study guides</a></li>
+                  <li><a href="library.html#magazines">Magazines</a></li>
+                  <li class="m-label">Listen &amp; watch</li>
+                  <li><a href="library.html#sermons">Sermons</a></li>
+                  <li><a href="library.html#worship-audio">Worship audio</a></li>
+                  <li><a href="library.html#series">Teaching series</a></li>
+                  <li class="m-label">Browse</li>
+                  <li><a href="library.html#new">New arrivals</a></li>
+                  <li><a href="library.html#popular">Popular</a></li>
+                  <li><a href="library.html">All resources</a></li>
+                </ul>
+              </li>
+              <li class="m-group">
+                <div class="m-row">
+                  <a href="ministry.html" class="nav-link">Ministries</a>
+                  <button type="button" class="m-toggle" aria-expanded="false" aria-controls="m-ministries" aria-label="Show Ministries links"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                </div>
+                <ul class="m-sub" id="m-ministries" hidden>
+                  <li class="m-label">Worship &amp; prayer</li>
+                  <li><a href="ministry.html#worship">Worship team</a></li>
+                  <li><a href="ministry.html#prayer">Prayer ministry</a></li>
+                  <li><a href="ministry.html#intercessors">Intercessors</a></li>
+                  <li class="m-label">Outreach</li>
+                  <li><a href="ministry.html#evangelism">Campus evangelism</a></li>
+                  <li><a href="ministry.html#missions">Missions</a></li>
+                  <li><a href="ministry.html#service">Community service</a></li>
+                  <li class="m-label">Growth</li>
+                  <li><a href="ministry.html#bible-study">Bible study</a></li>
+                  <li><a href="ministry.html#discipleship">Discipleship</a></li>
+                  <li><a href="ministry.html#mentorship">Mentorship</a></li>
+                </ul>
+              </li>
               <li><a href="index.html#live" class="nav-link">Live</a></li>
-              <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-              <li><a href="contact.html" class="nav-link">Contact</a></li>
+              <li class="m-group">
+                <div class="m-row">
+                  <a href="gallery.html" class="nav-link">Gallery</a>
+                  <button type="button" class="m-toggle" aria-expanded="false" aria-controls="m-gallery" aria-label="Show Gallery links"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                </div>
+                <ul class="m-sub" id="m-gallery" hidden>
+                  <li><a href="gallery.html#photos">Photos</a></li>
+                  <li><a href="gallery.html#videos">Videos</a></li>
+                  <li><a href="gallery.html#events">Events</a></li>
+                </ul>
+              </li>
+              <li class="m-group">
+                <div class="m-row">
+                  <a href="contact.html" class="nav-link">Contact</a>
+                  <button type="button" class="m-toggle" aria-expanded="false" aria-controls="m-contact" aria-label="Show Contact links"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+                </div>
+                <ul class="m-sub" id="m-contact" hidden>
+                  <li><a href="contact.html">Contact us</a></li>
+                  <li><a href="contact.html#leadership">Leadership</a></li>
+                  <li><a href="contact.html#prayer-request">Prayer request</a></li>
+                  <li><a href="contact.html#location">Find us</a></li>
+                </ul>
+              </li>
             </ul>
             <div class="mt-4 d-lg-none">
               <button class="btn btn-gold w-100" data-bs-toggle="modal" data-bs-target="#membershipModal">Become a Member</button>
@@ -135,5 +302,6 @@
     </div>
   </div>
 
+  <script src="nav-dropdown.js"></script>
 </body>
 </html>

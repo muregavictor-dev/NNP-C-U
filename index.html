@@ -73,18 +73,168 @@
     
     <main id="main-content">
         
-        <section id="hero" class="hero-section d-flex align-items-center text-white">
-            <div class="hero-overlay"></div> <div class="container-xl z-1 py-5" data-aos="fade-up" data-aos-duration="1000">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <p class="h4 text-muted-yellow fw-bold mb-3">Welcome to the Nyeri National Polytechnic Christian Union</p>
-                        <h1 class="display-2 fw-bolder text-shadow-lg">Where Everybody Is Somebody,<br class="d-none d-md-block">And Jesus Christ Is Lord</h1>
-                        <p class="lead mt-4 mb-5 text-shadow-sm">A vibrant community of students growing in Christ — join weekly worship, Bible study, outreach, and forge life-long friendships.</p>
-                        
-                
+        <section id="hero" class="nx-hero" aria-label="Welcome to NNP Christian Union">
+
+            <!-- Top marquee -->
+            <div class="nx-marquee nx-marquee--top" role="presentation">
+                <div class="nx-marquee-inner">
+                    <div class="nx-group">
+                        <span>Faith</span><span>Fellowship</span><span>Growth</span><span>Everybody is somebody</span><span>Jesus Christ is Lord</span><span>Worship</span><span>Bible Study</span><span>Outreach</span><span>Discipleship</span><span>Possessing our possession</span>
+                    </div>
+                    <div class="nx-group" aria-hidden="true">
+                        <span>Faith</span><span>Fellowship</span><span>Growth</span><span>Everybody is somebody</span><span>Jesus Christ is Lord</span><span>Worship</span><span>Bible Study</span><span>Outreach</span><span>Discipleship</span><span>Possessing our possession</span>
                     </div>
                 </div>
             </div>
+
+            <!-- Slider stage -->
+            <div class="nx-stage" role="region" aria-roledescription="carousel" aria-label="NNP CU highlights">
+
+                <!-- To add a slide: copy one <figure>, one .nx-chipset and set data-caption. Progress bars and counter build themselves. -->
+                <div class="nx-slides">
+                    <figure class="nx-slide is-active" data-caption="Fellowship at NNP CU">
+                        <img src="hero.jpg" alt="NNP Christian Union fellowship" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+                    </figure>
+                    <figure class="nx-slide" data-caption="Worship moments" aria-hidden="true">
+                        <img src="IMG_20251018_005801_038%5B1%5D.jpg" alt="Praise and worship during service" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </figure>
+                    <figure class="nx-slide" data-caption="Kanja Mission" aria-hidden="true">
+                        <img src="images/gallary/kanja%20mission.jpeg" alt="Kanja Mission fellowship" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                    </figure>
+                </div>
+
+                <div class="nx-shade" aria-hidden="true"></div>
+                <div class="nx-grid" aria-hidden="true"></div>
+                <span class="nx-corner nx-tl" aria-hidden="true"></span><span class="nx-corner nx-tr" aria-hidden="true"></span>
+                <span class="nx-corner nx-bl" aria-hidden="true"></span><span class="nx-corner nx-br" aria-hidden="true"></span>
+
+                <div class="nx-content">
+                    <p class="nx-kicker"><span class="nx-pulse" aria-hidden="true"></span>Nyeri National Polytechnic Christian Union</p>
+                    <h1 class="nx-title">Where Everybody Is Somebody,<br class="d-none d-md-block"> And Jesus Christ Is Lord</h1>
+                    <p class="nx-lead">A vibrant community of students growing in Christ. Join weekly worship, Bible study and outreach, and build life-long friendships.</p>
+                    <div class="nx-cta">
+                        <a href="#join" class="nx-btn nx-btn--solid">Join the Union</a>
+                        <a href="#schedule" class="nx-btn nx-btn--ghost">Weekly schedule</a>
+                    </div>
+
+                    <div class="nx-chips" aria-live="polite">
+                        <div class="nx-chipset is-active">
+                            <span class="nx-chip"><i class="fa-solid fa-book-bible" aria-hidden="true"></i>Bible Study · Tue 5 PM</span>
+                            <span class="nx-chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Block C: C18</span>
+                            <span class="nx-chip"><i class="fa-solid fa-people-group" aria-hidden="true"></i>Discipleship · Wed 5 PM</span>
+                        </div>
+                        <div class="nx-chipset">
+                            <span class="nx-chip"><i class="fa-solid fa-music" aria-hidden="true"></i>Mid-week Service · Wed &amp; Fri 7 PM</span>
+                            <span class="nx-chip"><i class="fa-solid fa-hands-praying" aria-hidden="true"></i>Intercession · Fri 5 PM</span>
+                            <span class="nx-chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Mountain</span>
+                        </div>
+                        <div class="nx-chipset">
+                            <span class="nx-chip"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i>Evangelism · Fri 5 PM</span>
+                            <span class="nx-chip"><i class="fa-solid fa-cross" aria-hidden="true"></i>"Possessing our possession" · Num 33:53</span>
+                            <span class="nx-chip"><i class="fa-solid fa-heart" aria-hidden="true"></i>Breaking denominational barriers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nx-hud">
+                    <span class="nx-caption">Fellowship at NNP CU</span>
+                    <div class="nx-progress" role="group" aria-label="Choose slide"></div>
+                    <div class="nx-ctrls">
+                        <span class="nx-count" aria-hidden="true">01 / 03</span>
+                        <button type="button" class="nx-ctl nx-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                        <button type="button" class="nx-ctl nx-pause" aria-label="Pause slideshow" aria-pressed="false"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
+                        <button type="button" class="nx-ctl nx-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom marquee (runs the other way) -->
+            <div class="nx-marquee nx-marquee--bottom" role="presentation">
+                <div class="nx-marquee-inner">
+                    <div class="nx-group">
+                        <span>Mon · Prayer &amp; fasting · 5 PM</span><span>Tue · Bible Study · Block C18</span><span>Wed · Discipleship &amp; Mid-week Service</span><span>Thu · Revival Wave · Mountain</span><span>Fri · Intercession, Evangelism &amp; Christ Dancers</span><span>Everyone is welcome</span>
+                    </div>
+                    <div class="nx-group" aria-hidden="true">
+                        <span>Mon · Prayer &amp; fasting · 5 PM</span><span>Tue · Bible Study · Block C18</span><span>Wed · Discipleship &amp; Mid-week Service</span><span>Thu · Revival Wave · Mountain</span><span>Fri · Intercession, Evangelism &amp; Christ Dancers</span><span>Everyone is welcome</span>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+            (function () {
+                var root = document.getElementById('hero');
+                if (!root) return;
+                var stage = root.querySelector('.nx-stage');
+                var slides = [].slice.call(root.querySelectorAll('.nx-slide'));
+                var sets = [].slice.call(root.querySelectorAll('.nx-chipset'));
+                var bar = root.querySelector('.nx-progress');
+                var cap = root.querySelector('.nx-caption');
+                var cnt = root.querySelector('.nx-count');
+                var pauseBtn = root.querySelector('.nx-pause');
+                var n = slides.length, cur = 0, held = false, hover = false, segs = [];
+                if (!n) return;
+
+                function pad(x) { return (x < 10 ? '0' : '') + x; }
+
+                slides.forEach(function (s, k) {
+                    var b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'nx-seg';
+                    b.setAttribute('aria-label', 'Go to slide ' + (k + 1) + ': ' + (s.getAttribute('data-caption') || ''));
+                    b.innerHTML = '<span></span>';
+                    b.addEventListener('click', function () { go(k); });
+                    b.firstChild.addEventListener('animationend', function () { if (k === cur) go(cur + 1); });
+                    bar.appendChild(b);
+                    segs.push(b);
+                });
+
+                function go(k) {
+                    cur = (k + n) % n;
+                    slides.forEach(function (s, j) {
+                        s.classList.toggle('is-active', j === cur);
+                        s.setAttribute('aria-hidden', j === cur ? 'false' : 'true');
+                    });
+                    sets.forEach(function (c, j) { c.classList.toggle('is-active', j === cur); });
+                    segs.forEach(function (b, j) {
+                        b.classList.remove('is-active', 'is-done');
+                        void b.offsetWidth; /* restart progress animation */
+                        if (j === cur) b.classList.add('is-active');
+                        else if (j < cur) b.classList.add('is-done');
+                    });
+                    if (cap) cap.textContent = slides[cur].getAttribute('data-caption') || '';
+                    if (cnt) cnt.textContent = pad(cur + 1) + ' / ' + pad(n);
+                }
+
+                function sync() { stage.classList.toggle('is-paused', held || hover); }
+
+                root.querySelector('.nx-prev').addEventListener('click', function () { go(cur - 1); });
+                root.querySelector('.nx-next').addEventListener('click', function () { go(cur + 1); });
+                pauseBtn.addEventListener('click', function () {
+                    held = !held;
+                    pauseBtn.setAttribute('aria-pressed', held);
+                    pauseBtn.setAttribute('aria-label', held ? 'Play slideshow' : 'Pause slideshow');
+                    pauseBtn.firstElementChild.className = held ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+                    sync();
+                });
+                stage.addEventListener('mouseenter', function () { hover = true; sync(); });
+                stage.addEventListener('mouseleave', function () { hover = false; sync(); });
+                stage.addEventListener('keydown', function (e) {
+                    if (e.key === 'ArrowLeft') go(cur - 1);
+                    if (e.key === 'ArrowRight') go(cur + 1);
+                });
+
+                var x0 = null;
+                stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+                stage.addEventListener('touchend', function (e) {
+                    if (x0 === null) return;
+                    var dx = e.changedTouches[0].clientX - x0;
+                    if (Math.abs(dx) > 45) go(cur + (dx < 0 ? 1 : -1));
+                    x0 = null;
+                }, { passive: true });
+
+                go(0);
+            })();
+            </script>
         </section>
 
         <section id="about" class="section-light-green py-5 py-md-5 my-5">

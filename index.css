@@ -140,7 +140,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  height: clamp(460px, 74vh, 660px);
+ height: clamp(380px, 56vh, 500px);
   margin: 10px 0;
   border-radius: 22px;
   background: #07160E;

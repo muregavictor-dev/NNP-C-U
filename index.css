@@ -401,3 +401,108 @@
   #hero .nx-seg.is-active span { width: 100%; }
   #hero .nx-slide, #hero .nx-chipset { transition: none; }
 }
+
+
+/* ==========================================================
+   Page sections below the hero: tighter, consistent rhythm
+   (all new classes are prefixed nx-, nothing global is overridden)
+   ========================================================== */
+body.home-page {
+  --nx-deep: #185A35;
+  --nx-line-soft: rgba(24, 90, 53, .14);
+}
+body.home-page .nx-sec {
+  padding-block: clamp(34px, 5vw, 60px);
+  margin: 0;
+  scroll-margin-top: 72px;
+}
+body.home-page .nx-sec--tight { padding-block: clamp(20px, 3vw, 36px); }
+body.home-page #videos { scroll-margin-top: 72px; }
+body.home-page .nx-h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); margin-bottom: clamp(18px, 2.6vw, 28px); letter-spacing: -.01em; }
+body.home-page .nx-h3 { font-size: 1.05rem; margin-bottom: .5rem; }
+body.home-page .nx-h3-lg { font-size: clamp(1.2rem, 2.2vw, 1.5rem); margin-bottom: 1rem; }
+body.home-page .nx-plain { color: inherit; text-decoration: none; }
+body.home-page .nx-plain:hover { text-decoration: underline; }
+
+/* ----- About ----- */
+body.home-page .nx-about .lead { font-size: 1.05rem; line-height: 1.65; }
+body.home-page .nx-about-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .25); border: 1px solid var(--nx-line-soft); }
+body.home-page .nx-about-cell { padding: 20px 22px; font-size: .95rem; }
+body.home-page .nx-about-cell--split { border-left: 1px solid var(--nx-line-soft); }
+body.home-page .nx-values { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 18px; padding: 14px 22px; }
+body.home-page .nx-values li { padding: 3px 12px; border: 1px solid rgba(255, 255, 255, .28); border-radius: 999px; font-size: .88rem; }
+@media (max-width: 767.98px) { body.home-page .nx-about-cell--split { border-left: 0; border-top: 1px solid var(--nx-line-soft); } }
+
+/* ----- Schedule: one tabbed component (replaces table + duplicate accordion) ----- */
+body.home-page .nx-sched { max-width: 980px; margin: 0 auto; background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--nx-line-soft); box-shadow: 0 14px 40px -18px rgba(0, 0, 0, .35); }
+body.home-page .nx-days { display: flex; gap: 6px; padding: 10px; background: var(--nx-deep); overflow-x: auto; scrollbar-width: none; }
+body.home-page .nx-days::-webkit-scrollbar { display: none; }
+body.home-page .nx-day {
+  position: relative; flex: 1 0 auto; padding: 9px 14px; border: 0; border-radius: 12px;
+  background: transparent; color: #DDEFE3; font-size: .9rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background .2s ease, color .2s ease;
+}
+body.home-page .nx-day:hover { background: rgba(255, 255, 255, .12); }
+body.home-page .nx-day.active { background: #fff; color: var(--nx-deep); }
+body.home-page .nx-day.is-today::after { content: ""; position: absolute; top: 6px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-gold, #E6B93A); }
+body.home-page .nx-day:focus-visible { outline: 2px solid var(--brand-gold, #E6B93A); outline-offset: 2px; }
+body.home-page .nx-day-short { display: none; }
+body.home-page .nx-panel-body { display: grid; grid-template-columns: 1.7fr 1fr 1fr; gap: 22px; padding: 24px 26px; min-height: 150px; }
+body.home-page .nx-cell--wide { grid-column: span 2; }
+body.home-page .nx-lbl { margin: 0 0 10px; font-size: .78rem; font-weight: 700; color: #5E6E64; }
+body.home-page .nx-list, body.home-page .nx-slots { list-style: none; margin: 0; padding: 0; }
+body.home-page .nx-list li { position: relative; padding-left: 16px; margin-bottom: 6px; line-height: 1.4; }
+body.home-page .nx-list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-gold, #E6B93A); }
+body.home-page .nx-list--plain li { padding-left: 0; font-weight: 600; color: var(--nx-deep); }
+body.home-page .nx-list--plain li::before { display: none; }
+body.home-page .nx-slots li { display: grid; grid-template-columns: 11.5em 1fr; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--nx-line-soft); }
+body.home-page .nx-slots li:last-child { border-bottom: 0; }
+body.home-page .nx-time { font-weight: 600; color: var(--nx-deep); font-variant-numeric: tabular-nums; }
+body.home-page .nx-venues { display: flex; flex-wrap: wrap; gap: 6px; }
+body.home-page .nx-badge { font-size: .8rem; padding: .45em .8em; }
+@media (max-width: 767.98px) {
+  body.home-page .nx-panel-body { grid-template-columns: 1fr; gap: 16px; padding: 18px; }
+  body.home-page .nx-cell--wide { grid-column: auto; }
+  body.home-page .nx-slots li { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 575.98px) {
+  body.home-page .nx-day-full { display: none; }
+  body.home-page .nx-day-short { display: inline; }
+  body.home-page .nx-day { padding: 9px 10px; }
+}
+
+/* ----- Live + videos ----- */
+body.home-page .nx-live-card { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: 22px; background: #fff; border-radius: 16px; border: 1px solid var(--nx-line-soft); box-shadow: 0 10px 30px -16px rgba(0, 0, 0, .25); }
+body.home-page .nx-videos { margin-top: clamp(28px, 4vw, 44px); padding-top: clamp(24px, 3.5vw, 36px); border-top: 1px solid var(--nx-line-soft); }
+body.home-page .nx-vcard { display: grid; grid-template-columns: minmax(0, 46%) 1fr; height: 100%; }
+body.home-page .nx-vcard .card-body { padding: 14px 16px; align-self: center; }
+body.home-page .nx-vcard .card-title { font-size: 1rem; }
+body.home-page .nx-yt, body.home-page .nx-yt-frame { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; height: 100%; min-height: 150px; border: 0; background: linear-gradient(135deg, #0F3D24, #185A35); overflow: hidden; }
+body.home-page .nx-yt img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+body.home-page .nx-yt:hover img { transform: scale(1.05); }
+body.home-page .nx-play {
+  position: absolute; inset: 0; margin: auto; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+  color: #1B1500; font-size: .95rem; padding-left: 3px; border-radius: 50%;
+  background: var(--brand-gold, #E6B93A); box-shadow: 0 6px 22px rgba(0, 0, 0, .4); transition: transform .2s ease;
+}
+body.home-page .nx-yt:hover .nx-play { transform: scale(1.1); }
+body.home-page .nx-yt:focus-visible { outline: 3px solid var(--brand-gold, #E6B93A); outline-offset: -3px; }
+@media (max-width: 575.98px) {
+  body.home-page .nx-vcard { grid-template-columns: 1fr; }
+}
+
+/* ----- Gallery: equal, compact tiles ----- */
+body.home-page .nx-gallery .gallery-card { aspect-ratio: 16 / 9; height: 100%; }
+body.home-page .nx-gallery .gallery-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ----- Join band ----- */
+body.home-page .nx-join { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding: clamp(22px, 4vw, 38px) clamp(20px, 4vw, 44px); }
+body.home-page .nx-join-text { flex: 1 1 340px; text-align: left; }
+body.home-page .nx-join-title { font-size: clamp(1.4rem, 3vw, 2rem); }
+
+/* ----- Contact ----- */
+body.home-page .nx-contact-card { padding: 8px 24px; }
+body.home-page .nx-cgroup { padding: 16px 0; border-top: 1px solid var(--nx-line-soft); }
+body.home-page .nx-cgroup:first-child { border-top: 0; }
+body.home-page .nx-cgroup .nx-h3 i { margin-right: 6px; font-size: .95em; }
+body.home-page .contact-form-panel { padding: clamp(18px, 3vw, 30px); }

@@ -1,48 +1,19 @@
 (() => {
-  const events = [
-    {
-      id: "e1",
-      title: "Mega Kesha",
-      dateISO: "2026-01-30",
-      dateLabel: "30th Jan 2026",
-      image: "kesha 2026.jpeg",
-      imageAlt: "Mega Kesha",
-      imageWidth: 1080,
-      imageHeight: 1350,
-      description: "Join the Nyeri National Polytechnic Christian Union for a transformative Mega Kesha on January 30th, featuring Guest Minister Apostle Joseph Murimi, for a dedicated night of prayer, worship, and the Word.",
-      details: [["Time", "9:00 PM - 5:00 AM"], ["Location", "Main Hall"]],
-      contact: "0702970150 - Prayer Coordinator",
-      badgeClass: "bg-gold text-rich-black"
-    },
-    {
-      id: "e2",
-      title: "Prayer Retreat",
-      dateISO: "2026-02-07",
-      dateLabel: "7th Feb 2026",
-      image: "prayer retreat .jpeg",
-      imageAlt: "Prayer Retreat",
-      imageWidth: 904,
-      imageHeight: 1280,
-      description: "Register now for Ksh 350 to join us at Mt. Olivet on February 7th for a life-changing encounter with God.",
-      details: [["Time", "7:00 AM - 4:00 PM"], ["Location", "Mount Olivet"]],
-      contact: "",
-      badgeClass: "bg-primary-green text-white"
-    },
-    {
-      id: "e3",
-      title: "Mission",
-      dateISO: "2026-04",
-      dateLabel: "April 2026",
-      image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800",
-      imageAlt: "Mission event",
-      imageWidth: 800,
-      imageHeight: 533,
-      description: "Equipping our student leaders for ministry excellence and spiritual maturity.",
-      details: [["Day", "Sunday - Monday"], ["Venue", "To be communicated"]],
-      contact: "0707029995 - Mission Coordinator",
-      badgeClass: "bg-gold text-rich-black"
-    }
-  ];
+  // Upcoming events are read from Firebase Realtime Database at /publicEvents.
+  // Past events are never shown. When nothing is upcoming, the
+  // "New events will be announced soon." message appears instead.
+  const EVENTS_PATH = "publicEvents";
+  // Only needed if the databaseURL can't be detected from js/firebase-config.js.
+  // Example: "https://your-project-default-rtdb.firebaseio.com"
+  const FALLBACK_DATABASE_URL = "";
+  const FETCH_TIMEOUT_MS = 8000;
+  const DEFAULT_BADGE = "bg-gold text-rich-black";
+  const DEFAULT_IMAGE = "data:image/svg+xml;utf8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 533"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#185A35"/><stop offset="1" stop-color="#2F8A4B"/></linearGradient></defs><rect width="800" height="533" fill="url(#g)"/></svg>'
+  );
+
+  // Filled from Firebase (upcoming only). Kept as one array so window.NNP_EVENTS stays valid.
+  const events = [];
 
   function isEventPast(event, now = new Date()) {
     const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
@@ -91,6 +62,130 @@
         </div>`;
   }
 
+  /* ---------- Firebase data -> safe event objects ---------- */
+
+  const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const MONTHS_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const ISO_DATE = /^\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$/;
+
+  function ordinal(n) {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function makeDateLabel(iso) {
+    const [year, month, day] = iso.split("-");
+    return day
+      ? `${ordinal(Number(day))} ${MONTHS_SHORT[Number(month) - 1]} ${year}`
+      : `${MONTHS_LONG[Number(month) - 1]} ${year}`;
+  }
+
+  // details may be {Time: "7 PM"}, [["Time", "7 PM"]] or [{label, value}]
+  function normalizeDetails(raw) {
+    if (!raw || typeof raw !== "object") return [];
+    const items = Array.isArray(raw) ? raw : Object.entries(raw);
+    return items.map((item) => {
+      if (Array.isArray(item)) {
+        const [a, b] = item;
+        return b && typeof b === "object" ? [b.label ?? a, b.value] : [a, b];
+      }
+      return item && typeof item === "object" ? [item.label, item.value] : null;
+    })
+      .filter((pair) => pair && pair[0] && pair[1] !== undefined && pair[1] !== null && pair[1] !== "")
+      .map(([label, value]) => [String(label), String(value)]);
+  }
+
+  function safeImage(src) {
+    const value = String(src ?? "").trim();
+    if (!value) return DEFAULT_IMAGE;
+    if (/^https?:\/\//i.test(value)) return value;
+    // block javascript:, data:, protocol-relative and any other scheme
+    if (/^[a-z][a-z0-9+.-]*:/i.test(value) || value.startsWith("//")) return DEFAULT_IMAGE;
+    return value;
+  }
+
+  function normalizeEvent(key, raw) {
+    if (!raw || typeof raw !== "object") return null;
+    const title = String(raw.title ?? "").trim();
+    const dateISO = String(raw.dateISO ?? "").trim();
+    if (!title || !ISO_DATE.test(dateISO)) return null;
+    const badge = String(raw.badgeClass ?? "").trim();
+    return {
+      id: String(key),
+      title,
+      dateISO,
+      dateLabel: String(raw.dateLabel ?? "").trim() || makeDateLabel(dateISO),
+      image: safeImage(raw.image),
+      imageAlt: String(raw.imageAlt ?? "").trim() || title,
+      imageWidth: Number(raw.imageWidth) || 800,
+      imageHeight: Number(raw.imageHeight) || 533,
+      description: String(raw.description ?? "").trim(),
+      details: normalizeDetails(raw.details),
+      contact: String(raw.contact ?? "").trim(),
+      badgeClass: badge && /^[\w\s-]+$/.test(badge) ? badge : DEFAULT_BADGE
+    };
+  }
+
+  // Data comes from a database, so escape it before it goes into innerHTML.
+  const ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ESCAPES[c]);
+  const toSafe = (event) => ({
+    ...event,
+    id: esc(event.id),
+    title: esc(event.title),
+    dateLabel: esc(event.dateLabel),
+    image: esc(event.image),
+    imageAlt: esc(event.imageAlt),
+    description: esc(event.description),
+    details: event.details.map(([label, value]) => [esc(label), esc(value)]),
+    contact: esc(event.contact),
+    badgeClass: esc(event.badgeClass)
+  });
+
+  /* ---------- Firebase connection ---------- */
+
+  // Reuses the app already created in js/firebase-config.js (same module instance,
+  // nothing is initialised twice) and reads its databaseURL.
+  async function resolveDatabaseURL() {
+    let projectId = "";
+    try {
+      const mod = await import("./firebase-config.js");
+      const seen = new Set();
+      const look = (value, depth = 0) => {
+        if (!value || typeof value !== "object" || seen.has(value) || depth > 3) return "";
+        seen.add(value);
+        if (!projectId && typeof value.projectId === "string") projectId = value.projectId;
+        if (typeof value.databaseURL === "string" && value.databaseURL) return value.databaseURL;
+        return look(value.options, depth + 1) || look(value.app, depth + 1) || look(value.firebaseConfig, depth + 1);
+      };
+      for (const exported of Object.values(mod)) {
+        const url = look(exported);
+        if (url) return url;
+      }
+    } catch (error) {
+      console.warn("Events: could not read js/firebase-config.js.", error);
+    }
+    if (FALLBACK_DATABASE_URL) return FALLBACK_DATABASE_URL;
+    return projectId ? `https://${projectId}-default-rtdb.firebaseio.com` : "";
+  }
+
+  async function fetchPublicEvents() {
+    const base = (await resolveDatabaseURL()).replace(/\/+$/, "");
+    if (!base) throw new Error("Firebase databaseURL not found. Set FALLBACK_DATABASE_URL in js/events.js.");
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(`${base}/${EVENTS_PATH}.json`, { signal: controller.signal, cache: "no-cache" });
+      if (!response.ok) throw new Error(`Firebase responded with status ${response.status}`);
+      return await response.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  /* ---------- Page wiring ---------- */
+
   const desktopEvents = document.getElementById("eventsDesktop");
   const mobileEvents = document.getElementById("eventsMobile");
   const eventAnnouncement = document.getElementById("eventsAnnouncement");
@@ -98,6 +193,9 @@
     console.error("Unable to initialize events: required event containers are missing.");
     return;
   }
+  const mobileCarousel = document.getElementById("eventsMobileCarousel");
+  // Keep the (empty) carousel out of the way until events arrive.
+  if (mobileCarousel) mobileCarousel.hidden = true;
 
   window.NNP_EVENTS = events;
   window.isNNPEventPast = isEventPast;
@@ -108,7 +206,31 @@
       : "No upcoming events are currently listed. New events will be announced soon.";
   };
 
-  desktopEvents.innerHTML = events.map((event) => renderEvent(event, false, 0)).join("");
-  mobileEvents.innerHTML = events.map((event, index) => renderEvent(event, true, index)).join("");
-  eventAnnouncement.hidden = events.some((event) => !isEventPast(event));
+  function render() {
+    desktopEvents.innerHTML = events.map((event) => renderEvent(toSafe(event), false, 0)).join("");
+    mobileEvents.innerHTML = events.map((event, index) => renderEvent(toSafe(event), true, index)).join("");
+    desktopEvents.classList.add("justify-content-center");
+    if (mobileCarousel) {
+      mobileCarousel.hidden = events.length === 0;
+      mobileCarousel.querySelectorAll(".carousel-control-prev, .carousel-control-next")
+        .forEach((control) => { control.hidden = events.length < 2; });
+    }
+    eventAnnouncement.hidden = events.some((event) => !isEventPast(event));
+  }
+
+  // Resolves when events have loaded (or failed), e.g. for other scripts that need them.
+  window.nnpEventsReady = fetchPublicEvents()
+    .then((data) => {
+      const entries = Array.isArray(data) ? data.map((value, i) => [i, value]) : Object.entries(data || {});
+      const upcoming = entries
+        .map(([key, value]) => normalizeEvent(key, value))
+        .filter((event) => event && !isEventPast(event))
+        .sort((a, b) => a.dateISO.localeCompare(b.dateISO));
+      events.splice(0, events.length, ...upcoming);
+    })
+    .catch((error) => {
+      console.error("Unable to load events from Firebase:", error);
+      events.length = 0;
+    })
+    .finally(render);
 })();

@@ -86,6 +86,71 @@
     messageBox.replaceChildren(error);
   }
 
+  function normalizeMinistryName(value) {
+    return String(value || "").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+
+  function applyPublishedMinistries(records) {
+    const cards = [...document.querySelectorAll(".ministry-card, .group-card")];
+    const targetRow = document.querySelector(".ministry-card")?.closest(".row");
+    if (!targetRow) return;
+    Object.entries(records || {}).forEach(([key, record]) => {
+      const name = String(record?.name || "").trim();
+      if (!name) return;
+      let card = cards.find((candidate) => candidate.dataset.firebaseMinistryKey === key)
+        || cards.find((candidate) => normalizeMinistryName(candidate.querySelector("h3, h4")?.textContent) === normalizeMinistryName(name));
+      if (!card) {
+        console.warn(`Published ministry record ${key} did not match an existing ministry name; added as a separate card. Existing hard-coded content was preserved.`);
+        const wrapper = document.createElement("div");
+        wrapper.className = "col-md-6 col-lg-4";
+        card = document.createElement("article");
+        card.className = "ministry-card";
+        const signup = document.createElement("a");
+        signup.href = "#contact-form";
+        signup.className = "btn btn-outline-primary w-100 btn-sm";
+        signup.textContent = "Sign Up";
+        card.append(signup);
+        wrapper.append(card);
+        targetRow.append(wrapper);
+        cards.push(card);
+      }
+      card.dataset.firebaseMinistryKey = key;
+      let heading = card.querySelector("h3, h4");
+      if (!heading) { heading = document.createElement("h3"); heading.className = "h4 fw-bold text-primary-green mb-3"; card.prepend(heading); }
+      heading.textContent = name;
+      let description = card.querySelector("p");
+      if (!description) { description = document.createElement("p"); description.className = "text-muted mb-4 flex-grow-1"; heading.after(description); }
+      description.textContent = String(record.description || "");
+      const leaderValue = String(record.leader || "").trim();
+      let leader = [...card.querySelectorAll("p")].find((paragraph) => /^\s*Leader:/i.test(paragraph.textContent));
+      if (leaderValue) {
+        if (!leader) { leader = document.createElement("p"); leader.className = "mb-2 small"; card.append(leader); }
+        leader.textContent = `Leader: ${leaderValue}`;
+      }
+      const contact = String(record.contact || "").trim();
+      let contactNode = card.querySelector("[data-firebase-contact]");
+      if (contact) {
+        if (!contactNode) { contactNode = document.createElement("p"); contactNode.className = "small"; contactNode.dataset.firebaseContact = "true"; card.append(contactNode); }
+        contactNode.textContent = `Contact: ${contact}`;
+      }
+    });
+  }
+
+  async function loadPublishedMinistries() {
+    try {
+      const [{ database }, { get, query, ref, orderByChild, equalTo }] = await Promise.all([
+        import("./firebase-config.js"),
+        import("https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js")
+      ]);
+      const snapshot = await get(query(ref(database, "adminData/ministries"), orderByChild("published"), equalTo(true)));
+      applyPublishedMinistries(snapshot.val());
+    } catch (error) {
+      console.error("Unable to load published ministries.", error);
+    }
+  }
+
+  loadPublishedMinistries();
+
   registrationForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const name = document.getElementById("name").value.trim();

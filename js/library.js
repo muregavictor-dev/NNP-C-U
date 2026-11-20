@@ -7,6 +7,114 @@
     String(today.getMonth() + 1).padStart(2, "0"),
     String(today.getDate()).padStart(2, "0")
   ].join("-");
+  const bookNodesByFirebaseKey = new Map();
+
+  function normalizeBookTitle(value) {
+    return String(value || "").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+
+  function applyPublishedBooks(records) {
+    const catalogue = document.querySelector(".books-catalogue-grid");
+    if (!catalogue) return;
+    const categories = [...catalogue.querySelectorAll(".category-card")];
+    const normalizedCategory = (value) => String(value || "").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    const categoryNameOf = (node) => {
+      if (node.dataset.firebaseCategoryName) return node.dataset.firebaseCategoryName;
+      const summary = node.querySelector("summary");
+      const title = summary?.cloneNode(true);
+      title?.querySelectorAll(".badge").forEach((badge) => badge.remove());
+      const name = title?.textContent.trim() || "";
+      node.dataset.firebaseCategoryName = name;
+      return name;
+    };
+    const titleOf = (node) => node.dataset.firebaseBookTitle || node.querySelector("p")?.textContent.trim() || "";
+    const authorOf = (node) => node.querySelector("[data-book-author]")?.textContent.trim() || "";
+    const allBookNodes = () => [...catalogue.querySelectorAll(".book-list li")];
+
+    Object.entries(records || {}).forEach(([key, book]) => {
+      const title = String(book?.title || "").trim();
+      if (!title) return;
+      const author = String(book.author || "").trim();
+      let item = bookNodesByFirebaseKey.get(key)
+        || allBookNodes().find((node) => node.dataset.firebaseBookKey === key)
+        || allBookNodes().find((node) => normalizeBookTitle(titleOf(node)) === normalizeBookTitle(title)
+          && (!authorOf(node) || normalizeBookTitle(authorOf(node)) === normalizeBookTitle(author)));
+      if (!item) {
+        const categoryName = String(book.category || "Other Resources").trim() || "Other Resources";
+        let category = categories.find((node) => normalizedCategory(categoryNameOf(node)) === normalizedCategory(categoryName));
+        if (!category) {
+          category = document.createElement("div");
+          category.className = "card category-card";
+          const details = document.createElement("details");
+          details.className = "collapsible-list";
+          const summary = document.createElement("summary");
+          summary.className = "category-summary";
+          summary.textContent = categoryName;
+          category.dataset.firebaseCategoryName = categoryName;
+          const list = document.createElement("ul");
+          list.className = "book-list";
+          details.append(summary, list);
+          category.append(details);
+          catalogue.append(category);
+          categories.push(category);
+        }
+        item = document.createElement("li");
+        category.querySelector(".book-list")?.append(item);
+        console.warn(`Published library record ${key} did not match an existing title/author; added as a separate book. The hard-coded catalogue item, if any, was preserved.`);
+      }
+      item.dataset.firebaseBookKey = key;
+      item.dataset.firebaseBookTitle = title;
+      let bookName = item.querySelector("p");
+      if (!bookName) { bookName = document.createElement("p"); item.prepend(bookName); }
+      bookName.textContent = title;
+      let authorNode = item.querySelector("[data-book-author]");
+      if (author) {
+        if (!authorNode) { authorNode = document.createElement("small"); authorNode.dataset.bookAuthor = "true"; bookName.after(authorNode); }
+        authorNode.textContent = author;
+      } else authorNode?.remove();
+      bookNodesByFirebaseKey.set(key, item);
+      const availability = book.available === true;
+      let button = item.querySelector("button.borrow-btn");
+      if (!button) { button = document.createElement("button"); button.className = "borrow-btn"; item.append(button); }
+      button.dataset.book = title;
+      button.textContent = availability ? "Borrow" : "Not Available";
+      button.disabled = !availability;
+      button.classList.toggle("disabled", !availability);
+      const quantity = book.quantity;
+      let quantityLabel = item.querySelector("[data-book-quantity]");
+      if (quantity !== undefined && quantity !== null && quantity !== "") {
+        item.dataset.quantity = String(quantity);
+        if (!quantityLabel) { quantityLabel = document.createElement("small"); quantityLabel.dataset.bookQuantity = "true"; item.append(quantityLabel); }
+        quantityLabel.textContent = `Copies: ${String(quantity)}`;
+      }
+      item.dataset.category = String(book.category || "");
+      item.dataset.published = "true";
+    });
+    catalogue.querySelectorAll(".borrow-btn:not(.disabled):not([disabled])").forEach((button) => {
+      if (button.dataset.borrowHandlerAttached) return;
+      button.dataset.borrowHandlerAttached = "true";
+      button.addEventListener("click", () => {
+        if (!modal || !bookTitleInput || !admissionInput) return;
+        modalTrigger = button;
+        bookTitleInput.value = button.dataset.book || "";
+        modal.style.display = "block";
+        admissionInput.focus();
+      });
+    });
+  }
+
+  async function loadPublishedBooks() {
+    try {
+      const [{ database }, { get, query, ref, orderByChild, equalTo }] = await Promise.all([
+        import("./firebase-config.js"),
+        import("https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js")
+      ]);
+      const snapshot = await get(query(ref(database, "adminData/library"), orderByChild("published"), equalTo(true)));
+      applyPublishedBooks(snapshot.val());
+    } catch (error) {
+      console.error("Unable to load published library records.", error);
+    }
+  }
 
   function scrollToField(cardId, inputId) {
     const card = document.getElementById(cardId);
@@ -223,6 +331,7 @@
   }
 
   document.querySelectorAll(".borrow-btn:not(.disabled):not([disabled])").forEach((button) => {
+    button.dataset.borrowHandlerAttached = "true";
     button.addEventListener("click", () => {
       if (!modal || !bookTitleInput || !admissionInput) return;
       modalTrigger = button;
@@ -293,4 +402,5 @@
   });
 
   document.getElementById("return-date")?.setAttribute("min", localToday);
+  loadPublishedBooks();
 })();

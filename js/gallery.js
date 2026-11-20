@@ -27,6 +27,10 @@
   let currentIndex = -1;
   let galleryLoadFailed = false;
   let activeCategory = "all";
+  const dynamicVideos = [];
+  const resourceCardsByKey = new Map();
+  const resourceUrls = new Set();
+  let resourceGrid = null;
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, (character) => ({
@@ -104,11 +108,11 @@
   }
 
   function renderVideos() {
-    videoGrid.innerHTML = videoData.map((video) => `
+    videoGrid.innerHTML = [...videoData.map((video) => ({ ...video, embedUrl: video.embedUrl || `https://www.youtube.com/embed/${video.id}` })), ...dynamicVideos].map((video) => `
       <div class="col-md-6 col-lg-4">
         <div class="video-card">
           <div class="video-thumbnail">
-            <iframe src="https://www.youtube.com/embed/${video.id}"
+            <iframe src="${escapeHtml(video.embedUrl)}"
                     title="${escapeHtml(video.title)}" loading="lazy"
                     allowfullscreen></iframe>
           </div>
@@ -214,6 +218,117 @@
     }
   }
 
+  function safeResourceUrl(value) {
+    try {
+      const url = new URL(String(value || ""));
+      return url.protocol === "https:" && url.hostname && !url.username && !url.password ? url : null;
+    } catch { return null; }
+  }
+
+  function normalizeName(value) {
+    return String(value || "").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+
+  function youtubeEmbed(url) {
+    const host = url.hostname.toLowerCase();
+    let id = "";
+    if (["youtube.com", "www.youtube.com", "m.youtube.com", "youtube-nocookie.com", "www.youtube-nocookie.com"].includes(host)) {
+      id = url.pathname === "/watch" ? url.searchParams.get("v") || "" : url.pathname.match(/^\/(?:embed|shorts)\/([\w-]{11})/)?.[1] || "";
+    } else if (["youtu.be", "www.youtu.be"].includes(host)) {
+      id = url.pathname.slice(1).match(/^[\w-]{11}$/)?.[0] || "";
+    }
+    return /^[\w-]{11}$/.test(id) ? `https://www.youtube-nocookie.com/embed/${id}` : "";
+  }
+
+  async function loadResources() {
+    try {
+      const [{ database }, { get, query, ref, orderByChild, equalTo }] = await Promise.all([
+        import("./firebase-config.js"),
+        import("https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js")
+      ]);
+      const snapshot = await get(query(ref(database, "adminData/resources"), orderByChild("published"), equalTo(true)));
+      if (!resourceGrid) {
+        resourceGrid = document.createElement("div");
+        resourceGrid.className = "row g-3 mt-2";
+        resourceGrid.setAttribute("aria-label", "Published media and resources");
+      }
+
+      Object.entries(snapshot.val() || {}).forEach(([key, item]) => {
+        const title = String(item?.title || "").trim();
+        const url = safeResourceUrl(item?.url);
+        const type = String(item?.type || "Link").toLowerCase();
+        if (!title || !url) {
+          console.warn(`Published resource ${key} has a missing title or an invalid/non-HTTPS URL; it was skipped.`);
+          return;
+        }
+        if (type === "photo") {
+          if (!/\.(?:jpe?g|png|webp|gif)(?:$|\?)/i.test(url.href)) {
+            console.warn(`Published photo ${key} has an unsupported image URL; it was skipped.`);
+            return;
+          }
+          const match = allImages.find((image) => {
+            try {
+              return new URL(image.url, location.href).href === url.href
+                || normalizeName(image.title) === normalizeName(title);
+            } catch { return false; }
+          });
+          const photo = { url: url.href, category: match?.category || "resources", title, alt: String(item.description || title) };
+          if (match) Object.assign(match, photo);
+          else {
+            console.warn(`Published photo ${key} did not match an existing gallery photo by title or URL; added as a separate photo. Existing GitHub content was preserved.`);
+            allImages.push(photo);
+          }
+        } else if (type === "video") {
+          let embedUrl = youtubeEmbed(url);
+          if (!embedUrl && url.hostname.toLowerCase() === "player.vimeo.com" && /^\/video\/\d+$/.test(url.pathname)) embedUrl = url.href;
+          if (!embedUrl) {
+            console.warn(`Published video ${key} does not use a supported YouTube or Vimeo URL; it was skipped.`);
+            return;
+          }
+          const match = dynamicVideos.find((video) => video.key === key || video.embedUrl === embedUrl || normalizeName(video.title) === normalizeName(title))
+            || videoData.find((video) => normalizeName(video.title) === normalizeName(title)
+              || `https://www.youtube.com/embed/${video.id}` === embedUrl
+              || `https://www.youtube-nocookie.com/embed/${video.id}` === embedUrl);
+          if (match) Object.assign(match, { key, title, description: String(item.description || ""), embedUrl });
+          else {
+            console.warn(`Published video ${key} did not match an existing video by title or provider URL; added as a separate video.`);
+            dynamicVideos.push({ key, title, description: String(item.description || ""), embedUrl });
+          }
+        } else {
+          let existing = resourceCardsByKey.get(key);
+          if (!existing && resourceUrls.has(url.href)) return;
+          if (!existing) {
+            console.warn(`Published resource ${key} has no matching existing gallery item by URL; added as a separate link.`);
+            const card = document.createElement("div");
+            card.className = "col-md-6 col-lg-4";
+            const link = document.createElement("a");
+            link.className = "card h-100 p-3 text-decoration-none";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            const heading = document.createElement("h3");
+            heading.className = "h5";
+            const description = document.createElement("p");
+            description.className = "mb-0 text-muted";
+            link.append(heading, description);
+            card.append(link);
+            resourceGrid.append(card);
+            existing = { card, link, heading, description };
+            resourceCardsByKey.set(key, existing);
+          }
+          existing.link.href = url.href;
+          existing.heading.textContent = title;
+          existing.description.textContent = String(item.description || type);
+          resourceUrls.add(url.href);
+        }
+      });
+      if (resourceGrid.childElementCount && !resourceGrid.isConnected) videoGrid.after(resourceGrid);
+      renderGallery();
+      renderVideos();
+    } catch (error) {
+      console.error("Unable to load published gallery resources.", error);
+    }
+  }
+
   renderVideos();
-  loadImages();
+  loadImages().then(loadResources);
 })();

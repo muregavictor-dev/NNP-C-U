@@ -35,6 +35,8 @@
         bindHeaderScrollEffect(placeholder);
         bindHeaderNavigation(placeholder);
         setActiveNavigation();
+        window.dispatchEvent(new Event("nnp:header-loaded"));
+        loadAnnouncements();
       } else {
         const currentYear = placeholder.querySelector("#currentYear");
         if (currentYear) {
@@ -98,7 +100,6 @@
 
     if (notificationPanel && !document.getElementById(notificationPanel.id)) {
       placeholder.append(document.importNode(notificationPanel, true));
-      bindNotificationActions();
     }
 
     if (membershipModal && !document.getElementById(membershipModal.id)) {
@@ -108,40 +109,20 @@
     }
   }
 
-  function bindNotificationActions() {
-    const markAsReadButton = document.getElementById("markAsReadBtn");
-    if (!markAsReadButton) return;
+  function loadAnnouncements() {
+    if (!document.getElementById("announcementsContainer")) return;
 
-    const markAsRead = () => {
-      const notification = document.getElementById("notificationItem");
-      const unreadCount = document.getElementById("unreadCount");
-      const badge = document.getElementById("notificationBadge");
+    import("/js/announcements.js").catch((error) => {
+      console.error("Unable to load the announcements module.", error);
+      const container = document.getElementById("announcementsContainer");
+      if (!container) return;
 
-      if (notification) {
-        notification.classList.add("d-none");
-      }
-      if (unreadCount) {
-        unreadCount.textContent = "0";
-      }
-      if (badge) {
-        badge.classList.add("d-none");
-      }
-
-      try {
-        localStorage.setItem("nnp-notifications-read", "true");
-      } catch (error) {
-        console.warn("Could not save notification state.", error);
-      }
-    };
-
-    markAsReadButton.addEventListener("click", markAsRead);
-    try {
-      if (localStorage.getItem("nnp-notifications-read") === "true") {
-        markAsRead();
-      }
-    } catch (error) {
-      console.warn("Could not retrieve notification state.", error);
-    }
+      const message = document.createElement("p");
+      message.className = "text-danger small text-center";
+      message.setAttribute("role", "alert");
+      message.textContent = "Announcements could not be loaded. Please refresh the page.";
+      container.replaceChildren(message);
+    });
   }
 
   function bindMembershipForm(form) {

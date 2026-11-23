@@ -242,18 +242,19 @@
   </header>
 
   <!-- NOTIFICATION PANEL -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationPanel"
+       aria-labelledby="notificationPanelLabel">
     <div class="offcanvas-header bg-deep-green text-white">
-      <h5 class="offcanvas-title">Notifications (<span id="unreadCount">1</span> Unread)</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+      <h5 class="offcanvas-title" id="notificationPanelLabel">
+        Notifications (<span id="unreadCount">0</span>)
+      </h5>
+      <button type="button" class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas" aria-label="Close Notifications"></button>
     </div>
     <div class="offcanvas-body">
-      <div id="notificationItem" class="alert alert-warning border-start border-4 border-deep-green">
-        <h6 class="fw-bold mb-1">Event RSVP Confirmed!</h6>
-        <p class="mb-2 small">You have successfully RSVP'd for the <strong>Campus Evangelism</strong> on Nov 8–9.</p>
-        <button id="markAsReadBtn" class="btn btn-sm btn-link p-0 text-deep-green">Mark as Read</button>
+      <div id="announcementsContainer">
+        <p class="text-muted small text-center">Loading announcements...</p>
       </div>
-      <p class="text-soft-gray small mt-3">No older notifications.</p>
     </div>
   </div>
 

@@ -118,6 +118,16 @@ p, li { max-width: 75ch; }
 .offcanvas { color: var(--text-primary); background-color: var(--surface-primary); }
 .offcanvas .offcanvas-title { color: var(--brand-forest); font-weight: 700; }
 .offcanvas .offcanvas-body { padding: 1rem 1.25rem; }
+#notificationPanel { z-index: 1060; }
+#notificationPanel .offcanvas-body {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+.announcement-read-btn, .announcement-retry-btn {
+  min-height: 44px;
+  touch-action: manipulation;
+}
 .offcanvas .navbar-nav { gap: .25rem; }
 .chat-offcanvas { --bs-offcanvas-width: 350px; }
 .offcanvas .navbar-nav .nav-link { color: var(--brand-forest) !important; font-weight: 600; padding: .75rem 1rem; border-radius: .6rem; transition: background-color .18s ease, color .18s ease, transform .18s ease; }

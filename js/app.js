@@ -450,46 +450,6 @@ async function handleMembershipSubmit(e) {
     }
 }
 
-// ===== 7. NOTIFICATION MANAGEMENT =====
-function initNotifications() {
-    const markAsReadBtn = document.getElementById('markAsReadBtn');
-    const unreadCount = document.getElementById('unreadCount');
-    const notificationItem = document.getElementById('notificationItem');
-    const notificationBadge = document.getElementById('notificationBadge');
-    
-    if (!markAsReadBtn) {
-        console.warn('Notification elements not found');
-        return;
-    }
-
-    const markAsRead = () => {
-        notificationItem?.classList.add('d-none');
-        if (unreadCount) unreadCount.textContent = '0';
-        if (notificationBadge) notificationBadge.hidden = true;
-
-        try {
-            localStorage.setItem('nnp-notifications-read', 'true');
-        } catch (err) {
-            console.warn('Could not save notification state:', err);
-        }
-    };
-
-    markAsReadBtn.addEventListener('click', () => {
-        markAsRead();
-        showToast('✅ Notification marked as read', 'info');
-    });
-    
-    // Restore notification state on page load
-    try {
-        const isRead = localStorage.getItem('nnp-notifications-read');
-        if (isRead === 'true') {
-            markAsRead();
-        }
-    } catch (err) {
-        console.warn('Could not retrieve notification state:', err);
-    }
-}
-
 // ===== 8. TOAST NOTIFICATION SYSTEM =====
 /**
  * Display a toast notification
@@ -990,7 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initRsvpButtons();
         initGalleryLightbox();
         initLiveQaChat();
-        initNotifications();
+        // Notification actions are bound by components.js or announcements.js.
         initImprovedChatbot(); // Phase 1-4: Initialize improved AI chatbot
         
         console.log('✅ NNP CU App initialized successfully');

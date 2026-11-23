@@ -1,3 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b3d2e">
+    <meta name="description" content="Watch NNP Christian Union live worship and recent sermons.">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/app-icon-180.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="/js/pwa.js" defer></script>
+    <title>Live Worship - NNP Christian Union</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="modernization.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="js/components.js" defer></script>
+</head>
+<body class="home-page">
+    <a href="#main-content" class="skip-to-content">Skip to Main Content</a>
+    <div id="header-placeholder"></div>
+    <main id="main-content">
  <section id="live" class="bg-off-white nx-sec">
             <div class="container-xl">
                 <h2 class="nx-h2 text-center fw-bold text-deep-green" data-aos="fade-up">Join Our Live Worship Stream</h2>
@@ -88,3 +115,18 @@
             })();
             </script>
         </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      if (window.AOS) {
+        AOS.init({ duration: 800, once: true, easing: "ease-in-out", offset: 50 });
+      }
+    </script>
+    <script src="js/livestream.js"></script>
+    <script src="nav-dropdown.js"></script>
+</body>
+</html>

@@ -11,6 +11,45 @@ let unsubscribe = null;
 let requestTimeout = null;
 let activeAttempt = 0;
 
+function classifyFailure(error, phase) {
+  const code = String(error?.code || "").toLowerCase();
+  const message = String(error?.message || "").toLowerCase();
+
+  if (/permission|unauthori[sz]ed/.test(`${code} ${message}`)) return "permission_denied";
+  if (/auth/.test(`${code} ${message}`)) return "authentication";
+  if (navigator.onLine === false || /network|offline|timeout|unavailable|disconnect/.test(`${code} ${message}`)) {
+    return "network_or_timeout";
+  }
+  if (phase === "module" || /failed to fetch|module script|dynamically imported module|load failed/.test(message)) {
+    return "module_load";
+  }
+  if (phase === "config") return "firebase_initialization";
+  if (phase === "render") return "render_failure";
+  return "database_read";
+}
+
+function failureMessage(category) {
+  if (category === "permission_denied") {
+    return "Public announcements are unavailable under the current database access rules. Please contact the site administrator.";
+  }
+  if (category === "authentication") {
+    return "Firebase could not verify this browser session. Please refresh and try again.";
+  }
+  if (category === "firebase_initialization") {
+    return "Announcements could not connect to Firebase. Please refresh and try again.";
+  }
+  if (category === "module_load") {
+    return "The announcements service could not be loaded. Check your connection and try again.";
+  }
+  if (category === "render_failure") {
+    return "Announcements loaded, but could not be displayed. Please try again.";
+  }
+  if (category === "network_or_timeout") {
+    return "Announcements could not be reached. Check your connection and try again.";
+  }
+  return "Announcements could not be loaded. Please try again.";
+}
+
 function readStoredIds() {
   try {
     const value = JSON.parse(localStorage.getItem(readKey));
@@ -164,14 +203,19 @@ function parseAnnouncements(snapshot) {
     });
 }
 
-function showLoadError(message, attempt, error) {
+function showLoadError(attempt, error, phase = "read") {
   if (attempt !== activeAttempt) return;
   clearTimeout(requestTimeout);
   requestTimeout = null;
   if (unsubscribe) unsubscribe();
   unsubscribe = null;
-  console.error("Unable to load Firebase announcements:", error || message);
-  showStatus(message, { canRetry: true, isError: true });
+  const category = classifyFailure(error, phase);
+  console.error("Unable to load Firebase announcements.", {
+    category,
+    code: String(error?.code || "unknown"),
+    errorName: String(error?.name || "Error")
+  });
+  showStatus(failureMessage(category), { canRetry: true, isError: true });
 }
 
 async function startAnnouncements() {
@@ -187,33 +231,52 @@ async function startAnnouncements() {
   unsubscribe = null;
   showStatus("Loading announcements…");
 
+  let firebaseModule;
+  let databaseSdk;
   try {
-    // Dynamic imports let the page show a useful retry state if Firebase's CDN or
-    // configuration module is unavailable instead of leaving the loading message forever.
-    const [{ database }, { ref, onValue }] = await Promise.all([
-      import("./firebase-config.js"),
-      import("https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js")
-    ]);
+    firebaseModule = await import("./firebase-config.js");
+  } catch (error) {
+    showLoadError(attempt, error, "config");
+    return;
+  }
+
+  try {
+    databaseSdk = await import("https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js");
+  } catch (error) {
+    showLoadError(attempt, error, "module");
+    return;
+  }
+
+  try {
+    const database = firebaseModule?.database;
+    if (!database || !databaseSdk?.ref || !databaseSdk?.onValue) {
+      const error = new Error("Firebase database initialization is unavailable.");
+      error.code = "firebase/initialization-missing";
+      showLoadError(attempt, error, "config");
+      return;
+    }
+
+    const { ref, query, orderByChild, equalTo, onValue } = databaseSdk;
 
     if (attempt !== activeAttempt) return;
 
     unsubscribe = onValue(
-      ref(database, "announcements"),
+      query(ref(database, "announcements"), orderByChild("published"), equalTo(true)),
       (snapshot) => {
         if (attempt !== activeAttempt) return;
         clearTimeout(requestTimeout);
         requestTimeout = null;
         receivedInitialData = true;
-        currentAnnouncements = parseAnnouncements(snapshot);
-        console.log("Firebase announcements received:", currentAnnouncements);
-        renderAnnouncements(currentAnnouncements);
+        try {
+          currentAnnouncements = parseAnnouncements(snapshot);
+          renderAnnouncements(currentAnnouncements);
+          console.info("Firebase announcements loaded.", { count: currentAnnouncements.length });
+        } catch (error) {
+          showLoadError(attempt, error, "render");
+        }
       },
       (error) => {
-        showLoadError(
-          "Announcements could not be loaded. Check your connection and try again.",
-          attempt,
-          error
-        );
+        showLoadError(attempt, error);
       }
     );
 
@@ -225,11 +288,7 @@ async function startAnnouncements() {
       });
     }, requestTimeoutMs);
   } catch (error) {
-    showLoadError(
-      "Announcements could not be loaded. Check your connection and try again.",
-      attempt,
-      error
-    );
+    showLoadError(attempt, error);
   }
 }
 
@@ -238,3 +297,4 @@ window.addEventListener("nnp:header-loaded", () => {
 });
 
 startAnnouncements();
+

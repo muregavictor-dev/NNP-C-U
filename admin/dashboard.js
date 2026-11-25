@@ -53,7 +53,7 @@ const isExecutive = () => currentRole === "executive" && currentProfile?.active 
 function canAccessModule(module) {
   if (!activeAdmin()) return false;
   if (module === "overview") return true;
-  if (module === "settings") return !isExecutive();
+  if (module === "settings") return true;
   if (module === "reports") return fullAdmin() || isExecutive();
   if (currentRole === "content") return Boolean(definitions[module] && !definitions[module].private);
   return Boolean(definitions[module]);

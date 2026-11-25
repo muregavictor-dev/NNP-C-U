@@ -1,3 +1,4 @@
+
 import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 import { get, ref } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-database.js";
 
@@ -23,7 +24,14 @@ loginForm.addEventListener("submit", async (event) => {
     if (!allowed) {
       const snapshot = await get(ref(database, `adminData/admins/${user.uid}`));
       const profile = snapshot.val();
-      allowed = profile?.active === true && ["admin", "content"].includes(profile.role) && profile.email?.toLowerCase() === user.email?.toLowerCase();
+      allowed =
+        profile?.active === true &&
+        ["admin", "content", "executive"].includes(profile.role) &&
+        profile.email?.toLowerCase() === user.email?.toLowerCase() &&
+        (
+          profile.role !== "executive" ||
+          (typeof profile.office === "string" && profile.office.trim() !== "")
+        );
     }
 
     if (!allowed) {

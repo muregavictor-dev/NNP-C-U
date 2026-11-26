@@ -82,7 +82,7 @@ function toast(message, kind = "") {
 }
 
 function updateIdentity() {
-  const displayName = currentUser?.uid === OWNER_UID ? "Workspace owner" : currentProfile?.name || currentUser?.displayName || "Administrator";
+  const displayName = currentUser?.uid === OWNER_UID ? "System owner" : currentProfile?.name || currentUser?.displayName || "Administrator";
   const email = currentUser?.email || "Authorized account";
   document.getElementById("adminName").textContent = displayName;
   document.getElementById("adminEmail").textContent = email;
@@ -98,7 +98,7 @@ async function authorize(user) {
   currentUser = user;
   if (user.uid === OWNER_UID) {
     currentRole = "owner";
-    currentProfile = { name: "Workspace owner", active: true };
+    currentProfile = { name: "system owner", active: true };
   } else {
     try {
       const snapshot = await get(ref(database, `adminData/admins/${user.uid}`));
@@ -253,7 +253,7 @@ function renderOverview() {
     cardStat("Prayer requests", !sensitiveAccess ? "Restricted" : moduleErrors.prayer ? "Unavailable" : Object.keys(cache.prayer || {}).length, "Private · executive access")
   ];
   const actions = [["events", canEditModule("events") ? "Add event" : "View events"], ["membership", canEditModule("membership") ? "Manage membership" : "View membership"], ["prayer", canEditModule("prayer") ? "Manage prayer requests" : "View prayer requests"], ["attendance", canEditModule("attendance") ? "Record attendance" : "View attendance"], ["library", canEditModule("library") ? "Update library" : "View library"], ["settings", "Administrator settings"]].filter(([module]) => canAccessModule(module));
-  main.innerHTML = `<section class="welcome"><div class="eyebrow">YOUR ADMIN WORKSPACE</div><h2>Welcome, ${escapeHtml(currentProfile?.name || "Administrator")}</h2><p>Keep announcements current, coordinate ministry activity, and review the records that support NNP CU.</p><div class="welcome-actions"><button class="btn btn-sm btn-outline-light" data-go="announcements">＋ New announcement</button><button class="btn btn-sm btn-outline-light" data-go="events">View events</button></div></section><div class="stat-grid mt-3">${stats.join("")}</div><div class="split"><section class="panel"><div class="panel-title"><h3>Recent announcements</h3><button class="btn btn-sm btn-outline-success" data-go="announcements">View all</button></div><div id="recentAnnouncements"></div></section><section class="panel"><div class="panel-title"><h3>Quick actions</h3></div><div class="quick-grid">${actions.map(([id, label]) => `<button class="quick" data-go="${id}">${label}<span>Open section →</span></button>`).join("")}</div></section></div><div class="notice info mt-3">Firebase is connected.</div>`;
+  main.innerHTML = `<section class="welcome"><div class="eyebrow">NNP EXECUTIVE PORTAL </div><h2>Welcome, ${escapeHtml(currentProfile?.name || "Administrator")}</h2><p>Keep announcements current, coordinate NNP C.U activities, and manage NNP CU website/App from here.</p><div class="welcome-actions"><button class="btn btn-sm btn-outline-light" data-go="announcements">＋ New announcement</button><button class="btn btn-sm btn-outline-light" data-go="events">View events</button></div></section><div class="stat-grid mt-3">${stats.join("")}</div><div class="split"><section class="panel"><div class="panel-title"><h3>Recent announcements</h3><button class="btn btn-sm btn-outline-success" data-go="announcements">View all</button></div><div id="recentAnnouncements"></div></section><section class="panel"><div class="panel-title"><h3>Quick actions</h3></div><div class="quick-grid">${actions.map(([id, label]) => `<button class="quick" data-go="${id}">${label}<span>Open section →</span></button>`).join("")}</div></section></div><div class="notice info mt-3">database is connected.</div>`;
   main.querySelectorAll("[data-go]").forEach((button) => button.addEventListener("click", () => navigate(button.dataset.go)));
   const recent = Object.entries(cache.announcements || {}).filter(([, item]) => item.published === true).sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0)).slice(0, 4);
   const host = document.getElementById("recentAnnouncements");

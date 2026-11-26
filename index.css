@@ -506,3 +506,8 @@ body.home-page .nx-cgroup { padding: 16px 0; border-top: 1px solid var(--nx-line
 body.home-page .nx-cgroup:first-child { border-top: 0; }
 body.home-page .nx-cgroup .nx-h3 i { margin-right: 6px; font-size: .95em; }
 body.home-page .contact-form-panel { padding: clamp(18px, 3vw, 30px); }
+
+/* Hide manual hero slider navigation buttons */
+#hero .nx-ctrls .nx-ctl {
+    display: none !important;
+}

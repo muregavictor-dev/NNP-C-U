@@ -104,7 +104,7 @@ async function authorize(user) {
       const snapshot = await get(ref(database, `adminData/admins/${user.uid}`));
       const profile = snapshot.val();
       const emailMatches = profile?.email?.toLowerCase() === user.email?.toLowerCase();
-      if (!profile || profile.active !== true || !emailMatches || !["admin", "content", "executive"].includes(profile.role) || (profile.role === "executive" && !profile.office)) throw new Error("This account is not an active dashboard administrator.");
+      if (!profile || profile.active !== true || !emailMatches || !["admin", "content", "executive"].includes(profile.role) || (profile.role === "executive" && !profile.office)) throw new Error("This account does not belong to any of the executives.");
       currentRole = profile.role;
       currentProfile = profile;
     } catch (error) {
@@ -153,7 +153,7 @@ function startDataListeners() {
   onValue(ref(database, ".info/connected"), (snapshot) => {
     connected = snapshot.val() === true;
     const label = connected ? "Connected" : "Offline";
-    document.getElementById("connectionState").textContent = connected ? "Realtime Database connected" : "Database offline";
+    document.getElementById("connectionState").textContent = connected ? "Database connected" : "Database offline";
     document.getElementById("connectionDot").style.background = connected ? "#45a968" : "#d3695f";
     document.getElementById("topConnectionState").textContent = label;
     document.querySelector(".live-pill").classList.toggle("is-connected", connected);
@@ -224,7 +224,7 @@ function refreshVisibleModule(key) {
 
 function navigate(module) {
   if (!canAccessModule(module)) {
-    toast("Your administrator role does not have access to this section.", "error");
+    toast("Your executive role does not have access to this section.", "error");
     return;
   }
   currentModule = module;
@@ -253,7 +253,7 @@ function renderOverview() {
     cardStat("Prayer requests", !sensitiveAccess ? "Restricted" : moduleErrors.prayer ? "Unavailable" : Object.keys(cache.prayer || {}).length, "Private · executive access")
   ];
   const actions = [["events", canEditModule("events") ? "Add event" : "View events"], ["membership", canEditModule("membership") ? "Manage membership" : "View membership"], ["prayer", canEditModule("prayer") ? "Manage prayer requests" : "View prayer requests"], ["attendance", canEditModule("attendance") ? "Record attendance" : "View attendance"], ["library", canEditModule("library") ? "Update library" : "View library"], ["settings", "Administrator settings"]].filter(([module]) => canAccessModule(module));
-  main.innerHTML = `<section class="welcome"><div class="eyebrow">YOUR ADMIN WORKSPACE</div><h2>Welcome, ${escapeHtml(currentProfile?.name || "Administrator")}</h2><p>Keep announcements current, coordinate ministry activity, and review the records that support NNP CU.</p><div class="welcome-actions"><button class="btn btn-sm btn-outline-light" data-go="announcements">＋ New announcement</button><button class="btn btn-sm btn-outline-light" data-go="events">View events</button></div></section><div class="stat-grid mt-3">${stats.join("")}</div><div class="split"><section class="panel"><div class="panel-title"><h3>Recent announcements</h3><button class="btn btn-sm btn-outline-success" data-go="announcements">View all</button></div><div id="recentAnnouncements"></div></section><section class="panel"><div class="panel-title"><h3>Quick actions</h3></div><div class="quick-grid">${actions.map(([id, label]) => `<button class="quick" data-go="${id}">${label}<span>Open section →</span></button>`).join("")}</div></section></div><div class="notice info mt-3">Firebase is connected to the NNP CU project. Your role controls which collections are available in this workspace.</div>`;
+  main.innerHTML = `<section class="welcome"><div class="eyebrow">YOUR ADMIN WORKSPACE</div><h2>Welcome, ${escapeHtml(currentProfile?.name || "Administrator")}</h2><p>Keep announcements current, coordinate ministry activity, and review the records that support NNP CU.</p><div class="welcome-actions"><button class="btn btn-sm btn-outline-light" data-go="announcements">＋ New announcement</button><button class="btn btn-sm btn-outline-light" data-go="events">View events</button></div></section><div class="stat-grid mt-3">${stats.join("")}</div><div class="split"><section class="panel"><div class="panel-title"><h3>Recent announcements</h3><button class="btn btn-sm btn-outline-success" data-go="announcements">View all</button></div><div id="recentAnnouncements"></div></section><section class="panel"><div class="panel-title"><h3>Quick actions</h3></div><div class="quick-grid">${actions.map(([id, label]) => `<button class="quick" data-go="${id}">${label}<span>Open section →</span></button>`).join("")}</div></section></div><div class="notice info mt-3">Firebase is connected.</div>`;
   main.querySelectorAll("[data-go]").forEach((button) => button.addEventListener("click", () => navigate(button.dataset.go)));
   const recent = Object.entries(cache.announcements || {}).filter(([, item]) => item.published === true).sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0)).slice(0, 4);
   const host = document.getElementById("recentAnnouncements");
@@ -267,7 +267,7 @@ function renderOverview() {
 function renderCollection(module) {
   const definition = definitions[module];
   if (!definition) return;
-  main.innerHTML = `<div class="module-head"><div><h2>${escapeHtml(definition.title)}</h2><p>${escapeHtml(definition.description)}</p></div>${canEditModule(module) ? `<button class="btn btn-green" id="addRecord">＋ Add ${module === "announcements" ? "announcement" : "record"}</button>` : `<span class="access-pill">View only</span>`}</div>${definition.private ? `<div class="notice info mb-3"><strong>Confidential collection.</strong> Executives can view records. Editing is limited to the responsible office and the primary administrator.</div>` : ""}${module === "events" ? `<section class="module-card mb-3"><div class="panel-title"><h3 id="calendarMonth"></h3><div><button class="btn btn-sm btn-outline-secondary" id="calPrev" aria-label="Previous month">‹</button> <button class="btn btn-sm btn-outline-secondary" id="calNext" aria-label="Next month">›</button></div></div><div id="calendarHost"></div></section>` : ""}<section class="module-card"><div class="toolbar"><input class="form-control" id="searchRows" placeholder="Search ${escapeHtml(definition.title.toLowerCase())}" aria-label="Search ${escapeHtml(definition.title)}"><span class="muted ms-auto">Database path: <code>${escapeHtml(definition.path)}</code></span></div><div id="tableHost" class="table-responsive"></div></section>`;
+  main.innerHTML = `<div class="module-head"><div><h2>${escapeHtml(definition.title)}</h2><p>${escapeHtml(definition.description)}</p></div>${canEditModule(module) ? `<button class="btn btn-green" id="addRecord">＋ Add ${module === "announcements" ? "announcement" : "record"}</button>` : `<span class="access-pill">View only</span>`}</div>${definition.private ? `<div class="notice info mb-3"><strong>Confidential data</strong> All Executives can view records. Editing is limited to that ministry coordinator </div>` : ""}${module === "events" ? `<section class="module-card mb-3"><div class="panel-title"><h3 id="calendarMonth"></h3><div><button class="btn btn-sm btn-outline-secondary" id="calPrev" aria-label="Previous month">‹</button> <button class="btn btn-sm btn-outline-secondary" id="calNext" aria-label="Next month">›</button></div></div><div id="calendarHost"></div></section>` : ""}<section class="module-card"><div class="toolbar"><input class="form-control" id="searchRows" placeholder="Search ${escapeHtml(definition.title.toLowerCase())}" aria-label="Search ${escapeHtml(definition.title)}"><span class="muted ms-auto">Database path: <code>${escapeHtml(definition.path)}</code></span></div><div id="tableHost" class="table-responsive"></div></section>`;
   document.getElementById("addRecord")?.addEventListener("click", () => openEditor(module));
   document.getElementById("searchRows").addEventListener("input", (event) => renderTable(module, event.target.value));
   if (module === "events") {
@@ -326,7 +326,7 @@ function display(value, key) {
 }
 
 function openEditor(module, id) {
-  if (!canEditModule(module)) return toast("Your office does not have editing permission for this module.", "error");
+  if (!canEditModule(module)) return toast("Your role does not have editing permission for this section.", "error");
   const definition = definitions[module];
   const row = id ? cache[module]?.[id] || {} : {};
   const form = document.createElement("form");
@@ -348,7 +348,7 @@ function openEditor(module, id) {
   const instance = new bootstrap.Modal(modal);
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!canEditModule(module)) return toast("Your office does not have editing permission for this module.", "error");
+    if (!canEditModule(module)) return toast("Your role does not have editing permission for this section.", "error");
     const data = {};
     for (const field of definition.fields) {
       const input = form.elements[field.key];
@@ -383,7 +383,7 @@ function openEditor(module, id) {
 }
 
 async function deleteRecord(module, id) {
-  if (!canEditModule(module)) return toast("Your office does not have editing permission for this module.", "error");
+  if (!canEditModule(module)) return toast("Your role does not have editing permission for this section.", "error");
   if (!window.confirm("Permanently delete this record?")) return;
   try {
     await remove(ref(database, `${definitions[module].path}/${id}`));
